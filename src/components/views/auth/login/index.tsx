@@ -1,5 +1,5 @@
 import { FormEvent, use, useState } from "react";
-import styles from "./Login.module.scss";
+import styles from "./login.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
