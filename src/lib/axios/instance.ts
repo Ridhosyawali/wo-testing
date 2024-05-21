@@ -3,8 +3,8 @@ import axios from "axios";
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json",
-  "chace-control": "no-cache",
-  Expires: "0",
+  "Chace-Control": "no-cache",
+  Expires: 0,
 };
 
 const instance = axios.create({

@@ -1,7 +1,9 @@
 import { FormEvent, use, useState } from "react";
 import styles from "./login.module.scss";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import AuthLayout from "@/components/layouts/AuthLayout";
@@ -45,16 +47,12 @@ const LoginView = () => {
     <AuthLayout
       title="LOGIN"
       link="/auth/register"
-      linkText="Dont have an account? Sign Up "
+      linkText="Don't have an account? Sign Up "
     >
       <form onSubmit={handleSubmit}>
-        <Input name="email" type="email" placeholder="Email" />
-        <Input name="password" type="password" placeholder="Password" />
-        <Button
-          type="submit"
-          variant="primary"
-          className={styles.login__button}
-        >
+        <Input placeholder="Email" name="email" type="email" />
+        <Input placeholder="Password" name="password" type="password" />
+        <Button type="submit" variant="" className={styles.login__button}>
           {isLoading ? "Loading..." : "Login"}
         </Button>
       </form>

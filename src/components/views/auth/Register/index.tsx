@@ -1,10 +1,9 @@
 import { FormEvent, use, useState } from "react";
 import styles from "./Register.module.scss";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import authService from "@/services/auth";
+import authServices from "@/services/auth";
 import AuthLayout from "@/components/layouts/AuthLayout";
 
 const RegisterView = () => {
@@ -24,7 +23,7 @@ const RegisterView = () => {
       password: form.password.value,
     };
 
-    const result = await authService.registerAccount(data);
+    const result = await authServices.registerAccount(data);
 
     if (result.status === 200) {
       form.reset();
@@ -44,10 +43,10 @@ const RegisterView = () => {
       linkText="Have an account? Sign in "
     >
       <form onSubmit={handleSubmit}>
-        <Input name="email" type="email" placeholder="Email" />
-        <Input name="fullname" type="text" placeholder="Fullname" />
-        <Input name="phone" type="number" placeholder="Phone" />
-        <Input name="password" type="password" placeholder="Password" />
+        <Input placeholder="Email" name="email" type="email" />
+        <Input placeholder="Fullname" name="fullname" type="text" />
+        <Input placeholder="Phone" name="phone" type="number" />
+        <Input placeholder="Password" name="password" type="password" />
 
         <Button
           type="submit"
