@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/dist/server/api-utils";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
 
 const LoginView = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -46,37 +48,26 @@ const LoginView = () => {
       {error && <p className={styles.login__error}>{error}</p>}
       <div className={styles.login__form}>
         <form onSubmit={handleSubmit}>
-          <div className={styles.login__form__item}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              className={styles.login__form__item__input}
-            />
-          </div>
-          <div className={styles.login__form__item}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className={styles.login__form__item__input}
-            />
-          </div>
-          <button type="submit" className={styles.login__form__button}>
-            {isLoading ? "loading..." : "Login"}
-          </button>
+          <Input label="Email" name="email" type="email" />
+          <Input label="Password" name="password" type="password" />
+          <Button
+            type="submit"
+            variant=""
+            className={styles.login__form__button}
+          >
+            {isLoading ? "Loading..." : "Login"}
+          </Button>
         </form>
         <hr className={styles.login__form__devider} />
         <div className={styles.login__form__other}>
-          <button
+          <Button
+            variant=""
             type="button"
-            onClick={() => signIn("google", { callbackUrl, redirect: false })}
             className={styles.login__form__other__button}
+            onClick={() => signIn("google", { callbackUrl, redirect: false })}
           >
             <i className="bx bxl-google" /> Login with Google
-          </button>
+          </Button>
         </div>
       </div>
 
