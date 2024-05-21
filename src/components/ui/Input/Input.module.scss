@@ -3,10 +3,17 @@
   flex-direction: column;
   margin: 20px 0;
   &__input {
-    padding: 15px;
-    background-color: #eee;
-    margin-top: 5px;
-    border: none;
+    height: 60px;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     outline: none;
+    font-family: Lato, sans-serif;
+    &:focus {
+      border: 1px solid #000;
+    }
   }
 }

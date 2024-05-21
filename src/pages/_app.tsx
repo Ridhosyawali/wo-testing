@@ -3,7 +3,6 @@ import "../styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Lato } from "next/font/google";
-import Head from "next/head";
 
 const lato = Lato({
   subsets: ["latin"],

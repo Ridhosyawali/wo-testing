@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import authService from "@/services/auth";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 const RegisterView = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,13 +24,7 @@ const RegisterView = () => {
       password: form.password.value,
     };
 
-    const result = await fetch("/api/user/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const result = await authService.registerAccount(data);
 
     if (result.status === 200) {
       form.reset();
@@ -41,29 +37,27 @@ const RegisterView = () => {
   };
 
   return (
-    <div className={styles.register}>
-      <h1 className={styles.register__title}>Register</h1>
-      {error && <p className={styles.register__error}>{error}</p>}
-      <div className={styles.register__form}>
-        <form onSubmit={handleSubmit}>
-          <Input label="Email" name="email" type="email" />
-          <Input label="Fullname" name="fullname" type="text" />
-          <Input label="Phone" name="phone" type="number" />
-          <Input label="Password" name="password" type="password" />
+    <AuthLayout
+      title="REGISTER"
+      error={error}
+      link="/auth/login"
+      linkText="Have an account? Sign in "
+    >
+      <form onSubmit={handleSubmit}>
+        <Input name="email" type="email" placeholder="Email" />
+        <Input name="fullname" type="text" placeholder="Fullname" />
+        <Input name="phone" type="number" placeholder="Phone" />
+        <Input name="password" type="password" placeholder="Password" />
 
-          <Button
-            type="submit"
-            className={styles.register__form__button}
-            variant="primary"
-          >
-            {isLoading ? "loading..." : "Register"}
-          </Button>
-        </form>
-      </div>
-      <p className={styles.register__link}>
-        Have an account? Sign in <Link href="/auth/login">here</Link>
-      </p>
-    </div>
+        <Button
+          type="submit"
+          className={styles.register__button}
+          variant="primary"
+        >
+          {isLoading ? "loading..." : "Register"}
+        </Button>
+      </form>
+    </AuthLayout>
   );
 };
 
