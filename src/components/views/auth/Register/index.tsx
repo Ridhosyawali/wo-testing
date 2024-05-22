@@ -25,6 +25,14 @@ const RegisterView = () => {
 
     const result = await authServices.registerAccount(data);
 
+    // const result = await fetch("/api/user/register", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });                                    DISINI BERHASIL DOUBLE DATA (episode 6)
+
     if (result.status === 200) {
       form.reset();
       setIsLoading(false);

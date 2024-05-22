@@ -9,6 +9,7 @@
   display: flex;
   font-size: 16px;
   border-radius: 6px;
+  font-weight: 700;
   cursor: pointer;
   &:hover {
     background-color: #808080;
@@ -18,4 +19,9 @@
 .primary {
   background-color: #000;
   color: #fff;
+}
+
+.secondary {
+  background-color: #fff;
+  color: #000;
 }

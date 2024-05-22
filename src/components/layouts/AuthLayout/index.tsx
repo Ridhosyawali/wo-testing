@@ -13,9 +13,9 @@ const AuthLayout = (props: Proptypes) => {
   const { error, title, children, link, linkText } = props;
   return (
     <div className={styles.auth}>
-      {error && <p className={styles.auth__error}>{error}</p>}
       <div className={styles.auth__form}>
         <h1 className={styles.auth__title}>{title}</h1>
+        {error && <p className={styles.auth__error}>{error}</p>}
         {children}
 
         <p className={styles.auth__link}>
