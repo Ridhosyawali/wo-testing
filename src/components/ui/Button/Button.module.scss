@@ -2,8 +2,7 @@
   background-color: black;
   color: #eee;
   border: none;
-  font-family: Lato, sans-serif;
-  padding: 15px 30px;
+  padding: 10px 15px;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -24,4 +23,22 @@
 .secondary {
   background-color: #fff;
   color: #000;
+}
+
+.update {
+  background-color: #4d4dff;
+  color: #fff;
+  font-size: 13px;
+  &:hover {
+    background-color: #8b8bcd;
+  }
+}
+
+.delete {
+  background-color: #fe6565;
+  color: #fff;
+  font-size: 13px;
+  &:hover {
+    background-color: #feaaaa;
+  }
 }

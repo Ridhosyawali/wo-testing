@@ -1,0 +1,21 @@
+.modal {
+  padding: 16px;
+  text-align: center;
+  background-color: #fefefe;
+  margin: 2% auto 4% auto; /* 5% from the top, 15% from the bottom and centered */
+  width: 80%; /* Could be more or less, depending on screen size */
+  &__title {
+    margin-bottom: 20px;
+  }
+  &__button {
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    i {
+      font-size: 20px;
+    }
+  }
+}

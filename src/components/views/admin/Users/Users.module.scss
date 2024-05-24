@@ -9,7 +9,8 @@
     td {
       text-align: left;
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 5px;
+      font-size: 15px;
     }
 
     thead {
@@ -24,7 +25,14 @@
 
     &__action {
       display: flex;
-      gap: 10px;
+      gap: 5px;
+      &__edit {
+        background-color: #4d4dff;
+      }
+      &__delete {
+        background-color: #fe6565;
+        padding: 15px;
+      }
     }
   }
 }
