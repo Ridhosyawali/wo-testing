@@ -46,6 +46,7 @@ const LoginView = () => {
   return (
     <AuthLayout
       title="LOGIN"
+      error={error}
       link="/auth/register"
       linkText="Don't have an account? Sign Up "
     >

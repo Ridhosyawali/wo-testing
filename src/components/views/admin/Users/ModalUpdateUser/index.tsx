@@ -5,9 +5,11 @@ import Select from "@/components/ui/Select";
 import userServices from "@/services/user";
 import { FormEvent, useState } from "react";
 import styles from "./ModalUpdateUser.module.scss";
+import { useSession } from "next-auth/react";
 
 const ModalUpdateUser = (props: any) => {
   const { UpdatedUser, setUpdatedUser, setUsersData } = props;
+  const session: any = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const handleUpdateuser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,7 +19,11 @@ const ModalUpdateUser = (props: any) => {
       role: form.role.value,
     };
 
-    const result = await userServices.updateUser(UpdatedUser.id, data);
+    const result = await userServices.updateUser(
+      UpdatedUser.id,
+      data,
+      session.data?.accessToken
+    );
 
     if (result.status === 200) {
       setIsLoading(false);
