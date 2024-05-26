@@ -22,5 +22,4 @@ export default async function handler(
       .status(405)
       .json({ status: false, statusCode: 405, massage: "method not allowed" });
   }
-  res.status(200).json({ status: true, massage: "success" });
 }
