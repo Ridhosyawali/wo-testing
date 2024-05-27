@@ -129,9 +129,9 @@ export async function uploadFile(
         }
       );
     } else {
-      return false;
+      return callback(false);
     }
   }
 
-  return callback(false);
+  return false;
 }

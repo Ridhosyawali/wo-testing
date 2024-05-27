@@ -8,7 +8,7 @@ import styles from "./ModalUpdateUser.module.scss";
 import { useSession } from "next-auth/react";
 
 const ModalUpdateUser = (props: any) => {
-  const { UpdatedUser, setUpdatedUser, setUsersData } = props;
+  const { UpdatedUser, setUpdatedUser, setUsersData, setToaster } = props;
   const session: any = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const handleUpdateuser = async (event: FormEvent<HTMLFormElement>) => {
@@ -30,8 +30,16 @@ const ModalUpdateUser = (props: any) => {
       setUpdatedUser({});
       const { data } = await userServices.getAllUsers();
       setUsersData(data.data);
+      setToaster({
+        variant: "success",
+        message: "Success Update User",
+      });
     } else {
       setIsLoading(false);
+      setToaster({
+        variant: "danger",
+        message: "Success Change Password",
+      });
     }
   };
   return (

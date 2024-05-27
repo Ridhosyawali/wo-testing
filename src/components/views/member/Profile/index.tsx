@@ -7,7 +7,12 @@ import { uploadFile } from "@/lib/firebase/service";
 import { useState } from "react";
 import userServices from "@/services/user";
 
-const ProfileMemberView = ({ profile, setProfile, session }: any) => {
+const ProfileMemberView = ({
+  profile,
+  setProfile,
+  session,
+  setToaster,
+}: any) => {
   const [changeImage, setChangeImage] = useState<any>({});
   const [isLoading, setIsLoading] = useState("");
 
@@ -29,6 +34,10 @@ const ProfileMemberView = ({ profile, setProfile, session }: any) => {
       setIsLoading("");
       setProfile({ ...profile, fullname: data.fullname, phone: data.phone });
       form.reset();
+      setToaster({
+        variant: "success",
+        message: "Success Update Profile",
+      });
     } else {
       setIsLoading("");
     }
@@ -51,18 +60,25 @@ const ProfileMemberView = ({ profile, setProfile, session }: any) => {
               data,
               session.data?.accessToken
             );
-
             if (result.status === 200) {
               setIsLoading("");
               setProfile({ ...profile, image: newImageURL });
               setChangeImage({});
               e.target[0].value = "";
+              setToaster({
+                variant: "success",
+                message: "Success Change Avatar",
+              });
             } else {
               setIsLoading("");
             }
           } else {
             setIsLoading("");
             setChangeImage({});
+            setToaster({
+              variant: "danger",
+              message: "Failed Change Profile",
+            });
           }
         }
       );
@@ -87,8 +103,16 @@ const ProfileMemberView = ({ profile, setProfile, session }: any) => {
     if (result.status === 200) {
       setIsLoading("");
       form.reset();
+      setToaster({
+        variant: "success",
+        message: "Success Change Password",
+      });
     } else {
       setIsLoading("");
+      setToaster({
+        variant: "danger",
+        message: "Failed Change Password",
+      });
     }
   };
 
