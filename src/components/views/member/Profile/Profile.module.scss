@@ -3,60 +3,80 @@
     font-size: 25px;
   }
   &__main {
-    display: flex;
-    margin-top: 40px;
-    gap: 40px;
-    &__avatar {
-      width: 25%;
-      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
-      border-radius: 8px;
+    &__row {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 20px;
-      &__image {
-        background-color: #eee;
-        border-radius: 50%;
-        width: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 64px;
-        font-weight: bold;
-        height: 200px;
-      }
-      &__input {
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
-      }
-      &__button {
-        margin-top: 10px;
-        width: 100%;
-      }
-      &__label {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #eee;
-        display: flex;
-        float: left;
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 20px;
-        cursor: pointer;
+      margin-top: 20px;
+      gap: 40px;
+      &__avatar {
+        &__title {
+          font-size: 20px;
+        }
+        width: 25%;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
         border-radius: 8px;
-        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+        &__title {
+          margin-bottom: 20px;
+        }
+        &__image {
+          background-color: #eee;
+          border-radius: 50%;
+          width: 200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 64px;
+          font-weight: bold;
+          height: 200px;
+        }
+        &__input {
+          opacity: 0;
+          position: absolute;
+          z-index: -1;
+        }
+        &__button {
+          margin-top: 10px;
+          width: 100%;
+        }
+        &__label {
+          margin-top: 20px;
+          padding: 10px;
+          background-color: #eee;
+          display: flex;
+          float: left;
+          width: 100%;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          gap: 20px;
+          cursor: pointer;
+          border-radius: 8px;
+          margin-bottom: 10px;
+        }
       }
-    }
-    &__detail {
-      width: 75%;
-      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
-      padding: 20px 40px;
-      border-radius: 8px;
+      &__profile {
+        &__title {
+          font-size: 20px;
+        }
+        width: 50%;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+        padding: 20px 40px;
+        border-radius: 8px;
+      }
+      &__password {
+        &__title {
+          font-size: 20px;
+        }
+        width: 25%;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        padding: 20px;
+      }
     }
   }
 }
