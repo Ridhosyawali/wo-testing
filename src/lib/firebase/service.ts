@@ -133,5 +133,5 @@ export async function uploadFile(
     }
   }
 
-  return false;
+  return true;
 }
