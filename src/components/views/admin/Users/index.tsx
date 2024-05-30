@@ -1,19 +1,22 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Button from "@/components/ui/Button";
 import styles from "./Users.module.scss";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalDeleteUser from "./ModalDeleteUser";
+import { User } from "@/types/user.type";
+import { useSession } from "next-auth/react";
 
 type PropTypes = {
-  users: any;
-  setToaster: any;
+  users: User[];
+  setToaster: Dispatch<SetStateAction<{}>>;
 };
 const UserAdminView = (props: PropTypes) => {
   const { users, setToaster } = props;
-  const [updatedUser, setUpdatedUser] = useState<any>({});
-  const [deletedUser, setDeletedUser] = useState<any>({});
-  const [usersData, setUsersData] = useState([]);
+  const session: any = useSession();
+  const [updatedUser, setUpdatedUser] = useState<User | {}>({});
+  const [deletedUser, setDeletedUser] = useState<User | {}>({});
+  const [usersData, setUsersData] = useState<User[]>([]);
 
   useEffect(() => {
     setUsersData(users);
@@ -36,7 +39,7 @@ const UserAdminView = (props: PropTypes) => {
               </tr>
             </thead>
             <tbody>
-              {usersData.map((user: any, index: number) => (
+              {usersData.map((user: User, index: number) => (
                 <tr key={user.id}>
                   <td>{index + 1}</td>
                   <td>{user.fullname}</td>
@@ -75,6 +78,7 @@ const UserAdminView = (props: PropTypes) => {
           setUpdatedUser={setUpdatedUser}
           setUsersData={setUsersData}
           setToaster={setToaster}
+          session={session}
         />
       )}
       {Object.keys(deletedUser).length && (
@@ -83,6 +87,7 @@ const UserAdminView = (props: PropTypes) => {
           setDeletedUser={setDeletedUser}
           setUsersData={setUsersData}
           setToaster={setToaster}
+          session={session}
         />
       )}
     </>
