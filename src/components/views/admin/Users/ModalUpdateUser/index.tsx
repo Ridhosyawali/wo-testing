@@ -5,7 +5,6 @@ import Select from "@/components/ui/Select";
 import userServices from "@/services/user";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import styles from "./ModalUpdateUser.module.scss";
-import { useSession } from "next-auth/react";
 import { User } from "@/types/user.type";
 
 type Proptypes = {

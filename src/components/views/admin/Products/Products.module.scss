@@ -1,0 +1,36 @@
+.products {
+  &__table {
+    width: 100%;
+    // border-spacing: 0;
+    // border-collapse: collapse;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 40px;
+    th,
+    td {
+      text-align: center;
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 15px;
+    }
+
+    thead {
+      tr {
+        background-color: #f2f2f2;
+      }
+    }
+
+    &__action {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      &__edit {
+        background-color: #4d4dff;
+      }
+      &__delete {
+        background-color: #fe6565;
+        padding: 15px;
+      }
+    }
+  }
+}

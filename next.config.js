@@ -17,6 +17,9 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        hostname: "static.nike.com", //nanti apus
+      },
     ],
   },
 };
