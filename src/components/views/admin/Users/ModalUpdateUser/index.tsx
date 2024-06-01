@@ -53,6 +53,7 @@ const ModalUpdateUser = (props: Proptypes) => {
       <h1 className={styles.modal__title}>Update User</h1>
       <form onSubmit={handleUpdateuser}>
         <Input
+          label="Email"
           placeholder="Email"
           name="email"
           type="email"
@@ -60,6 +61,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           disabled
         />
         <Input
+          label="Fullname"
           placeholder="Fullname"
           name="fullname"
           type="text"
@@ -67,6 +69,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           disabled
         />
         <Input
+          label="Phone"
           placeholder="Phone"
           name="phone"
           type="number"
@@ -74,6 +77,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           disabled
         />
         <Select
+          label="Role"
           name="role"
           defaultValue={UpdatedUser.role}
           options={[
