@@ -16,7 +16,7 @@ const Select = (props: Proptypes) => {
   const { label, name, defaultValue, disabled, options } = props;
   return (
     <div className={styles.container}>
-      <label htmlFor={name}></label>
+      <label htmlFor={name}>{label}</label>
       <select
         name={name}
         id={name}

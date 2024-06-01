@@ -9,6 +9,10 @@
     border: none;
     border-radius: 8px;
     outline: none;
+    font-family: Lato, sans-serif;
+    &:focus {
+      border: 1px solid darkslategrey;
+    }
     &:disabled {
       opacity: 0.7;
     }
