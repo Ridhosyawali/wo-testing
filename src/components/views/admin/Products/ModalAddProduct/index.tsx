@@ -80,6 +80,7 @@ const ModalAddProduct = (props: Proptypes) => {
       price: form.price.value,
       category: form.category.value,
       status: form.status.value,
+      description: form.description.value,
       image: "",
     };
 
@@ -100,7 +101,7 @@ const ModalAddProduct = (props: Proptypes) => {
           label="Name"
           placeholder="Insert product name"
           name="name"
-          type="Text"
+          type="text"
         />
         <Input
           label="Price"
@@ -108,6 +109,16 @@ const ModalAddProduct = (props: Proptypes) => {
           name="price"
           type="number"
         />
+
+        <div className={styles.modal__form__description}>
+          <Input
+            label="Description"
+            placeholder="Insert product Description"
+            name="description"
+            type="textarea"
+          />
+        </div>
+
         <Select
           label="Category"
           name="category"
@@ -125,8 +136,8 @@ const ModalAddProduct = (props: Proptypes) => {
             { label: "Not Released", value: "false" },
           ]}
         />
-        <label htmlFor="image">Image</label>
 
+        <label htmlFor="image">Image</label>
         <div className={styles.modal__image}>
           {uploadedImage ? (
             <Image

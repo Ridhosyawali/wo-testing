@@ -5,13 +5,12 @@ import { Product } from "@/types/product.type";
 
 type Proptypes = {
   product: Product;
-  key: string;
 };
 
 const Card = (props: Proptypes) => {
-  const { product, key } = props;
+  const { product } = props;
   return (
-    <div className={styles.card} key={key}>
+    <div className={styles.card}>
       <Image
         src={product.image}
         alt="product"

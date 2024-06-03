@@ -84,6 +84,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
       category: form.category.value,
       status: form.status.value,
       image: newImageURL,
+      description: form.description.value,
     };
     const result = await productServices.updateProduct(
       updatedProduct.id,
@@ -155,6 +156,15 @@ const ModalUpdateProduct = (props: Proptypes) => {
           type="number"
           defaultValue={updatedProduct.price}
         />
+
+        <Input
+          label="Description"
+          placeholder="Insert product Description"
+          name="description"
+          type="textarea"
+          defaultValue={updatedProduct.description}
+        />
+
         <Select
           label="Category"
           name="category"
