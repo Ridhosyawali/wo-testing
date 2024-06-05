@@ -31,6 +31,29 @@ const DetailProductView = (props: PropTypes) => {
           <h3 className={styles.detail__main__right__price}>
             {convertIDR(product?.price)}
           </h3>
+          <p className={styles.detail__main__right__subtitle}>Select Size</p>
+          <div className={styles.detail__main__right__size}>
+            {product?.stock?.map((item: { size: string; qty: number }) => (
+              <div
+                className={styles.detail__main__right__size__item}
+                key={item.size}
+              >
+                <input
+                  className={styles.detail__main__right__size__item__input}
+                  name="size"
+                  id={`size-${item.size}`}
+                  type="radio"
+                  disabled={item.qty === 0}
+                />
+                <label
+                  className={styles.detail__main__right__size__item__label}
+                  htmlFor={`size-${item.size}`}
+                >
+                  {item.size}
+                </label>
+              </div>
+            ))}
+          </div>
           <div>
             <Button
               type="submit"
