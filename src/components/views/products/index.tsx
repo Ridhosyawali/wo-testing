@@ -43,6 +43,17 @@ const ProductView = (props: PropTypes) => {
                   Women
                 </label>
               </div>
+              <div className={styles.product__main__filter__data__list__item}>
+                <input type="checkbox" id="other" />
+                <label
+                  className={
+                    styles.product__main__filter__data__list__item__label
+                  }
+                  htmlFor="other"
+                >
+                  Other
+                </label>
+              </div>
             </div>
           </div>
         </div>

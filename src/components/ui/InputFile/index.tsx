@@ -4,11 +4,12 @@ import styles from "./Input.module.scss";
 type Proptypes = {
   uploadedImage: File | null;
   name: string;
+  required?: boolean;
   setUploadedImage: Dispatch<SetStateAction<File | null>>;
 };
 
 const InputFile = (props: Proptypes) => {
-  const { uploadedImage, setUploadedImage, name } = props;
+  const { uploadedImage, setUploadedImage, name, required } = props;
   return (
     <div className={styles.file}>
       <label className={styles.file__label} htmlFor={name}>
@@ -34,6 +35,7 @@ const InputFile = (props: Proptypes) => {
           e.preventDefault();
           setUploadedImage(e.currentTarget.files[0]);
         }}
+        required={required}
       />
     </div>
   );

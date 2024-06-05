@@ -22,6 +22,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
   const { updatedProduct, setUpdatedProduct, setToaster, setProductsData } =
     props;
   const [isLoading, setIsLoading] = useState(false);
+  const [stockCount, setStockCount] = useState(updatedProduct.stock);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const session: any = useSession();
 
@@ -74,6 +75,12 @@ const ModalUpdateProduct = (props: Proptypes) => {
     }
   };
 
+  const handleStock = (e: any, i: number, type: string) => {
+    const newStockCout: any = [...stockCount];
+    newStockCout[i][type] = e.target.value;
+    setStockCount(newStockCout);
+  };
+
   const updateProduct = async (
     form: any,
     newImageURL: string = updatedProduct.image
@@ -85,6 +92,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
       status: form.status.value,
       image: newImageURL,
       description: form.description.value,
+      stock: stockCount,
     };
     const result = await productServices.updateProduct(
       updatedProduct.id,
@@ -205,6 +213,48 @@ const ModalUpdateProduct = (props: Proptypes) => {
             />
           </div>
         </div>
+        <label htmlFor="stock" className={styles.modal__stock__subtitle}>
+          Stock
+        </label>
+        <hr className={styles.modal__devider} />
+
+        {stockCount.map((item: { size: string; qty: number }, i: number) => (
+          <div className={styles.modal__stock} key={i}>
+            <div className={styles.modal__stock__item}>
+              <Input
+                label="SIZE"
+                placeholder="Insert product size"
+                name="size"
+                type="text"
+                onChange={(e) => {
+                  handleStock(e, i, "size");
+                }}
+                defaultValue={item.size}
+              />
+            </div>
+            <div className={styles.modal__stock__item}>
+              <Input
+                label="QTY"
+                placeholder="Insert product quantity"
+                name="qty"
+                type="number"
+                onChange={(e) => {
+                  handleStock(e, i, "qty");
+                }}
+                defaultValue={item.qty}
+              />
+            </div>
+          </div>
+        ))}
+        <Button
+          variant=""
+          type="button"
+          className={styles.modal__stock__button}
+          onClick={() => setStockCount([...stockCount, { size: "", qty: 0 }])}
+        >
+          <i className="bx bx-plus" />
+          Add New Stock
+        </Button>
         <Button
           type="submit"
           disabled={isLoading}

@@ -16,6 +16,7 @@ type PropTypes = {
 const ProductsAdminView = (props: PropTypes) => {
   const { products, setToaster } = props;
   const [productsData, setProductsData] = useState<Product[]>([]);
+
   const [modalAddProduct, setModalAddProduct] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState<Product | {}>({});
   const [deletedProduct, setDeletedProduct] = useState<Product | {}>({});
@@ -28,7 +29,7 @@ const ProductsAdminView = (props: PropTypes) => {
     <>
       <AdminLayout>
         <div className={styles.products}>
-          <h2>Products Management</h2>
+          <h2 className={styles.products__title}>Products Management</h2>
           <Button
             type="button"
             className={styles.products__add}
@@ -45,16 +46,20 @@ const ProductsAdminView = (props: PropTypes) => {
                 <th rowSpan={2}>Name</th>
                 <th rowSpan={2}>Category</th>
                 <th rowSpan={2}>Price</th>
+                <th colSpan={2}>Stock</th>
                 <th rowSpan={2}>Action</th>
+              </tr>
+              <tr>
+                <th className={styles.products__table__size}>Size</th>
+                <th className={styles.products__table__size}>Qty</th>
               </tr>
             </thead>
             <tbody>
               {productsData.map((product, index) => (
                 <>
-                  {" "}
                   <tr key={product.id}>
-                    <td>{index + 1}</td>
-                    <td>
+                    <td rowSpan={product.stock.length}>{index + 1}</td>
+                    <td rowSpan={product.stock.length}>
                       <Image
                         src={product.image}
                         alt={product.name}
@@ -63,10 +68,14 @@ const ProductsAdminView = (props: PropTypes) => {
                         className={styles.products__table__image}
                       />
                     </td>
-                    <td>{product.name}</td>
-                    <td>{product.category}</td>
-                    <td>{convertIDR(product.price)}</td>
-                    <td>
+                    <td rowSpan={product.stock.length}>{product.name}</td>
+                    <td rowSpan={product.stock.length}>{product.category}</td>
+                    <td rowSpan={product.stock.length}>
+                      {convertIDR(product.price)}
+                    </td>
+                    <td>{product.stock[0].size}</td>
+                    <td>{product.stock[0].qty}</td>
+                    <td rowSpan={product.stock.length}>
                       <div className={styles.products__table__action}>
                         <Button
                           variant="update"
@@ -87,6 +96,18 @@ const ProductsAdminView = (props: PropTypes) => {
                       </div>
                     </td>
                   </tr>
+                  {product.stock.map(
+                    (stock: { size: string; qty: number }, index: number) => (
+                      <>
+                        {index > 0 && (
+                          <tr key={stock.size}>
+                            <td>{stock.size}</td>
+                            <td>{stock.qty}</td>
+                          </tr>
+                        )}
+                      </>
+                    )
+                  )}
                 </>
               ))}
             </tbody>

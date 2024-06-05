@@ -42,6 +42,9 @@ export default async function handler(
           data.created_at = new Date();
           data.updated_at = new Date();
           data.price = parseInt(data.price);
+          data.stock.filter((stock: any) => {
+            stock.qty = parseInt(stock.qty);
+          });
           await addData("products", data, (status: boolean, result: any) => {
             if (status) {
               res.status(200).json({

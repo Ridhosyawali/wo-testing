@@ -1,4 +1,8 @@
 .users {
+  &__title {
+    margin-top: -20px;
+    font-size: 22px;
+  }
   &__table {
     width: 100%;
     border-spacing: 0;

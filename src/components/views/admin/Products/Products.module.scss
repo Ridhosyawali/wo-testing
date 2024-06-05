@@ -1,4 +1,8 @@
 .products {
+  &__title {
+    margin-top: -20px;
+    font-size: 22px;
+  }
   &__add {
     margin-top: 30px;
     padding: 10px 16px;
@@ -10,18 +14,28 @@
     }
   }
   &__table {
+    &__size {
+      font-size: 13px;
+      font-weight: 400;
+    }
     width: 100%;
-    // border-spacing: 0;
-    // border-collapse: collapse;
+    border-spacing: 0;
+    border-collapse: collapse;
     border: 1px solid #ddd;
     border-radius: 10px;
     margin-top: 10px;
-    th,
+    th {
+      border: 1px solid #ccc;
+      font-size: 15px;
+
+      padding: 5px;
+    }
     td {
       text-align: center;
-      border: 1px solid #ccc;
+      font-size: 14px;
       padding: 5px;
-      font-size: 15px;
+      border: none;
+      border-top: 1px solid #ddd;
     }
 
     thead {
@@ -31,6 +45,7 @@
     }
 
     &__action {
+      border-left: 1px solid #ddd;
       display: flex;
       justify-content: center;
       gap: 5px;

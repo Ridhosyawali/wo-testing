@@ -1,4 +1,39 @@
 .modal {
+  &__devider {
+    margin-top: 3px;
+    margin-bottom: 2px;
+  }
+  &__stock {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    &__item {
+      width: 50%;
+      // margin-top: -5px;
+      margin-bottom: -20px;
+      font-size: 11px;
+      :nth-child(1) {
+        margin-bottom: 5px;
+      }
+    }
+    &__subtitle {
+      margin-left: 45%;
+      font-weight: bold;
+    }
+    &__button {
+      padding: 7px 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      i {
+        font-size: 15px;
+        margin-right: 5px;
+        font-weight: bold;
+      }
+    }
+  }
+
   &__title {
     margin-bottom: 20px;
     font-size: 20px;
@@ -13,6 +48,7 @@
     align-items: center;
     gap: 10px;
     margin-top: 5px;
+    margin-bottom: 10px;
     &__preview,
     &__placeholder {
       padding: 5px;

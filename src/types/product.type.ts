@@ -4,7 +4,13 @@ export type Product = {
   price: number;
   category: string;
   image: string;
-  desription: string;
+  desription?: string;
   created_at: Date;
   updated_at: Date;
+  stock: [
+    {
+      size: string;
+      qty: number;
+    }
+  ];
 };
