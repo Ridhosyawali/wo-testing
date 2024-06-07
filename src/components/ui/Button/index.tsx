@@ -5,7 +5,7 @@ type Proptypes = {
   type: "button" | "submit" | "reset" | undefined;
   onClick?: () => void;
   children: React.ReactNode;
-  variant: string;
+  variant?: string;
   className?: string;
   disabled?: boolean;
 };

@@ -3,14 +3,71 @@ import styles from "./DetailProduct.module.scss";
 import Image from "next/image";
 import { convertIDR } from "@/utils/currency";
 import Button from "@/components/ui/Button";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { Dispatch, SetStateAction, useState } from "react";
+import userServices from "@/services/user";
 
 type PropTypes = {
   product: Product | any;
+  cart: any;
+  productId: string | string[] | undefined;
+  setToaster: Dispatch<SetStateAction<{}>>;
 };
 
 const DetailProductView = (props: PropTypes) => {
-  const { product } = props;
-  console.log(product);
+  const { product, cart, productId, setToaster } = props;
+  const { status, data: session }: any = useSession();
+  const router = useRouter();
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const handleAddToCart = async () => {
+    if (selectedSize !== "") {
+      let newCart = [];
+      if (
+        cart.filter(
+          (item: any) => item.id === productId && item.size === selectedSize
+        ).length > 0
+      ) {
+        newCart = cart.map((item: any) => {
+          if (item.id === productId && item.size === selectedSize) {
+            item.qty += 1;
+          }
+          return item;
+        });
+      } else {
+        newCart = [
+          ...cart,
+          {
+            id: productId,
+            size: selectedSize,
+            qty: 1,
+          },
+        ];
+      }
+      try {
+        const result = await userServices.addToCart(
+          {
+            carts: newCart,
+          },
+          session?.accessToken
+        );
+        if (result.status === 200) {
+          setSelectedSize("");
+          setToaster({
+            variant: "success",
+            message: "Success Add To Cart",
+          });
+        }
+      } catch (error) {
+        setToaster({
+          variant: "danger",
+          message: "Failed Add To Cart",
+        });
+      }
+    }
+  };
+
   return (
     <div className={styles.detail}>
       <div className={styles.detail__main}>
@@ -44,6 +101,8 @@ const DetailProductView = (props: PropTypes) => {
                   id={`size-${item.size}`}
                   type="radio"
                   disabled={item.qty === 0}
+                  onClick={() => setSelectedSize(item.size)}
+                  checked={selectedSize === item.size}
                 />
                 <label
                   className={styles.detail__main__right__size__item__label}
@@ -54,15 +113,17 @@ const DetailProductView = (props: PropTypes) => {
               </div>
             ))}
           </div>
-          <div>
-            <Button
-              type="submit"
-              variant=""
-              className={styles.detail__main__right__add}
-            >
-              Add to Cart
-            </Button>
-          </div>
+          <Button
+            className={styles.detail__main__right__add}
+            type={status === "authenticated" ? "submit" : "button"}
+            onClick={() => {
+              status === "unauthenticated"
+                ? router.push(`/auth/login?callbackUrl=${router.asPath}`)
+                : handleAddToCart();
+            }}
+          >
+            Add to Cart
+          </Button>
           <div className={styles.detail__main__right__description}>
             <p>{product?.description}</p>
           </div>
