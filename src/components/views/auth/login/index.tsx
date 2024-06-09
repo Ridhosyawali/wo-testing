@@ -61,8 +61,18 @@ const LoginView = ({
       linkText="Don't have an account? Sign Up "
     >
       <form onSubmit={handleSubmit}>
-        <Input placeholder="Email" name="email" type="email" />
-        <Input placeholder="Password" name="password" type="password" />
+        <Input
+          className={styles.login__input}
+          placeholder="Email"
+          name="email"
+          type="email"
+        />
+        <Input
+          className={styles.login__input}
+          placeholder="Password"
+          name="password"
+          type="password"
+        />
         <Button type="submit" variant="" className={styles.login__button}>
           {isLoading ? "Loading..." : "Login"}
         </Button>

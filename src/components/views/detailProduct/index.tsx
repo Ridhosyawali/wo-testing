@@ -127,6 +127,7 @@ const DetailProductView = (props: PropTypes) => {
           <div className={styles.detail__main__right__description}>
             <p>{product?.description}</p>
           </div>
+          <hr className={styles.detail__main__right__devider} />
         </div>
       </div>
     </div>

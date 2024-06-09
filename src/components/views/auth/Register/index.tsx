@@ -66,10 +66,30 @@ const RegisterView = ({
       linkText="Have an account? Sign in "
     >
       <form onSubmit={handleSubmit}>
-        <Input placeholder="Email" name="email" type="email" />
-        <Input placeholder="Fullname" name="fullname" type="text" />
-        <Input placeholder="Phone" name="phone" type="number" />
-        <Input placeholder="Password" name="password" type="password" />
+        <Input
+          className={styles.register__input}
+          placeholder="Email"
+          name="email"
+          type="email"
+        />
+        <Input
+          className={styles.register__input}
+          placeholder="Fullname"
+          name="fullname"
+          type="text"
+        />
+        <Input
+          className={styles.register__input}
+          placeholder="Phone"
+          name="phone"
+          type="number"
+        />
+        <Input
+          className={styles.register__input}
+          placeholder="Password"
+          name="password"
+          type="password"
+        />
 
         <Button
           type="submit"

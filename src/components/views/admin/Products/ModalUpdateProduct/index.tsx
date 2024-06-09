@@ -10,6 +10,7 @@ import productServices from "@/services/product";
 import { useSession } from "next-auth/react";
 import { uploadFile } from "@/lib/firebase/service";
 import Image from "next/image";
+import Textarea from "@/components/ui/Textarea";
 
 type Proptypes = {
   updatedProduct: Product | any;
@@ -26,55 +27,6 @@ const ModalUpdateProduct = (props: Proptypes) => {
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const session: any = useSession();
 
-  const uploadImage = (id: string, form: any) => {
-    const file = form.image.files[0];
-    const newName = "main." + file.name.split(".")[1];
-    if (file) {
-      uploadFile(
-        id,
-        file,
-        newName,
-        "products",
-        async (status: boolean, newImageURL: string) => {
-          if (status) {
-            const data = {
-              image: newImageURL,
-            };
-            const result = await productServices.updateProduct(
-              id,
-              data,
-              session.data?.accessToken
-            );
-            if (result.status === 200) {
-              setIsLoading(false);
-              setUploadedImage(null);
-              form.reset();
-              setUpdatedProduct(false);
-              const { data } = await productServices.getAllProducts();
-              setProductsData(data.data);
-              setToaster({
-                variant: "success",
-                message: "Success Add Product",
-              });
-            } else {
-              setIsLoading(false);
-              setToaster({
-                variant: "danger",
-                message: "Failed Add Product",
-              });
-            }
-          } else {
-            setIsLoading(false);
-            setToaster({
-              variant: "danger",
-              message: "Failed Add Product",
-            });
-          }
-        }
-      );
-    }
-  };
-
   const handleStock = (e: any, i: number, type: string) => {
     const newStockCout: any = [...stockCount];
     newStockCout[i][type] = e.target.value;
@@ -85,14 +37,20 @@ const ModalUpdateProduct = (props: Proptypes) => {
     form: any,
     newImageURL: string = updatedProduct.image
   ) => {
+    const stock = stockCount.map((stock: { size: string; qty: number }) => {
+      return {
+        size: stock.size,
+        qty: parseInt(`${stock.qty}`),
+      };
+    });
     const data = {
       name: form.name.value,
-      price: form.price.value,
+      price: parseInt(form.price.value),
       category: form.category.value,
       status: form.status.value,
       image: newImageURL,
       description: form.description.value,
-      stock: stockCount,
+      stock: stock,
     };
     const result = await productServices.updateProduct(
       updatedProduct.id,
@@ -156,6 +114,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           name="name"
           type="Text"
           defaultValue={updatedProduct.name}
+          className={styles.modal__form__input}
         />
         <Input
           label="Price"
@@ -163,13 +122,23 @@ const ModalUpdateProduct = (props: Proptypes) => {
           name="price"
           type="number"
           defaultValue={updatedProduct.price}
+          className={styles.modal__form__input}
         />
 
-        <Input
+        {/* <Input
           label="Description"
           placeholder="Insert product Description"
           name="description"
           type="textarea"
+          defaultValue={updatedProduct.description}
+          className={styles.modal__form__input}
+        /> */}
+
+        <Textarea
+          label="Description"
+          placeholder="Insert product Description"
+          name="description"
+          className={styles.modal__form__input}
           defaultValue={updatedProduct.description}
         />
 
@@ -182,6 +151,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
             { label: "Other", value: "Other" },
           ]}
           defaultValue={updatedProduct.category}
+          className={styles.modal__form__select}
         />
         <Select
           label="Status"
@@ -191,6 +161,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
             { label: "Not Released", value: "false" },
           ]}
           defaultValue={updatedProduct.status}
+          className={styles.modal__form__select}
         />
         <label htmlFor="image">Image</label>
         <div className={styles.modal__image}>
@@ -226,6 +197,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
                 placeholder="Insert product size"
                 name="size"
                 type="text"
+                className={styles.modal__form__input}
                 onChange={(e) => {
                   handleStock(e, i, "size");
                 }}
@@ -238,6 +210,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
                 placeholder="Insert product quantity"
                 name="qty"
                 type="number"
+                className={styles.modal__form__input}
                 onChange={(e) => {
                   handleStock(e, i, "qty");
                 }}

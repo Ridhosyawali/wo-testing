@@ -10,6 +10,7 @@ import productServices from "@/services/product";
 import { useSession } from "next-auth/react";
 import { uploadFile } from "@/lib/firebase/service";
 import Image from "next/image";
+import Textarea from "@/components/ui/Textarea";
 type Proptypes = {
   setModalAddProduct: Dispatch<SetStateAction<boolean>>;
   setToaster: Dispatch<SetStateAction<{}>>;
@@ -76,12 +77,18 @@ const ModalAddProduct = (props: Proptypes) => {
     event.preventDefault();
     setIsLoading(true);
     const form: any = event.target as HTMLFormElement;
+    const stock = stockCount.map((stock) => {
+      return {
+        size: stock.size,
+        qty: parseInt(`${stock.qty}`),
+      };
+    });
     const data = {
       name: form.name.value,
-      price: form.price.value,
+      price: parseInt(form.price.value),
       category: form.category.value,
       status: form.status.value,
-      stock: stockCount,
+      stock: stock,
       description: form.description.value,
       image: "",
     };
@@ -113,29 +120,37 @@ const ModalAddProduct = (props: Proptypes) => {
 
   return (
     <Modal onClose={() => setModalAddProduct(false)}>
-      <h1 className={styles.modal__title}>Update User</h1>
+      <h1 className={styles.modal__title}>Add Product</h1>
       <form onSubmit={handleSubmit} className={styles.modal_form}>
         <Input
           label="Name"
           placeholder="Insert product name"
           name="name"
           type="text"
+          className={styles.modal__form__input}
         />
         <Input
           label="Price"
           placeholder="Insert product price"
           name="price"
           type="number"
+          className={styles.modal__form__input}
         />
 
-        <div className={styles.modal__form__description}>
-          <Input
-            label="Description"
-            placeholder="Insert product Description"
-            name="description"
-            type="textarea"
-          />
-        </div>
+        {/* <Input
+          label="Description"
+          placeholder="Insert product Description"
+          name="description"
+          type="textarea"
+          className={styles.modal__form__input}
+        /> */}
+
+        <Textarea
+          label="Description"
+          placeholder="Insert product Description"
+          name="description"
+          className={styles.modal__form__input}
+        />
 
         <Select
           label="Category"
@@ -145,6 +160,7 @@ const ModalAddProduct = (props: Proptypes) => {
             { label: "Women", value: "Women" },
             { label: "Other", value: "Other" },
           ]}
+          className={styles.modal__form__select}
         />
         <Select
           label="Status"
@@ -153,9 +169,12 @@ const ModalAddProduct = (props: Proptypes) => {
             { label: "Released", value: "true" },
             { label: "Not Released", value: "false" },
           ]}
+          className={styles.modal__form__select}
         />
 
-        <label htmlFor="image">Image</label>
+        <label className={styles.modal__image__subtitle} htmlFor="image">
+          Image
+        </label>
         <div className={styles.modal__image}>
           {uploadedImage ? (
             <Image
@@ -190,6 +209,7 @@ const ModalAddProduct = (props: Proptypes) => {
                 placeholder="Insert product size"
                 name="size"
                 type="text"
+                className={styles.modal__form__input}
                 onChange={(e) => {
                   handleStock(e, i, "size");
                 }}
@@ -201,6 +221,7 @@ const ModalAddProduct = (props: Proptypes) => {
                 placeholder="Insert product quantity"
                 name="qty"
                 type="number"
+                className={styles.modal__form__input}
                 onChange={(e) => {
                   handleStock(e, i, "qty");
                 }}

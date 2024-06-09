@@ -1,29 +1,17 @@
-import styles from "./Input.module.scss";
+import styles from "./Textarea.module.scss";
 
 type Proptypes = {
   label?: string;
   name: string;
-  type: string;
   placeholder?: string;
   defaultValue?: string | number;
-  disabled?: boolean;
   onChange?: (e: any) => void;
   className?: string;
   onKeyDown?: (e: any) => void;
 };
 
-const Input = (props: Proptypes) => {
-  const {
-    label,
-    name,
-    type,
-    placeholder,
-    defaultValue,
-    disabled,
-    onChange,
-    onKeyDown,
-    className,
-  } = props;
+const Textarea = (props: Proptypes) => {
+  const { label, name, placeholder, defaultValue, className } = props;
   return (
     <div className={`${styles.container} ${className}`}>
       {label && (
@@ -31,19 +19,15 @@ const Input = (props: Proptypes) => {
           {label}
         </label>
       )}
-      <input
+      <textarea
         name={name}
         id={name}
-        type={type}
         placeholder={placeholder}
         className={`${styles.container__input} ${className}`}
         defaultValue={defaultValue}
-        disabled={disabled}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
       />
     </div>
   );
 };
 
-export default Input;
+export default Textarea;

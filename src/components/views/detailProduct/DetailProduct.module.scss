@@ -1,10 +1,10 @@
 .detail {
-  padding: 15vh 20vw;
+  padding: 15vh 15vw;
   &__main {
     display: flex;
     gap: 60px;
     &__left {
-      width: 50%;
+      width: 60%;
       &__image {
         width: 100%;
         scale: 1 / 1;
@@ -13,10 +13,17 @@
       }
     }
     &__right {
-      width: 50%;
+      width: 40%;
+      &__devider {
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
       &__subtitle {
         margin-top: 50px;
         font-weight: 500;
+        margin-bottom: -15px;
+        font-size: 16px;
+        opacity: 0.9;
       }
       &__size {
         display: grid;
@@ -39,6 +46,7 @@
           }
           &__input:checked + &__label {
             border: 1px solid #000;
+            opacity: 1;
           }
           &__input:disabled + &__label {
             opacity: 0.5;

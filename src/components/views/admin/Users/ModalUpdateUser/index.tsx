@@ -59,6 +59,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           type="email"
           defaultValue={UpdatedUser.email}
           disabled
+          className={styles.modal__input}
         />
         <Input
           label="Fullname"
@@ -67,6 +68,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           type="text"
           defaultValue={UpdatedUser.fullname}
           disabled
+          className={styles.modal__input}
         />
         <Input
           label="Phone"
@@ -75,6 +77,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           type="number"
           defaultValue={UpdatedUser.phone}
           disabled
+          className={styles.modal__input}
         />
         <Select
           label="Role"
@@ -84,6 +87,7 @@ const ModalUpdateUser = (props: Proptypes) => {
             { label: "Member", value: "member" },
             { label: "Admin", value: "admin" },
           ]}
+          className={styles.modal__input}
         />
         <Button type="submit" variant="update" className={styles.modal__button}>
           {isLoading ? "Updating..." : "Update"}

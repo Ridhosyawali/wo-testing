@@ -28,23 +28,23 @@ const DetailProductPage = (props: PropTypes) => {
     setCart(data.data);
   };
 
-  useEffect(() => {
-    getDetailProduct(id as string);
-  }, [id]);
+  // useEffect(() => {
+  //   getDetailProduct(id as string);
+  // }, [id]);
   //yang ini original
 
   //kodingan dibawah sementara untuk mengatasi detail product yang tidak muncul saat direfresh
-  // useEffect(() => {
-  //   if (id) {
-  //     getDetailProduct(id as string);
-  //   }
-  // }, [id, getDetailProduct]);
+  useEffect(() => {
+    if (id) {
+      getDetailProduct(id as string);
+    }
+  }, [id, getDetailProduct]);
 
   useEffect(() => {
     if (session.data?.accessToken) {
       getCart(session.data?.accessToken);
     }
-  }, [session.data?.accessToken]);
+  }, [session]);
 
   return (
     <>
