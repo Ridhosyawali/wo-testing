@@ -32,6 +32,8 @@
           font-size: 64px;
           font-weight: bold;
           height: 200px;
+          object-fit: cover;
+          object-position: center;
         }
         &__input {
           opacity: 0;

@@ -119,7 +119,6 @@ export async function uploadFile(
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          // console.log(progress);
         },
         (error) => {
           console.log(error);

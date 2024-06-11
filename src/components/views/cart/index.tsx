@@ -14,8 +14,6 @@ type Proptypes = {
 
 const CartView = (props: Proptypes) => {
   const { cart, products } = props;
-  console.log(cart);
-  console.log(products);
 
   const getProduct = (id: string) => {
     const product = products.find((product) => product.id === id);
@@ -44,14 +42,12 @@ const CartView = (props: Proptypes) => {
     const total = cart.reduce(
       (acc: number, item: { id: string; size: string; qty: number }) => {
         const product: any = getProduct(item.id);
-        console.log(acc);
         return (acc += parseInt(product?.price) * item.qty);
       },
       0
     );
     return total;
   };
-  console.log(getTotalPrize());
 
   return (
     <div className={styles.cart}>
