@@ -7,7 +7,7 @@
       width: 60%;
       &__image {
         width: 100%;
-        scale: 1 / 1;
+        aspect-ratio: 1 / 1;
         height: auto;
         border-radius: 7px;
       }
@@ -69,13 +69,14 @@
       &__add {
         margin-top: 40px;
         width: 100%;
-        padding: 15px;
+        padding: 15px !important;
         border-radius: 50px;
       }
       &__description {
         margin-top: 30px;
         font-size: 16px;
         text-align: justify;
+        line-height: 1.6;
       }
     }
   }

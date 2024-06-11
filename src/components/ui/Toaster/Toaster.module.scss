@@ -1,7 +1,9 @@
 .toaster {
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  bottom: 500px;
-  left: 45%;
+  bottom: 100px;
+  margin-left: 38%;
   z-index: 9999;
   transform: translateX(-50%, -50%);
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
