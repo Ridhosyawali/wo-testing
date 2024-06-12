@@ -23,8 +23,9 @@ const Navbar = () => {
   return (
     <div className={styles.navbar}>
       <div className={styles.navbar__left}>
-        <h2 className={styles.navbar__left__title}>RIRA</h2>
-        <h4 className={styles.navbar__left__subtitle}>Wedding Organizer</h4>
+        <Image src="/logo.png" alt="" width={50} height={50} />
+        {/* <h2 className={styles.navbar__left__title}>RIRA</h2>
+        <h4 className={styles.navbar__left__subtitle}>Wedding Organizer</h4> */}
       </div>
       <div className={styles.navbar__nav}>
         {NavItems.map((item) => (

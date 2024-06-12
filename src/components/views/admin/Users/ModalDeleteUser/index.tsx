@@ -2,18 +2,19 @@ import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import userServices from "@/services/user";
 import styles from "./ModalDeleteUser.module.scss";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { User } from "@/types/user.type";
+import { ToasterContext } from "@/context/ToasterContext";
 
 type Proptypes = {
   setUsersData: Dispatch<SetStateAction<User[]>>;
-  setToaster: Dispatch<SetStateAction<{}>>;
   deletedUser: User | any;
   setDeletedUser: Dispatch<SetStateAction<{}>>;
 };
 
 const ModalDeleteUser = (props: Proptypes) => {
-  const { deletedUser, setDeletedUser, setUsersData, setToaster } = props;
+  const { deletedUser, setDeletedUser, setUsersData } = props;
+  const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = async () => {

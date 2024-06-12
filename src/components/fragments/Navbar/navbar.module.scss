@@ -90,14 +90,15 @@
       font-size: 14px;
     }
   }
-  &__login {
+  &__button {
     background-color: #333;
     border: none;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 400;
     color: #eee;
-    padding: 10px 10px;
-    border-radius: 6px;
+    padding: 8px 9px;
+    border-radius: px;
     transition: background-color 0.3s ease;
     &:hover {
       background-color: #6c6c6c;

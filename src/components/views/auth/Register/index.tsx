@@ -1,16 +1,14 @@
-import { Dispatch, FormEvent, SetStateAction, use, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import styles from "./Register.module.scss";
 import { useRouter } from "next/router";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import authServices from "@/services/auth";
 import AuthLayout from "@/components/layouts/AuthLayout";
+import { ToasterContext } from "@/context/ToasterContext";
 
-const RegisterView = ({
-  setToaster,
-}: {
-  setToaster: Dispatch<SetStateAction<{}>>;
-}) => {
+const RegisterView = () => {
+  const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const { push } = useRouter();
 

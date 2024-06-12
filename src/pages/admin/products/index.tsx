@@ -1,9 +1,8 @@
 import ProductsAdminView from "@/components/views/admin/Products";
 import productServices from "@/services/product";
-import userServices from "@/services/user";
 import { useEffect, useState } from "react";
 
-const AdminProductsPage = ({ setToaster }: any) => {
+const AdminProductsPage = () => {
   const [products, setProducts] = useState([]);
   const getAllProducts = async () => {
     const { data } = await productServices.getAllProducts();
@@ -15,7 +14,7 @@ const AdminProductsPage = ({ setToaster }: any) => {
 
   return (
     <>
-      <ProductsAdminView products={products} setToaster={setToaster} />
+      <ProductsAdminView products={products} />
     </>
   );
 };

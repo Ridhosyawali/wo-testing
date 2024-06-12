@@ -3,26 +3,31 @@ import Input from "@/components/ui/Input";
 import Modal from "@/components/ui/Modal";
 import Select from "@/components/ui/Select";
 import styles from "./ModalAddProduct.module.scss";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 import { Product } from "@/types/product.type";
 import InputFile from "@/components/ui/InputFile";
 import productServices from "@/services/product";
-import { useSession } from "next-auth/react";
 import { uploadFile } from "@/lib/firebase/service";
 import Image from "next/image";
 import Textarea from "@/components/ui/Textarea";
+import { ToasterContext } from "@/context/ToasterContext";
 type Proptypes = {
   setModalAddProduct: Dispatch<SetStateAction<boolean>>;
-  setToaster: Dispatch<SetStateAction<{}>>;
   setProductsData: Dispatch<SetStateAction<Product[]>>;
 };
 
 const ModalAddProduct = (props: Proptypes) => {
-  const { setModalAddProduct, setToaster, setProductsData } = props;
+  const { setModalAddProduct, setProductsData } = props;
+  const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState([{ size: "", qty: 0 }]);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const session: any = useSession();
 
   const uploadImage = (id: string, form: any) => {
     const file = form.image.files[0];

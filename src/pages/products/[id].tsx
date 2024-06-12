@@ -5,14 +5,9 @@ import { Product } from "@/types/product.type";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-type PropTypes = {
-  setToaster: Dispatch<SetStateAction<{}>>;
-};
-
-const DetailProductPage = (props: PropTypes) => {
-  const { setToaster } = props;
+const DetailProductPage = () => {
   const { id } = useRouter().query;
   const session: any = useSession();
   const [product, setProduct] = useState<Product | {}>({});
@@ -51,12 +46,7 @@ const DetailProductPage = (props: PropTypes) => {
       <Head>
         <title>Product Detail</title>
       </Head>
-      <DetailProductView
-        product={product}
-        cart={cart}
-        productId={id}
-        setToaster={setToaster}
-      />
+      <DetailProductView product={product} cart={cart} productId={id} />
     </>
   );
 };
