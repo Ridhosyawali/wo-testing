@@ -64,6 +64,7 @@ const CartView = (props: Proptypes) => {
                     width={150}
                     height={150}
                     className={styles.cart__main__list__item__image}
+                    priority
                   />
                 )}
                 <div className={styles.cart__main__list__item__info}>
