@@ -5,7 +5,7 @@ import { convertIDR } from "@/utils/currency";
 import Button from "@/components/ui/Button";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 
@@ -19,6 +19,7 @@ const DetailProductView = (props: PropTypes) => {
   const { product, cart, productId } = props;
   const { setToaster } = useContext(ToasterContext);
   const { status }: any = useSession();
+
   const router = useRouter();
   const [selectedSize, setSelectedSize] = useState("");
 

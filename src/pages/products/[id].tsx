@@ -5,7 +5,7 @@ import { Product } from "@/types/product.type";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const DetailProductPage = () => {
   const { id } = useRouter().query;
@@ -23,17 +23,18 @@ const DetailProductPage = () => {
     setCart(data.data);
   };
 
-  // useEffect(() => {
-  //   getDetailProduct(id as string);
-  // }, [id]);
-  //yang ini original
-
-  //kodingan dibawah sementara untuk mengatasi detail product yang tidak muncul saat direfresh
   useEffect(() => {
     if (id) {
       getDetailProduct(id as string);
     }
-  }, [id, getDetailProduct]);
+  }, [id]);
+  //yang ini original
+
+  //kodingan dibawah sementara untuk mengatasi detail product yang tidak muncul saat direfresh
+  // useEffect(() => {
+  //
+  //     getDetailProduct(id as string);
+  // }, [id]);
 
   useEffect(() => {
     if (session.data?.accessToken) {
