@@ -33,7 +33,7 @@ const Select = (props: Proptypes) => {
             <option
               value={option.value}
               key={option.label}
-              // selected={option.selected} // not working
+              selected={option.selected}
             >
               {option.label}
             </option>
