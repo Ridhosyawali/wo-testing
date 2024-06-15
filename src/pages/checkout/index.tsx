@@ -1,4 +1,4 @@
-import CheckoutView from "@/components/views/Checkout";
+import CheckoutView from "@/components/views/checkout";
 
 const CheckoutPage = () => {
   return (
