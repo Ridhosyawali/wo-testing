@@ -1,0 +1,23 @@
+.modal {
+  &__title {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  &__address {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    &__title {
+      margin-bottom: 8px;
+    }
+    &--active {
+      border: 1px solid #000;
+    }
+  }
+}

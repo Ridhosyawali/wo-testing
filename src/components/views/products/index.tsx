@@ -1,7 +1,5 @@
 import { Product } from "@/types/product.type";
 import styles from "./Products.module.scss";
-import Image from "next/image";
-import { convertIDR } from "@/utils/currency";
 import Card from "./Card";
 import Link from "next/link";
 
