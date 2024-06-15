@@ -30,12 +30,28 @@ const ModalUpdateProduct = (props: Proptypes) => {
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState(updatedProduct.stock);
+  const [sizeguideCount, setSizeGuideCount] = useState(
+    updatedProduct.sizeguide
+  );
+  const [detailCount, setDetailCount] = useState(updatedProduct.detail);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
   const handleStock = (e: any, i: number, type: string) => {
     const newStockCout: any = [...stockCount];
     newStockCout[i][type] = e.target.value;
     setStockCount(newStockCout);
+  };
+
+  const handleSizeguide = (e: any, i: number, type: string) => {
+    const newSizeguideCount: any = [...sizeguideCount];
+    newSizeguideCount[i][type] = e.target.value;
+    setSizeGuideCount(newSizeguideCount);
+  };
+
+  const handledetail = (e: any, i: number, type: string) => {
+    const newdetailCout: any = [...detailCount];
+    newdetailCout[i][type] = e.target.value;
+    setDetailCount(newdetailCout);
   };
 
   const updateProduct = async (
@@ -48,6 +64,33 @@ const ModalUpdateProduct = (props: Proptypes) => {
         qty: parseInt(`${stock.qty}`),
       };
     });
+    const sizeguide = sizeguideCount.map(
+      (sizeguide: { ld: string; pb: string }) => {
+        return {
+          ld: sizeguide.ld,
+          pb: sizeguide.pb,
+        };
+      }
+    );
+    const detail = detailCount.map(
+      (detail: {
+        colour: string;
+        material: string;
+        traditional: string;
+        model: string;
+        additional: string;
+        fit_type: string;
+      }) => {
+        return {
+          colour: detail.colour,
+          material: detail.material,
+          traditional: detail.traditional,
+          model: detail.model,
+          additional: detail.additional,
+          fit_type: detail.fit_type,
+        };
+      }
+    );
     const data = {
       name: form.name.value,
       price: parseInt(form.price.value),
@@ -56,6 +99,8 @@ const ModalUpdateProduct = (props: Proptypes) => {
       image: newImageURL,
       description: form.description.value,
       stock: stock,
+      sizeguide: sizeguide,
+      detail: detail,
     };
     const result = await productServices.updateProduct(updatedProduct.id, data);
     if (result.status === 200) {
@@ -126,23 +171,160 @@ const ModalUpdateProduct = (props: Proptypes) => {
           className={styles.modal__form__input}
         />
 
-        {/* <Input
-          label="Description"
-          placeholder="Insert product Description"
-          name="description"
-          type="textarea"
-          defaultValue={updatedProduct.description}
-          className={styles.modal__form__input}
-        /> */}
+        <div className={styles.modal__form__detail}>
+          <Textarea
+            label="Description"
+            placeholder="Insert product Description"
+            name="description"
+            className={styles.modal__form__input}
+            defaultValue={updatedProduct.description}
+          />
 
-        <Textarea
-          label="Description"
-          placeholder="Insert product Description"
-          name="description"
-          className={styles.modal__form__input}
-          defaultValue={updatedProduct.description}
-        />
+          {detailCount.map(
+            (
+              item: {
+                colour: string;
+                material: string;
+                traditional: string;
+                model: string;
+                fit_type: string;
+                additional: string;
+              },
+              i: number
+            ) => (
+              <div className={styles.modal__form__detail__list} key={i}>
+                <div className={styles.modal__form__detail__list__item}>
+                  <Input
+                    label="Colour"
+                    placeholder="Insert product colour"
+                    name="colour"
+                    type="text"
+                    className={styles.modal__form__input}
+                    onChange={(e) => {
+                      handledetail(e, i, "colour");
+                    }}
+                    defaultValue={item.colour}
+                  />
+                </div>
+                <div className={styles.modal__form__detail__list__item}>
+                  <Input
+                    label="Material"
+                    placeholder="Insert product material"
+                    name="material"
+                    type="text"
+                    className={styles.modal__form__input}
+                    onChange={(e) => {
+                      handledetail(e, i, "material");
+                    }}
+                    defaultValue={item.material}
+                  />
+                </div>
+                <div className={styles.modal__form__detail__list__item}>
+                  <Input
+                    label="Traditional"
+                    placeholder="Insert product traditional"
+                    name="traditional"
+                    type="text"
+                    className={styles.modal__form__input}
+                    onChange={(e) => {
+                      handledetail(e, i, "traditional");
+                    }}
+                    defaultValue={item.traditional}
+                  />
+                </div>
+                <div className={styles.modal__form__detail__list__item}>
+                  <Input
+                    label="Model"
+                    placeholder="Insert product model"
+                    name="model"
+                    type="text"
+                    className={styles.modal__form__input}
+                    onChange={(e) => {
+                      handledetail(e, i, "model");
+                    }}
+                    defaultValue={item.model}
+                  />
+                </div>
+                <div className={styles.modal__form__detail__list__item}>
+                  <Input
+                    label="Fit Type"
+                    placeholder="Insert product fit type"
+                    name="fit_type"
+                    type="text"
+                    className={styles.modal__form__input}
+                    onChange={(e) => {
+                      handledetail(e, i, "fit_type");
+                    }}
+                    defaultValue={item.fit_type}
+                  />
+                </div>
+                <div className={styles.modal__form__detail__list__item}>
+                  <Input
+                    label="Additional"
+                    placeholder="Insert product detail"
+                    name="additional"
+                    type="text"
+                    className={styles.modal__form__input}
+                    onChange={(e) => {
+                      handledetail(e, i, "additional");
+                    }}
+                    defaultValue={item.additional}
+                  />
+                </div>
+              </div>
+            )
+          )}
+        </div>
 
+        {sizeguideCount.map((item: { ld: string; pb: string }, i: number) => (
+          <div className={styles.modal__sizeguide} key={i}>
+            <div className={styles.modal__sizeguide__item}>
+              <Input
+                label={
+                  i === 0
+                    ? "S Chest(lingkar dada)"
+                    : i === 1
+                    ? "M Chest(lingkar dada)"
+                    : i === 2
+                    ? "L Chest(lingkar dada)"
+                    : "XL Chest(lingkar dada)"
+                }
+                placeholder="Insert product chest"
+                name="ld"
+                type="text"
+                className={styles.modal__form__input}
+                onChange={(e) => {
+                  handleSizeguide(e, i, "ld");
+                }}
+                defaultValue={item.ld}
+              />
+            </div>
+            <div className={styles.modal__sizeguide__item}>
+              <Input
+                label="Length (Panjang Baju)"
+                placeholder="Insert product shirt length"
+                name="pb"
+                type="text"
+                className={styles.modal__form__input}
+                onChange={(e) => {
+                  handleSizeguide(e, i, "pb");
+                }}
+                defaultValue={item.pb}
+              />
+            </div>
+          </div>
+        ))}
+        <Button
+          variant=""
+          type="button"
+          className={styles.modal__stock__button}
+          onClick={() =>
+            setSizeGuideCount([...sizeguideCount, { ld: "", pb: "" }])
+          }
+        >
+          <i className="bx bx-plus" />
+          Add Spesific Size
+        </Button>
         <Select
           label="Category"
           name="category"

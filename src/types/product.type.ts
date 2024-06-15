@@ -4,7 +4,7 @@ export type Product = {
   price: number;
   category: string;
   image: string;
-  desription?: string;
+  desription: string;
   created_at: Date;
   updated_at: Date;
   stock: [
@@ -12,6 +12,22 @@ export type Product = {
       id: string;
       size: string;
       qty: number;
+    }
+  ];
+  detail: [
+    {
+      colour: string;
+      material: string;
+      traditional: string;
+      fit_type: string;
+      model: string;
+      additional: string;
+    }
+  ];
+  sizeguide: [
+    {
+      lb: number;
+      pb: number;
     }
   ];
 };

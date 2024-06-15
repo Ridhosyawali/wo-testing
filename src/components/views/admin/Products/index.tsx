@@ -8,7 +8,6 @@ import { Product } from "@/types/product.type";
 import ModalAddProduct from "./ModalAddProduct";
 import ModalUpdateProduct from "./ModalUpdateProduct";
 import ModalDeleteProduct from "./ModalDeleteProduct";
-import { ToasterContext } from "@/context/ToasterContext";
 
 type PropTypes = {
   products: Product[];

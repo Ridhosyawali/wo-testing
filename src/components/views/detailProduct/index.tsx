@@ -131,9 +131,13 @@ const DetailProductView = (props: PropTypes) => {
             <div className={styles.detail__main__right__description}>
               <p>{product?.description}</p>
             </div>
-            <Button type="button" onClick={() => setDetailProduct(true)}>
-              Change Address
-            </Button>
+            <button
+              className={styles.detail__main__detailproduct}
+              type="button"
+              onClick={() => setDetailProduct(true)}
+            >
+              Product Details
+            </button>
             <hr className={styles.detail__main__right__devider} />
           </div>
         </div>
@@ -142,7 +146,7 @@ const DetailProductView = (props: PropTypes) => {
         <ModalDetailProduct
           product={product}
           setDetailProduct={setDetailProduct}
-          productId={productId}
+          products={product}
         />
       )}
     </>

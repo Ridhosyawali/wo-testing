@@ -1,10 +1,40 @@
 .modal {
   &__form {
     &__input {
+      width: 100%;
       margin: 5px 0;
     }
     &__select {
+      width: 100%;
       margin: 5px 0;
+    }
+    &__detail {
+      width: 100%;
+      &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        &__item {
+          width: 100%;
+          // margin-top: -5px;
+          margin-bottom: -10px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  &__sizeguide {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    &__item {
+      width: 50%;
+      margin-top: 10px;
+      margin-bottom: -10px;
+      font-size: 11px;
+      :nth-child(1) {
+        margin-bottom: 5px;
+      }
     }
   }
   &__stock {

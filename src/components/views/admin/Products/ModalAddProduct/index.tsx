@@ -27,7 +27,18 @@ const ModalAddProduct = (props: Proptypes) => {
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState([{ size: "", qty: 0 }]);
+  const [sizeguideCount, setSizeguideCount] = useState([{ ld: "", pb: "" }]);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [detailCount, setDetailCount] = useState([
+    {
+      colour: "",
+      material: "",
+      traditional: "",
+      fit_type: "",
+      model: "",
+      additional: "",
+    },
+  ]);
 
   const uploadImage = (id: string, form: any) => {
     const file = form.image.files[0];
@@ -84,12 +95,41 @@ const ModalAddProduct = (props: Proptypes) => {
         qty: parseInt(`${stock.qty}`),
       };
     });
+    const sizeguide = sizeguideCount.map(
+      (sizeguide: { ld: string; pb: string }) => {
+        return {
+          ld: sizeguide.ld,
+          pb: sizeguide.pb,
+        };
+      }
+    );
+    const detail = detailCount.map(
+      (detail: {
+        colour: string;
+        material: string;
+        traditional: string;
+        model: string;
+        additional: string;
+        fit_type: string;
+      }) => {
+        return {
+          colour: detail.colour,
+          material: detail.material,
+          traditional: detail.traditional,
+          model: detail.model,
+          additional: detail.additional,
+          fit_type: detail.fit_type,
+        };
+      }
+    );
     const data = {
       name: form.name.value,
       price: parseInt(form.price.value),
       category: form.category.value,
       status: form.status.value,
       stock: stock,
+      detail: detail,
+      sizeguide: sizeguide,
       description: form.description.value,
       image: "",
     };
@@ -134,14 +174,6 @@ const ModalAddProduct = (props: Proptypes) => {
           type="number"
           className={styles.modal__form__input}
         />
-
-        {/* <Input
-          label="Description"
-          placeholder="Insert product Description"
-          name="description"
-          type="textarea"
-          className={styles.modal__form__input}
-        /> */}
 
         <Textarea
           label="Description"
