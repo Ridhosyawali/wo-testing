@@ -10,14 +10,42 @@
     border-radius: 8px;
     margin-top: 8px;
     display: flex;
-    flex-direction: column;
     gap: 5px;
     cursor: pointer;
-    &__title {
-      margin-bottom: 8px;
+    &__info {
+      width: 95%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      &__title {
+        margin-bottom: 8px;
+      }
     }
     &--active {
       border: 1px solid #000;
+    }
+    &__action {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      &__delete,
+      &__update {
+        height: 40px;
+        width: 40px;
+        padding: 0;
+      }
+    }
+  }
+  &__btn {
+    margin-top: 10px;
+  }
+  &__form {
+    margin-top: 20px;
+    &__group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
   }
 }
