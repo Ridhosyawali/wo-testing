@@ -45,7 +45,7 @@ const ModalDetailProduct = (props: Proptypes) => {
               {item?.additional && <li>Detail : {item?.additional}</li>}
             </div>
           ))}
-          <h4>Size Guide</h4>
+          {/* <h4>Size Guide</h4>
           <table className={styles.modal__table}>
             <thead>
               <tr>
@@ -73,7 +73,8 @@ const ModalDetailProduct = (props: Proptypes) => {
                 </Fragment>
               ))}
             </tbody>
-          </table>
+          </table> */}
+          {/* JIKA INGIN MENGGUNAKAN SIZE GUIDE */}
         </div>
       </div>
     </Modal>

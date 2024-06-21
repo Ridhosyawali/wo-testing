@@ -18,9 +18,22 @@ const Card = (props: Proptypes) => {
         height={500}
         className={styles.card__image}
       />
-      <h4 className={styles.card__title}>{product.name}</h4>
-      <p className={styles.card__category}>{product.category}</p>
-      <p className={styles.card__price}>{convertIDR(product.price)}</p>
+      <div className={styles.card__content}>
+        <div className={styles.card__content__left}>
+          <h4 className={styles.card__content__left__title}>{product.name}</h4>
+          <p className={styles.card__content__left__category}>
+            {product.category}
+          </p>
+          <p className={styles.card__content__left__price}>
+            {convertIDR(product.price)}
+          </p>
+        </div>
+        <div className={styles.card__content__right}>
+          <p className={styles.card__content__right__location}>
+            {product?.location}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

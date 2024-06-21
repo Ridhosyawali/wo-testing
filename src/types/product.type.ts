@@ -3,6 +3,7 @@ export type Product = {
   name: string;
   price: number;
   category: string;
+  location: string;
   image: string;
   desription: string;
   created_at: Date;
@@ -24,10 +25,10 @@ export type Product = {
       additional: string;
     }
   ];
-  sizeguide: [
-    {
-      lb: number;
-      pb: number;
-    }
-  ];
+  // sizeguide: [
+  //   {
+  //     lb: number;
+  //     pb: number;
+  //   }
+  // ];
 };

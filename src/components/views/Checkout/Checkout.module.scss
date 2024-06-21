@@ -20,6 +20,24 @@
   }
   &__main {
     width: 70%;
+    &__date {
+      width: 100%;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      &__price {
+        opacity: 0.7;
+        font-size: 14px;
+      }
+      p strong {
+        text-decoration: underline;
+        font-weight: 550;
+      }
+    }
     &__address {
       width: 100%;
       border: 1px solid #ddd;

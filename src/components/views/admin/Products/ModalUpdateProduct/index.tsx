@@ -30,9 +30,9 @@ const ModalUpdateProduct = (props: Proptypes) => {
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState(updatedProduct.stock);
-  const [sizeguideCount, setSizeGuideCount] = useState(
-    updatedProduct.sizeguide
-  );
+  // const [sizeguideCount, setSizeGuideCount] = useState(
+  //   updatedProduct.sizeguide
+  // );
   const [detailCount, setDetailCount] = useState(updatedProduct.detail);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
@@ -42,11 +42,11 @@ const ModalUpdateProduct = (props: Proptypes) => {
     setStockCount(newStockCout);
   };
 
-  const handleSizeguide = (e: any, i: number, type: string) => {
-    const newSizeguideCount: any = [...sizeguideCount];
-    newSizeguideCount[i][type] = e.target.value;
-    setSizeGuideCount(newSizeguideCount);
-  };
+  // const handleSizeguide = (e: any, i: number, type: string) => {
+  //   const newSizeguideCount: any = [...sizeguideCount];
+  //   newSizeguideCount[i][type] = e.target.value;
+  //   setSizeGuideCount(newSizeguideCount);
+  // };
 
   const handledetail = (e: any, i: number, type: string) => {
     const newdetailCout: any = [...detailCount];
@@ -64,14 +64,14 @@ const ModalUpdateProduct = (props: Proptypes) => {
         qty: parseInt(`${stock.qty}`),
       };
     });
-    const sizeguide = sizeguideCount.map(
-      (sizeguide: { ld: string; pb: string }) => {
-        return {
-          ld: sizeguide.ld,
-          pb: sizeguide.pb,
-        };
-      }
-    );
+    // const sizeguide = sizeguideCount.map(
+    //   (sizeguide: { ld: string; pb: string }) => {
+    //     return {
+    //       ld: sizeguide.ld,
+    //       pb: sizeguide.pb,
+    //     };
+    //   }
+    // );
     const detail = detailCount.map(
       (detail: {
         colour: string;
@@ -96,10 +96,11 @@ const ModalUpdateProduct = (props: Proptypes) => {
       price: parseInt(form.price.value),
       category: form.category.value,
       status: form.status.value,
+      location: form.location.value,
       image: newImageURL,
       description: form.description.value,
       stock: stock,
-      sizeguide: sizeguide,
+      // sizeguide: sizeguide,
       detail: detail,
     };
     const result = await productServices.updateProduct(updatedProduct.id, data);
@@ -276,7 +277,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           )}
         </div>
 
-        {sizeguideCount.map((item: { ld: string; pb: string }, i: number) => (
+        {/* {sizeguideCount.map((item: { ld: string; pb: string }, i: number) => (
           <div className={styles.modal__sizeguide} key={i}>
             <div className={styles.modal__sizeguide__item}>
               <Input
@@ -313,28 +314,42 @@ const ModalUpdateProduct = (props: Proptypes) => {
               />
             </div>
           </div>
-        ))}
-        <Button
+        ))} */}
+        {/* <Button
           variant=""
           type="button"
           className={styles.modal__stock__button}
           onClick={() =>
             setSizeGuideCount([...sizeguideCount, { ld: "", pb: "" }])
-          }
-        >
+          } */}
+        {/* >
           <i className="bx bx-plus" />
           Add Spesific Size
-        </Button>
+        </Button> */}
+
         <Select
           label="Category"
           name="category"
+          defaultValue={updatedProduct.category}
+          className={styles.modal__form__select}
           options={[
             { label: "Men", value: "Men" },
             { label: "Women", value: "Women" },
-            { label: "Other", value: "Other" },
+            { label: "Make Up", value: "Make Up" },
+            { label: "Dekorasi", value: "Deekorasi" },
+            { label: "Catering", value: "Catering" },
           ]}
-          defaultValue={updatedProduct.category}
+        />
+        <Select
+          label="Location"
+          name="location"
+          defaultValue={updatedProduct.location}
           className={styles.modal__form__select}
+          options={[
+            { label: "Bandung", value: "Bandung" },
+            { label: "Tangerang", value: "Tangerang" },
+            { label: "Bekasi", value: "Bekasi" },
+          ]}
         />
         <Select
           label="Status"

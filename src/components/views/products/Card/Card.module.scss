@@ -1,24 +1,52 @@
 .card {
   cursor: pointer;
   &__image {
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
     height: auto;
-    border-radius: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    .Image {
+      transition: transform 0.5s ease;
+    }
+    &:hover {
+      transform: scale(1.02);
+    }
   }
-  &__title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 10px;
-  }
-  &__category {
-    font-size: 16px;
-    margin-top: 5px;
-    font-weight: 500;
-  }
-  &__price {
-    font-size: 16px;
-    margin-top: 5px;
-    font-weight: 600;
+  &__content {
+    display: flex;
+    flex-direction: row;
+    &__left {
+      width: 80%;
+      margin-top: 10px;
+
+      &__title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      &__category {
+        font-size: 16px;
+        margin-top: 10px;
+        font-weight: 400;
+      }
+      &__price {
+        font-size: 16px;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+    }
+    &__right {
+      width: 20%;
+      display: flex;
+      flex-direction: row-reverse;
+      margin-top: 15px;
+      &__location {
+        font-size: 14px;
+        bottom: 0;
+        font-weight: 300;
+        text-align: right;
+      }
+    }
   }
 }

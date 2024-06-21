@@ -4,6 +4,7 @@ type Option = {
   label: string;
   value: string;
   selected?: boolean;
+  disabled?: boolean;
 };
 
 type Proptypes = {
@@ -34,6 +35,8 @@ const Select = (props: Proptypes) => {
               value={option.value}
               key={option.label}
               selected={option.selected}
+              disabled={option.disabled}
+              className={styles.select__container__input__option}
             >
               {option.label}
             </option>

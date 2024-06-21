@@ -27,7 +27,7 @@ const ModalAddProduct = (props: Proptypes) => {
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState([{ size: "", qty: 0 }]);
-  const [sizeguideCount, setSizeguideCount] = useState([{ ld: "", pb: "" }]);
+  // const [sizeguideCount, setSizeguideCount] = useState([{ ld: "", pb: "" }]);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [detailCount, setDetailCount] = useState([
     {
@@ -95,14 +95,14 @@ const ModalAddProduct = (props: Proptypes) => {
         qty: parseInt(`${stock.qty}`),
       };
     });
-    const sizeguide = sizeguideCount.map(
-      (sizeguide: { ld: string; pb: string }) => {
-        return {
-          ld: sizeguide.ld,
-          pb: sizeguide.pb,
-        };
-      }
-    );
+    // const sizeguide = sizeguideCount.map(
+    //   (sizeguide: { ld: string; pb: string }) => {
+    //     return {
+    //       ld: sizeguide.ld,
+    //       pb: sizeguide.pb,
+    //     };
+    //   }
+    // );
     const detail = detailCount.map(
       (detail: {
         colour: string;
@@ -127,9 +127,10 @@ const ModalAddProduct = (props: Proptypes) => {
       price: parseInt(form.price.value),
       category: form.category.value,
       status: form.status.value,
+      location: form.location.value,
       stock: stock,
       detail: detail,
-      sizeguide: sizeguide,
+      // sizeguide: sizeguide,
       description: form.description.value,
       image: "",
     };
@@ -138,6 +139,24 @@ const ModalAddProduct = (props: Proptypes) => {
       setToaster({
         variant: "danger",
         message: "Please choose an image",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (!data.category) {
+      setToaster({
+        variant: "danger",
+        message: "Please choose a category",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (!data.location) {
+      setToaster({
+        variant: "danger",
+        message: "Please insert product name",
       });
       setIsLoading(false);
       return;
@@ -186,16 +205,49 @@ const ModalAddProduct = (props: Proptypes) => {
           label="Category"
           name="category"
           options={[
-            { label: "Men", value: "Men" },
-            { label: "Women", value: "Women" },
-            { label: "Other", value: "Other" },
+            {
+              value: "",
+              label: "--- Pilih category ---",
+              disabled: true,
+              selected: true,
+              className: "placeholder",
+            },
+            { label: "Men", value: "men" },
+            { label: "Women", value: "women" },
+            { label: "Make Up", value: "make_up" },
+            { label: "Dekoration", value: "dekoration" },
+            { label: "Catering", value: "catering" },
           ]}
           className={styles.modal__form__select}
+        />
+        <Select
+          label="Location"
+          name="location"
+          className={styles.modal__form__select}
+          options={[
+            {
+              value: "",
+              label: "--- Pilih location ---",
+              disabled: true,
+              selected: true,
+              className: "placeholder",
+            },
+            { label: "Bandung", value: "Bandung" },
+            { label: "Tangerang", value: "Tangerang" },
+            { label: "Bekasi", value: "Bekasi" },
+          ]}
         />
         <Select
           label="Status"
           name="status"
           options={[
+            {
+              value: "",
+              label: "--- Pilih status ---",
+              disabled: true,
+              selected: true,
+              className: "placeholder",
+            },
             { label: "Released", value: "true" },
             { label: "Not Released", value: "false" },
           ]}

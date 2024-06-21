@@ -2,15 +2,16 @@ import { Product } from "@/types/product.type";
 import styles from "./Checkout.module.scss";
 import Image from "next/image";
 import { convertIDR } from "@/utils/currency";
-import Select from "@/components/ui/Select";
-import Input from "@/components/ui/Input";
-import { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 import { useSession } from "next-auth/react";
 import productServices from "@/services/product";
 import ModalChangeAddress from "./ModalChangeAddress";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // ini css untuk react-date-range
+import "react-date-range/dist/theme/default.css"; // ini tema react-date-range
 
 const CheckoutView = () => {
   const { setToaster } = useContext(ToasterContext);
@@ -19,6 +20,12 @@ const CheckoutView = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedAddress, setSelectedAddress] = useState(0);
   const [changeAddress, setChangeAddress] = useState(false);
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  });
+  const [pricePerDay, setPricePerDay] = useState(20000); // Ganti dengan harga per hari yang sesuai
 
   const getProfile = async () => {
     const { data } = await userServices.getProfile();
@@ -51,15 +58,27 @@ const CheckoutView = () => {
     return product;
   };
 
+  const handleSelect = (ranges: any) => {
+    setSelectionRange(ranges.selection);
+  };
+
   const getTotalPrize = () => {
-    const total = profile?.carts?.reduce(
+    const diffTime = Math.abs(
+      selectionRange.endDate.getTime() - selectionRange.startDate.getTime()
+    );
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const totalday = diffDays * pricePerDay;
+    const tax = 0;
+    const delivery = 0;
+    const totalprice = profile?.carts?.reduce(
       (acc: number, item: { id: string; size: string; qty: number }) => {
         const product: any = getProduct(item.id);
         return (acc += parseInt(product?.price) * item.qty);
       },
       0
     );
-    return total;
+    const totalall = totalprice + totalday + tax + delivery;
+    return { totalprice, totalday, totalall, tax, delivery };
   };
 
   return (
@@ -157,25 +176,43 @@ const CheckoutView = () => {
               </h1>
             </div>
           )}
+          <div className={styles.checkout__main__date}>
+            <DateRangePicker
+              ranges={[selectionRange]}
+              onChange={handleSelect}
+            />
+            <p>
+              Date range from{" "}
+              <strong>{selectionRange.startDate.toDateString()}</strong> -{" "}
+              <strong>{selectionRange.endDate.toDateString()}</strong>
+            </p>
+            <p className={styles.checkout__main__date__price}>
+              Price if more than one day: {convertIDR(pricePerDay)}
+            </p>
+          </div>
         </div>
         <div className={styles.checkout__summary}>
           <h1 className={styles.checkout__summary__title}>Summary</h1>
           <div className={styles.checkout__summary__item}>
             <h4>Subtotal</h4>
-            <p>{convertIDR(getTotalPrize())}</p>
+            <p>{convertIDR(getTotalPrize().totalprice)}</p>
           </div>
           <div className={styles.checkout__summary__item}>
             <h4>Delivery</h4>
-            <p>{convertIDR(0)}</p>
+            <p>{convertIDR(getTotalPrize().delivery)}</p>
           </div>
           <div className={styles.checkout__summary__item}>
             <h4>Tax</h4>
-            <p>{convertIDR(0)}</p>
+            <p>{convertIDR(getTotalPrize().tax)}</p>
+          </div>
+          <div className={styles.checkout__summary__item}>
+            <h4>Per day</h4>
+            <p>{convertIDR(getTotalPrize().totalday)}</p>
           </div>
           <hr />
           <div className={styles.checkout__summary__item}>
             <h4>Total</h4>
-            <p>{convertIDR(getTotalPrize())}</p>
+            <p>{convertIDR(getTotalPrize().totalall)}</p>
           </div>
           <hr />
           <Button
