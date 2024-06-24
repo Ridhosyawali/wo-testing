@@ -53,6 +53,7 @@ export async function loginWithGoogle(
     image: string;
     created_at?: Date;
     updated_at?: Date;
+    carts?: [];
   },
   callback: Function
 ) {

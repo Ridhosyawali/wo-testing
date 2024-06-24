@@ -1,16 +1,17 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  z-index: 99999;
+  z-index: 1;
+  top: 0;
   align-items: center;
   height: 60px;
   width: 100%;
   border: none;
   background-color: #fff;
-  color: #000;
   position: fixed;
   padding: 20px 2.5vw;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: top 0.3s;
   &__nav {
     display: flex;
     gap: 20px;
@@ -108,4 +109,7 @@
       background-color: #6c6c6c;
     }
   }
+}
+.hidden {
+  top: -100px; /* Sesuaikan dengan tinggi navbar Anda */
 }

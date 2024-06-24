@@ -1,5 +1,5 @@
 .product {
-  padding: 100px 2.5vw;
+  padding: 80px 2.5vw;
   &__title {
     font-size: 24px;
     font-weight: 500;
@@ -10,6 +10,8 @@
     &__filter {
       width: 20%;
       &__data {
+        position: sticky;
+        top: 0;
         padding: 20px;
         border-bottom: 1px solid #000;
         &__title {
@@ -25,6 +27,24 @@
             &__label {
               font-size: 16px;
               margin-left: 10px;
+            }
+          }
+        }
+        &__down {
+          &__title {
+            font-size: 18px;
+            font-weight: 600;
+          }
+          &__list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 10px;
+            &__item {
+              &__label {
+                font-size: 16px;
+                margin-left: 10px;
+              }
             }
           }
         }

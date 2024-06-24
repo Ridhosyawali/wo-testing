@@ -7,6 +7,8 @@
     height: auto;
     border-radius: 8px;
     overflow: hidden;
+    object-fit: cover;
+    object-position: center;
     .Image {
       transition: transform 0.5s ease;
     }

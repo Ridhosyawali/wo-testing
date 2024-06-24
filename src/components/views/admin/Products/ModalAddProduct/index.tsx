@@ -39,7 +39,6 @@ const ModalAddProduct = (props: Proptypes) => {
       additional: "",
     },
   ]);
-
   const uploadImage = (id: string, form: any) => {
     const file = form.image.files[0];
     const newName = "main." + file.name.split(".")[1];
@@ -212,11 +211,10 @@ const ModalAddProduct = (props: Proptypes) => {
               selected: true,
               className: "placeholder",
             },
-            { label: "Men", value: "men" },
-            { label: "Women", value: "women" },
-            { label: "Make Up", value: "make_up" },
-            { label: "Dekoration", value: "dekoration" },
-            { label: "Catering", value: "catering" },
+            { label: "Wedding", value: "Wedding" },
+            { label: "Make Up", value: "Make Up" },
+            { label: "Dekoration", value: "Dekoration" },
+            { label: "Catering", value: "Catering" },
           ]}
           className={styles.modal__form__select}
         />
@@ -233,8 +231,9 @@ const ModalAddProduct = (props: Proptypes) => {
               className: "placeholder",
             },
             { label: "Bandung", value: "Bandung" },
-            { label: "Tangerang", value: "Tangerang" },
             { label: "Bekasi", value: "Bekasi" },
+            { label: "Jakarta Selatan", value: "Jakarta Selatan" },
+            { label: "Tangerang", value: "Tangerang" },
           ]}
         />
         <Select

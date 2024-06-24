@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NavItems = [
   {
     title: "Home",
-    url: "/",
+    url: "/home",
   },
   {
     title: "Products",
@@ -20,8 +20,32 @@ const Navbar = () => {
   const { data }: any = useSession();
   const { pathname, push } = useRouter();
   const [dropdownUser, setDropdownUser] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  let lastScrollTop = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop.current) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+
+      lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className={styles.navbar}>
+    <div className={`${styles.navbar} ${isHidden ? styles.hidden : ""}`}>
       <div className={styles.navbar__left}>
         <Image src="/logo.png" alt="" width={50} height={50} />
         {/* <h2 className={styles.navbar__left__title}>RIRA</h2>

@@ -333,10 +333,9 @@ const ModalUpdateProduct = (props: Proptypes) => {
           defaultValue={updatedProduct.category}
           className={styles.modal__form__select}
           options={[
-            { label: "Men", value: "Men" },
-            { label: "Women", value: "Women" },
+            { label: "Wedding", value: "Wedding" },
             { label: "Make Up", value: "Make Up" },
-            { label: "Dekorasi", value: "Deekorasi" },
+            { label: "Dekorasi", value: "Decoration" },
             { label: "Catering", value: "Catering" },
           ]}
         />
@@ -347,8 +346,9 @@ const ModalUpdateProduct = (props: Proptypes) => {
           className={styles.modal__form__select}
           options={[
             { label: "Bandung", value: "Bandung" },
-            { label: "Tangerang", value: "Tangerang" },
             { label: "Bekasi", value: "Bekasi" },
+            { label: "Jakarta Selatan", value: "Jakarta Selatan" },
+            { label: "Tangerang", value: "Tangerang" },
           ]}
         />
         <Select

@@ -1,6 +1,5 @@
 import Sidebar from "@/components/fragments/Sidebar";
 import styles from "./AdminLayout.module.scss";
-import { Children } from "react";
 
 type Proptypes = {
   children: React.ReactNode;
@@ -8,7 +7,7 @@ type Proptypes = {
 
 const listSidebarItem = [
   {
-    title: "Dashboard",
+    title: "Home",
     url: "/admin",
     icon: "bxs-dashboard",
   },

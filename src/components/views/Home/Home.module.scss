@@ -1,0 +1,39 @@
+.home {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  &__cards {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border: 4px solid #000;
+    gap: 100px;
+    flex-wrap: wrap;
+    tr {
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+    }
+    &__image {
+      padding: 5px;
+      background-color: #ffffff;
+      border: 1px solid #cfb982;
+      position: relative;
+      width: 100%;
+      object-fit: contain;
+      object-position: center;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      .Image {
+        transition: transform 0.5s ease;
+      }
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+}
