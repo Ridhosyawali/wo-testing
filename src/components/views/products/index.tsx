@@ -3,6 +3,8 @@ import styles from "./Products.module.scss";
 import Card from "./Card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Select from "@/components/ui/Select";
+import Footer from "@/components/ui/Footer";
 
 type PropTypes = {
   products: Product[];
@@ -14,6 +16,25 @@ const ProductView = (props: PropTypes) => {
   const [selectedLocation, setSelectedLocation] = useState<null | string>(null);
   const [selectedCategory, setSelectedCategory] = useState<null | string>(null);
   const [showLocationOptions, setShowLocationOptions] = useState(false);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string | null>(
+    null
+  );
+
+  const handleFilterPriceRange = (priceRange: string) => {
+    setSelectedPriceRange(priceRange || null);
+    const [minPrice, maxPrice] = priceRange.split("-").map(Number);
+
+    const filteredProducts = products.filter((product) => {
+      return (
+        product.price >= minPrice &&
+        product.price <= maxPrice &&
+        (selectedLocation === null || product.location === selectedLocation) &&
+        (selectedCategory === null || product.category === selectedCategory)
+      );
+    });
+
+    setFilteredProducts(filteredProducts);
+  };
 
   const handleFilterLocation = (location: string) => {
     const filtered = products.filter(
@@ -52,15 +73,28 @@ const ProductView = (props: PropTypes) => {
       setFilteredProducts(products); // Show all products
       setSelectedLocation(null); // Reset selected location
       setShowLocationOptions(false); // Hide location options
+      // setSelectedPriceRange(null); // Reset selected price range
     } else {
       setSelectedCategory(category);
-      // Filter products based on category
-      const filteredProductsByCategory = products.filter(
-        (product) => product.category === category
-      );
-      setFilteredProducts(filteredProductsByCategory);
 
-      if (category === "Make Up") {
+      // Filter products based on category and price range
+      const minPrice = parseFloat(selectedPriceRange?.split("-")[0] || "0");
+      const maxPrice = parseFloat(selectedPriceRange?.split("-")[1] || "0");
+
+      const filteredProductsByCategoryAndPriceRange = products.filter(
+        (product) =>
+          product.category === category &&
+          (selectedPriceRange === null ||
+            (product.price >= minPrice && product.price <= maxPrice))
+      );
+
+      setFilteredProducts(filteredProductsByCategoryAndPriceRange);
+
+      if (
+        category === "Make Up" ||
+        category === "Decoration" ||
+        category === "Catering"
+      ) {
         setShowLocationOptions(true); // Show location options for Make Up
       } else {
         setShowLocationOptions(false); // Hide location options for other categories
@@ -97,167 +131,225 @@ const ProductView = (props: PropTypes) => {
   }, [filteredProducts, selectedLocation, selectedCategory]);
 
   return (
-    <div className={styles.product}>
-      <h1 className={styles.product__title}>
-        All Product ({filteredProducts.length})
-      </h1>
-      <div className={styles.product__main}>
-        <div className={styles.product__main__filter}>
-          <div className={styles.product__main__filter__data}>
-            <h4 className={styles.product__main__filter__data__title}>
-              Category
-            </h4>
-            <div className={styles.product__main__filter__data__list}>
-              <div className={styles.product__main__filter__data__list__item}>
-                <input
-                  type="checkbox"
-                  checked={selectedCategory === "Catering"}
-                  onChange={() => handleCheckboxCategory("Catering")}
+    <>
+      <div className={styles.product}>
+        <h1 className={styles.product__title}>
+          Semua Produk ({filteredProducts.length})
+        </h1>
+        <div className={styles.product__main}>
+          <div className={styles.product__main__filter}>
+            <div className={styles.product__main__filter__data}>
+              <div className={styles.product__main__filter__data__range}>
+                <Select
+                  name="range"
+                  value={selectedPriceRange}
+                  onChange={(e) => handleFilterPriceRange(e.target.value)}
+                  options={[
+                    {
+                      value: "",
+                      label: "--- Sesuaikan Harga ---",
+                      selected: true,
+                      disabled: true,
+                    },
+                    { label: "0 - 100.000", value: "0-100000" },
+                    { label: "100.000 - 500.000", value: "100000-500000" },
+                    { label: "500.000 - 1.000.000", value: "500000-1000000" },
+                    {
+                      label: "1.000.000 - 1.500.000",
+                      value: "1000000-1500000",
+                    },
+                    {
+                      label: "1.500.000 - 2.000.000",
+                      value: "1500000-2000000",
+                    },
+                    // Tambahkan opsi lainnya sesuai dengan rentang harga yang Anda inginkan
+                  ]}
                 />
-                <label
-                  className={
-                    styles.product__main__filter__data__list__item__label
-                  }
-                >
-                  Catering
-                </label>
               </div>
-              <div className={styles.product__main__filter__data__list__item}>
-                <input
-                  type="checkbox"
-                  checked={selectedCategory === "Decoration"}
-                  onChange={() => handleCheckboxCategory("Decoration")}
-                />
-                <label
-                  className={
-                    styles.product__main__filter__data__list__item__label
-                  }
-                >
-                  Decoration
-                </label>
-              </div>
-              <div className={styles.product__main__filter__data__list__item}>
-                <input
-                  type="checkbox"
-                  checked={selectedCategory === "Make Up"}
-                  onChange={() => handleCheckboxCategory("Make Up")}
-                />
-                <label
-                  className={
-                    styles.product__main__filter__data__list__item__label
-                  }
-                >
-                  Make Up
-                </label>
-              </div>
-              <div className={styles.product__main__filter__data__list__item}>
-                <input
-                  type="checkbox"
-                  checked={selectedCategory === "Wedding"}
-                  onChange={() => handleCheckboxCategory("Wedding")}
-                />
-                <label
-                  className={
-                    styles.product__main__filter__data__list__item__label
-                  }
-                >
-                  Wedding
-                </label>
+              <h4 className={styles.product__main__filter__data__title}>
+                Kategori
+              </h4>
+              <div className={styles.product__main__filter__data__list}>
+                <div className={styles.product__main__filter__data__list__item}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategory === "Catering"}
+                    onChange={() => handleCheckboxCategory("Catering")}
+                  />
+                  <label
+                    className={
+                      styles.product__main__filter__data__list__item__label
+                    }
+                  >
+                    Katering
+                  </label>
+                </div>
+                <div className={styles.product__main__filter__data__list__item}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategory === "Decoration"}
+                    onChange={() => handleCheckboxCategory("Decoration")}
+                  />
+                  <label
+                    className={
+                      styles.product__main__filter__data__list__item__label
+                    }
+                  >
+                    Dekorasi
+                  </label>
+                </div>
+                <div className={styles.product__main__filter__data__list__item}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategory === "Make Up"}
+                    onChange={() => handleCheckboxCategory("Make Up")}
+                  />
+                  <label
+                    className={
+                      styles.product__main__filter__data__list__item__label
+                    }
+                  >
+                    Make Up
+                  </label>
+                </div>
+                <div className={styles.product__main__filter__data__list__item}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategory === "Wedding"}
+                    onChange={() => handleCheckboxCategory("Wedding")}
+                  />
+                  <label
+                    className={
+                      styles.product__main__filter__data__list__item__label
+                    }
+                  >
+                    Paket Pernikahan
+                  </label>
+                </div>
+                <div className={styles.product__main__filter__data__list__item}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategory === "Photographer"}
+                    onChange={() => handleCheckboxCategory("Photographer")}
+                  />
+                  <label
+                    className={
+                      styles.product__main__filter__data__list__item__label
+                    }
+                  >
+                    Photograper
+                  </label>
+                </div>
+                <div className={styles.product__main__filter__data__list__item}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategory === "Sound"}
+                    onChange={() => handleCheckboxCategory("Sound")}
+                  />
+                  <label
+                    className={
+                      styles.product__main__filter__data__list__item__label
+                    }
+                  >
+                    Sound System
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
 
-          {showLocationOptions && (
-            <div className={styles.product__main__filter__data__down}>
-              <h2 className={styles.product__main__filter__data__title}>
-                Pilih Lokasi
-              </h2>
-              <div className={styles.product__main__filter__data__down__list}>
-                <div
-                  className={
-                    styles.product__main__filter__data__down__list__item
-                  }
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedLocation === "Bandung"}
-                    onChange={() => handleCheckboxLocation("Bandung")}
-                  />
-                  <label
+            {showLocationOptions && (
+              <div className={styles.product__main__filter__data__down}>
+                <h2 className={styles.product__main__filter__data__title}>
+                  Pilih Lokasi
+                </h2>
+                <div className={styles.product__main__filter__data__down__list}>
+                  <div
                     className={
-                      styles.product__main__filter__data__down__list__item__label
+                      styles.product__main__filter__data__down__list__item
                     }
                   >
-                    Bandung
-                  </label>
-                </div>
-                <div
-                  className={
-                    styles.product__main__filter__data__down__list__item
-                  }
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedLocation === "Bekasi"}
-                    onChange={() => handleCheckboxLocation("Bekasi")}
-                  />
-                  <label
+                    <input
+                      type="checkbox"
+                      checked={selectedLocation === "Bandung"}
+                      onChange={() => handleCheckboxLocation("Bandung")}
+                    />
+                    <label
+                      className={
+                        styles.product__main__filter__data__down__list__item__label
+                      }
+                    >
+                      Bandung
+                    </label>
+                  </div>
+                  <div
                     className={
-                      styles.product__main__filter__data__down__list__item__label
+                      styles.product__main__filter__data__down__list__item
                     }
                   >
-                    Bekasi
-                  </label>
-                </div>
-                <div
-                  className={
-                    styles.product__main__filter__data__down__list__item
-                  }
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedLocation === "Jakarta Selatan"}
-                    onChange={() => handleCheckboxLocation("Jakarta Selatan")}
-                  />
-                  <label
+                    <input
+                      type="checkbox"
+                      checked={selectedLocation === "Bekasi"}
+                      onChange={() => handleCheckboxLocation("Bekasi")}
+                    />
+                    <label
+                      className={
+                        styles.product__main__filter__data__down__list__item__label
+                      }
+                    >
+                      Bekasi
+                    </label>
+                  </div>
+                  <div
                     className={
-                      styles.product__main__filter__data__down__list__item__label
+                      styles.product__main__filter__data__down__list__item
                     }
                   >
-                    Jakarta Selatan
-                  </label>
-                </div>
-                <div
-                  className={
-                    styles.product__main__filter__data__down__list__item
-                  }
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedLocation === "Tangerang"}
-                    onChange={() => handleCheckboxLocation("Tangerang")}
-                  />
-                  <label
+                    <input
+                      type="checkbox"
+                      checked={selectedLocation === "Jakarta Selatan"}
+                      onChange={() => handleCheckboxLocation("Jakarta Selatan")}
+                    />
+                    <label
+                      className={
+                        styles.product__main__filter__data__down__list__item__label
+                      }
+                    >
+                      Jakarta Selatan
+                    </label>
+                  </div>
+                  <div
                     className={
-                      styles.product__main__filter__data__down__list__item__label
+                      styles.product__main__filter__data__down__list__item
                     }
                   >
-                    Tangerang
-                  </label>
+                    <input
+                      type="checkbox"
+                      checked={selectedLocation === "Tangerang"}
+                      onChange={() => handleCheckboxLocation("Tangerang")}
+                    />
+                    <label
+                      className={
+                        styles.product__main__filter__data__down__list__item__label
+                      }
+                    >
+                      Tangerang
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-        <div className={styles.product__main__content}>
-          {filteredProducts.map((product) => (
-            <Link href={`/products/${product.id}`} key={product.id}>
-              <Card product={product} />
-            </Link>
-          ))}
+            )}
+          </div>
+          <div className={styles.product__main__content}>
+            {filteredProducts.map((product) => (
+              <Link href={`/products/${product.id}`} key={product.id}>
+                <Card product={product} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

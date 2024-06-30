@@ -14,9 +14,20 @@ type Proptypes = {
   disabled?: boolean;
   options: Option[] | any;
   className?: string;
+  value?: string | null;
+  onChange?: (e: any) => void;
 };
 const Select = (props: Proptypes) => {
-  const { label, name, defaultValue, disabled, options, className } = props;
+  const {
+    label,
+    name,
+    defaultValue,
+    disabled,
+    options,
+    className,
+    value,
+    onChange,
+  } = props;
   return (
     <div className={`${styles.select} ${className}`}>
       <label htmlFor={name} className={styles.select__label}>
@@ -26,9 +37,11 @@ const Select = (props: Proptypes) => {
         <select
           name={name}
           id={name}
+          // value={value || ""}
           defaultValue={defaultValue}
           disabled={disabled}
           className={`${styles.select__container__input} ${className}`}
+          onChange={onChange}
         >
           {options?.map((option: Option) => (
             <option

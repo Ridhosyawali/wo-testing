@@ -2,27 +2,28 @@ import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import styles from "./Home.module.scss";
 import Image from "next/image";
+import Footerview from "@/components/ui/Footer";
 
 const divStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   backgroundSize: "cover",
-  height: "400px",
+  height: "300px",
   margin: "40px 0 0px 0",
 };
 
 const slideImages = [
   {
-    url: "/slide1.jpg",
+    url: "/slide1.png",
     caption: "Slide 1",
   },
   {
-    url: "/slide2.jpg",
+    url: "/slide2.png",
     caption: "Slide 2",
   },
   {
-    url: "/slide3.jpg",
+    url: "/slide3.png",
     caption: "Slide 3",
   },
 ];
@@ -32,6 +33,8 @@ const categories = [
   { url: "/makeup.png", title: "Make Up" },
   { url: "/catering.png", title: "Catering" },
   { url: "/dekorasi.png", title: "Decoration" },
+  { url: "/sound.png", title: "Sound System" },
+  { url: "/photo.png", title: "Photographer" },
 ];
 
 const HomeView = () => {
@@ -74,6 +77,7 @@ const HomeView = () => {
           </tbody>
         ))}
       </table>
+      <Footerview />
     </div>
   );
 };

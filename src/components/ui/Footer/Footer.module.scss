@@ -1,0 +1,43 @@
+.footer {
+  bottom: 0;
+  margin-top: 50px;
+  width: 100%;
+  background-color: #cfb882;
+  color: #fff;
+  &__content {
+    margin-left: 40px;
+    padding: 30px;
+    display: flex;
+    &__title {
+      margin-bottom: 30px;
+      font-size: 16px;
+      text-decoration: underline;
+    }
+    &__contact {
+      width: 50%;
+      li {
+        list-style-type: none;
+      }
+      &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        font-size: 15px;
+      }
+    }
+    &__social {
+      width: 30%;
+      i {
+        font-size: 20px;
+      }
+      &__list {
+        display: flex;
+        gap: 3px;
+      }
+    }
+    &__location {
+      width: 20%;
+      font-size: 20px;
+    }
+  }
+}

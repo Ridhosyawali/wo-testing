@@ -10,13 +10,14 @@
     &__filter {
       width: 20%;
       &__data {
-        position: sticky;
-        top: 0;
         padding: 20px;
         border-bottom: 1px solid #000;
         &__title {
           font-size: 18px;
           font-weight: 600;
+        }
+        &__range {
+          margin-bottom: 20px;
         }
         &__list {
           display: flex;

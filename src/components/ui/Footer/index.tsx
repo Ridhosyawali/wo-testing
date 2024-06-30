@@ -1,0 +1,59 @@
+import Styles from "./Footer.module.scss";
+
+const Footerview = () => {
+  return (
+    <footer>
+      <div className={Styles.footer}>
+        <div className={Styles.footer__content}>
+          {/* <div>
+            <h3>Tentang Kami</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              euismod nunc in lorem bibendum, a laoreet nisi tempus.
+            </p>
+          </div> */}
+          <div className={Styles.footer__content__contact}>
+            <h3 className={Styles.footer__content__title}>Kontak Kami</h3>
+            <ul className={Styles.footer__content__contact__list}>
+              <li>
+                <i className="bx bx-phone" /> Telepon: +62-85693123
+              </li>
+              <li>
+                <i className="bx bx-envelope" /> Email:
+                weddingorganizer@gmail.com
+              </li>
+              <li>
+                <i className="bx bx-map-alt" /> Alamat: Jl. H Nawi 1 No.32 Rt
+                006/002 Gandaria Selatan
+              </li>
+            </ul>
+          </div>
+          <div className={Styles.footer__content__social}>
+            <h3 className={Styles.footer__content__title}>Ikuti Kami</h3>
+            <div className={Styles.footer__content__social__list}>
+              <a href="https://www.instagram.com/desi_rira/" target="_blank">
+                <i className="bx bxl-instagram" />
+              </a>
+              <a
+                href="https://wa.me/6287888231078?text=Halo%20saya%20ingin%20bertanya%20tentang%20produk%20Anda"
+                target="_blank"
+              >
+                <i className="bx bxl-whatsapp" />
+              </a>
+            </div>
+          </div>
+          <div className={Styles.footer__content__location}>
+            <h3 className={Styles.footer__content__title}>Lokasi Kami</h3>
+            <a
+              href="https://www.google.com/maps/place/Rira+griya+rias+pengantin/@-6.2646054,106.7941219,20.89z/data=!4m6!3m5!1s0x2e69f1477032a773:0x70333526419828ed!8m2!3d-6.264686!4d106.7942384!16s%2Fg%2F11h9m_f5wl?entry=ttu"
+              target="_blank"
+            >
+              <i className="bx bx-map" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+export default Footerview;
