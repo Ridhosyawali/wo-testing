@@ -333,10 +333,12 @@ const ModalUpdateProduct = (props: Proptypes) => {
           defaultValue={updatedProduct.category}
           className={styles.modal__form__select}
           options={[
-            { label: "Wedding", value: "Wedding" },
-            { label: "Make Up", value: "Make Up" },
-            { label: "Dekorasi", value: "Decoration" },
             { label: "Catering", value: "Catering" },
+            { label: "Dekoration", value: "Dekoration" },
+            { label: "Make Up", value: "Make Up" },
+            { label: "Photographer", value: "Photographer" },
+            { label: "Sound System", value: "Sound" },
+            { label: "Wedding", value: "Wedding" },
           ]}
         />
         <Select
