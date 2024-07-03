@@ -2,7 +2,7 @@ import { Product } from "@/types/product.type";
 import styles from "./Products.module.scss";
 import Card from "./Card";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/ui/Select";
 import Footer from "@/components/ui/Footer";
 
@@ -36,37 +36,81 @@ const ProductView = (props: PropTypes) => {
     setFilteredProducts(filteredProducts);
   };
 
-  const handleFilterLocation = (location: string) => {
-    const filtered = products.filter(
-      (product) => product.location === location
-    );
-    setFilteredProducts(filtered);
-  };
+  //dibawah ini adalah contoh checkbox berdasarkan satu kriteria saja
+  // const handleCheckboxLocation = (location: string) => {
+  //   if (selectedLocation === location) {
+  //     setSelectedLocation(null); // Uncheck the checkbox
+  //     handleFilterLocation(location); // Reapply location filter
 
+  //     // Filter products based on category "Make Up"
+  //     const filteredProductsByCategoryMakeup = filteredProducts.filter(
+  //       (product) =>
+  //         product.category === "Make Up" && product.location === location
+  //     );
+  //     setFilteredProducts(filteredProductsByCategoryMakeup);
+  //   } else {
+  //     setSelectedLocation(location);
+  //     handleFilterLocation(location);
+
+  //     // Filter products based on selected location
+  //     const filtered = products.filter(
+  //       (product) =>
+  //         product.category === "Make Up" && product.location === location
+  //     );
+  //     setFilteredProducts(filtered);
+  //   }
+  // };
+
+  const handleFilterLocation = (location: string) => {
+    const [minPrice, maxPrice] = (selectedPriceRange || "")
+      .split("-")
+      .map(Number);
+    const filteredProducts = products.filter((product) => {
+      return (
+        product.location === location &&
+        (selectedCategory === null || product.category === selectedCategory) &&
+        (selectedPriceRange === null ||
+          (product.price >= minPrice && product.price <= maxPrice))
+      );
+    });
+    setFilteredProducts(filteredProducts);
+  };
   const handleCheckboxLocation = (location: string) => {
+    const [minPrice, maxPrice] = (selectedPriceRange || "")
+      .split("-")
+      .map(Number);
     if (selectedLocation === location) {
       setSelectedLocation(null); // Uncheck the checkbox
       handleFilterLocation(location); // Reapply location filter
+      setFilteredProducts(
+        products.filter((product) => product.category === selectedCategory)
+      ); // Show products that match the selected category
 
-      // Filter products based on category "Make Up"
-      const filteredProductsByCategoryMakeUp = filteredProducts.filter(
+      // Filter products based on category and price range
+      const filteredProductsByCategoryAndPriceRange = products.filter(
         (product) =>
-          product.category === "Make Up" && product.location === location
+          product.category === selectedCategory &&
+          (selectedPriceRange === null ||
+            (product.price >= minPrice && product.price <= maxPrice)) &&
+          (selectedLocation === null || product.location === selectedLocation)
       );
-      setFilteredProducts(filteredProductsByCategoryMakeUp);
+      setFilteredProducts(filteredProductsByCategoryAndPriceRange);
     } else {
       setSelectedLocation(location);
       handleFilterLocation(location);
 
-      // Filter products based on selected location
+      // Filter products based on selected location, selected category, and selected price range
       const filtered = products.filter(
         (product) =>
-          product.category === "Make Up" && product.location === location
+          product.location === location &&
+          (selectedCategory === null ||
+            product.category === selectedCategory) &&
+          (selectedPriceRange === null ||
+            (product.price >= minPrice && product.price <= maxPrice))
       );
       setFilteredProducts(filtered);
     }
   };
-
   const handleCheckboxCategory = (category: string) => {
     if (selectedCategory === category) {
       setSelectedCategory(null); // Uncheck the checkbox
@@ -85,7 +129,8 @@ const ProductView = (props: PropTypes) => {
         (product) =>
           product.category === category &&
           (selectedPriceRange === null ||
-            (product.price >= minPrice && product.price <= maxPrice))
+            (product.price >= minPrice && product.price <= maxPrice)) &&
+          (selectedLocation === null || product.location === selectedLocation)
       );
 
       setFilteredProducts(filteredProductsByCategoryAndPriceRange);
@@ -93,7 +138,9 @@ const ProductView = (props: PropTypes) => {
       if (
         category === "Make Up" ||
         category === "Decoration" ||
-        category === "Catering"
+        category === "Catering" ||
+        category === "Wedding" ||
+        category === "Photographer"
       ) {
         setShowLocationOptions(true); // Show location options for Make Up
       } else {
@@ -151,17 +198,24 @@ const ProductView = (props: PropTypes) => {
                       selected: true,
                       disabled: true,
                     },
-                    { label: "10.000 - 100.000", value: "10000-100000" },
-                    { label: "100.000 - 500.000", value: "100000-500000" },
-                    { label: "500.000 - 1.000.000", value: "500000-1000000" },
                     {
-                      label: "1.000.000 - 1.500.000",
-                      value: "1000000-1500000",
+                      label: "0",
+                      value: "0-1000000000000000000000000000",
+                    },
+                    { label: "10.000 - 1.000.000", value: "10000-1000000" },
+                    {
+                      label: "1.000.000 - 5.000.000",
+                      value: "1000000-5000000",
                     },
                     {
-                      label: "1.500.000 - 2.000.000",
-                      value: "1500000-2000000",
+                      label: "5.000.000 - 10.000.000",
+                      value: "5000000-10000000",
                     },
+                    {
+                      label: "10.000.000 - 20.000.000",
+                      value: "10000000-20000000",
+                    },
+
                     // Tambahkan opsi lainnya sesuai dengan rentang harga yang Anda inginkan
                   ]}
                 />

@@ -3,6 +3,9 @@ import "react-slideshow-image/dist/styles.css";
 import styles from "./Home.module.scss";
 import Image from "next/image";
 import Footerview from "@/components/ui/Footer";
+import Link from "next/link";
+import router, { useRouter } from "next/router";
+import { useState } from "react";
 
 const divStyle = {
   display: "flex",
@@ -29,8 +32,8 @@ const slideImages = [
 ];
 
 const categories = [
-  { url: "/cincin.png", title: "Wedding", href: "/products" },
-  { url: "/makeup.png", title: "Make Up" },
+  { url: "/cincin.png", title: "Wedding", href: "/products/Wedding" },
+  { url: "/makeup.png", title: "Make Up", href: "/products/Make Up" },
   { url: "/catering.png", title: "Catering" },
   { url: "/dekorasi.png", title: "Decoration" },
   { url: "/sound.png", title: "Sound System" },
@@ -48,35 +51,29 @@ const HomeView = () => {
                 ...divStyle,
                 backgroundImage: `url(${slideImage.url})`,
               }}
-            >
-              <span></span>
-            </div>
+            ></div>
           </div>
         ))}
       </Slide>
-      <table className={styles.home__cards}>
+      <div className={styles.home__cards}>
         {categories.map((category, index) => (
-          <tbody key={index}>
-            <tr>
-              <td>
-                <Image
-                  src={category.url}
-                  alt="image"
-                  width={60}
-                  height={60}
-                  className={styles.home__cards__image}
-                  onClick={() => {
-                    if (category.href) {
-                      window.location.href = category.href;
-                    }
-                  }}
-                />
-              </td>
-              <td>{category.title}</td>
-            </tr>
-          </tbody>
+          <Link
+            href={`/products?category=${encodeURIComponent(category.title)}`}
+            passHref
+            key={index}
+          >
+            <Image
+              src={category.url}
+              alt="image"
+              width={60}
+              height={60}
+              className={styles.home__cards__image}
+            />
+            <p>{category.title}</p>
+          </Link>
         ))}
-      </table>
+      </div>
+
       <Footerview />
     </div>
   );

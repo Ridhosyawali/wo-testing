@@ -212,7 +212,7 @@ const ModalAddProduct = (props: Proptypes) => {
               className: "placeholder",
             },
             { label: "Catering", value: "Catering" },
-            { label: "Dekoration", value: "Dekoration" },
+            { label: "Decoration", value: "Decoration" },
             { label: "Make Up", value: "Make Up" },
             { label: "Photographer", value: "Photographer" },
             { label: "Sound System", value: "Sound" },
@@ -234,7 +234,12 @@ const ModalAddProduct = (props: Proptypes) => {
             },
             { label: "Bandung", value: "Bandung" },
             { label: "Bekasi", value: "Bekasi" },
+            { label: "Depok", value: "Depok" },
+            { label: "Bogor", value: "Bogor" },
+            { label: "Jakarta Barat", value: "Jakarta Barat" },
+            { label: "Jakarta Pusat", value: "Jakarta Selatan" },
             { label: "Jakarta Selatan", value: "Jakarta Selatan" },
+            { label: "Jakarta Utara", value: "Jakarta Utara" },
             { label: "Tangerang", value: "Tangerang" },
           ]}
         />

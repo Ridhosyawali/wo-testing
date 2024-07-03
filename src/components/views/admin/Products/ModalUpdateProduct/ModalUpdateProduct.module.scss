@@ -49,6 +49,16 @@
       :nth-child(1) {
         margin-bottom: 5px;
       }
+      &__min {
+        margin-top: 38px;
+        &__button {
+          padding: 5px 6px;
+          i {
+            font-size: 18px;
+            font-weight: bold;
+          }
+        }
+      }
     }
     &__subtitle {
       margin-left: 45%;

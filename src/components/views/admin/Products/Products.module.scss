@@ -21,6 +21,11 @@
     border-radius: 10px;
     margin-top: 10px;
 
+    &__image {
+      object-fit: cover;
+      border-radius: 7px;
+    }
+
     &__size {
       font-size: 13px;
       font-weight: 400;
@@ -55,6 +60,23 @@
       &__delete {
         background-color: #fe6565;
         padding: 15px;
+      }
+    }
+  }
+  &__bottom {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    &__pagination {
+      border: none;
+      padding: 7px 15px;
+      text-align: center;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      :hover {
+        opacity: 0.8;
       }
     }
   }

@@ -10,6 +10,8 @@
         aspect-ratio: 1 / 1;
         height: auto;
         border-radius: 7px;
+        object-fit: cover;
+        object-position: center;
       }
     }
     &__right {

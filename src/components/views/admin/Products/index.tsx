@@ -19,6 +19,22 @@ const ProductsAdminView = (props: PropTypes) => {
   const [modalAddProduct, setModalAddProduct] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState<Product | {}>({});
   const [deletedProduct, setDeletedProduct] = useState<Product | {}>({});
+  const [startIndex, setStartIndex] = useState(0);
+
+  const itemsPerPage = 15; // Jumlah produk yang ingin ditampilkan per halaman
+
+  const handleNextClick = () => {
+    setStartIndex((prevIndex) => prevIndex + itemsPerPage);
+  };
+
+  const handlePreviousClick = () => {
+    setStartIndex((prevIndex) => Math.max(0, prevIndex - itemsPerPage));
+  };
+
+  const visibleProducts = productsData.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   useEffect(() => {
     setProductsData(products);
@@ -54,10 +70,12 @@ const ProductsAdminView = (props: PropTypes) => {
               </tr>
             </thead>
             <tbody>
-              {productsData.map((product, index) => (
+              {visibleProducts.map((product, index) => (
                 <Fragment key={product.id}>
                   <tr>
-                    <td rowSpan={product.stock.length}>{index + 1}</td>
+                    <td rowSpan={product.stock.length}>
+                      {startIndex + index + 1}
+                    </td>
                     <td rowSpan={product.stock.length}>
                       <Image
                         src={product.image}
@@ -111,6 +129,26 @@ const ProductsAdminView = (props: PropTypes) => {
               ))}
             </tbody>
           </table>
+          <div className={styles.products__bottom}>
+            {startIndex > 0 && (
+              <Button
+                type="button"
+                className={styles.products__bottom__pagination}
+                onClick={handlePreviousClick}
+              >
+                Previous
+              </Button>
+            )}
+            {visibleProducts.length < productsData.length && (
+              <Button
+                type="button"
+                className={styles.products__bottom__pagination}
+                onClick={handleNextClick}
+              >
+                Next
+              </Button>
+            )}
+          </div>
         </div>
       </AdminLayout>
       {modalAddProduct && (

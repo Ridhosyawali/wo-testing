@@ -12,14 +12,13 @@ type PropTypes = {
 const UserAdminView = (props: PropTypes) => {
   const { users } = props;
 
+  const [usersData, setUsersData] = useState<User[]>([]);
   const [updatedUser, setUpdatedUser] = useState<User | {}>({});
   const [deletedUser, setDeletedUser] = useState<User | {}>({});
-  const [usersData, setUsersData] = useState<User[]>([]);
 
   useEffect(() => {
     setUsersData(users);
   }, [users]);
-
   return (
     <>
       <AdminLayout>
@@ -70,14 +69,14 @@ const UserAdminView = (props: PropTypes) => {
           </table>
         </div>
       </AdminLayout>
-      {Object.keys(updatedUser).length && (
+      {Object.keys(updatedUser).length > 0 && (
         <ModalUpdateUser
           UpdatedUser={updatedUser}
           setUpdatedUser={setUpdatedUser}
           setUsersData={setUsersData}
         />
       )}
-      {Object.keys(deletedUser).length && (
+      {Object.keys(deletedUser).length > 0 && (
         <ModalDeleteUser
           deletedUser={deletedUser}
           setDeletedUser={setDeletedUser}

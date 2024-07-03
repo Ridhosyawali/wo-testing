@@ -151,6 +151,13 @@ const ModalUpdateProduct = (props: Proptypes) => {
       updateProduct(form);
     }
   };
+
+  const handleDeleteStock = (index: number) => {
+    const newStockCount = [...stockCount];
+    newStockCount.splice(index, 1);
+    setStockCount(newStockCount);
+  };
+
   return (
     <Modal onClose={() => setUpdatedProduct(false)}>
       <h1 className={styles.modal__title}>Update User</h1>
@@ -334,7 +341,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           className={styles.modal__form__select}
           options={[
             { label: "Catering", value: "Catering" },
-            { label: "Dekoration", value: "Dekoration" },
+            { label: "Decoration", value: "Decoration" },
             { label: "Make Up", value: "Make Up" },
             { label: "Photographer", value: "Photographer" },
             { label: "Sound System", value: "Sound" },
@@ -349,7 +356,12 @@ const ModalUpdateProduct = (props: Proptypes) => {
           options={[
             { label: "Bandung", value: "Bandung" },
             { label: "Bekasi", value: "Bekasi" },
+            { label: "Depok", value: "Depok" },
+            { label: "Bogor", value: "Bogor" },
+            { label: "Jakarta Barat", value: "Jakarta Barat" },
+            { label: "Jakarta Pusat", value: "Jakarta Selatan" },
             { label: "Jakarta Selatan", value: "Jakarta Selatan" },
+            { label: "Jakarta Utara", value: "Jakarta Utara" },
             { label: "Tangerang", value: "Tangerang" },
           ]}
         />
@@ -417,6 +429,16 @@ const ModalUpdateProduct = (props: Proptypes) => {
                 defaultValue={item.qty}
               />
             </div>
+            <div className={styles.modal__stock__item__min}>
+              <Button
+                type="button"
+                variant=""
+                onClick={() => handleDeleteStock(i)}
+                className={styles.modal__stock__item__min__button}
+              >
+                <i className="bx bx-minus" />
+              </Button>
+            </div>
           </div>
         ))}
         <Button
@@ -428,6 +450,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           <i className="bx bx-plus" />
           Add New Stock
         </Button>
+
         <Button
           type="submit"
           disabled={isLoading}

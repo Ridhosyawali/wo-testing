@@ -47,7 +47,14 @@ const Navbar = () => {
   return (
     <div className={`${styles.navbar} ${isHidden ? styles.hidden : ""}`}>
       <div className={styles.navbar__left}>
-        <Image src="/logo.png" alt="" width={50} height={50} />
+        <Image
+          src={"/logorira.png"}
+          alt="logo"
+          width={60}
+          height={60}
+          className={styles.navbar__left__image}
+          onClick={() => push("/home")}
+        />
         {/* <h2 className={styles.navbar__left__title}>RIRA</h2>
         <h4 className={styles.navbar__left__subtitle}>Wedding Organizer</h4> */}
       </div>
