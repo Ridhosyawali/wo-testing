@@ -151,7 +151,7 @@ const ProductView = (props: PropTypes) => {
                       selected: true,
                       disabled: true,
                     },
-                    { label: "0 - 100.000", value: "0-100000" },
+                    { label: "10.000 - 100.000", value: "10000-100000" },
                     { label: "100.000 - 500.000", value: "100000-500000" },
                     { label: "500.000 - 1.000.000", value: "500000-1000000" },
                     {
@@ -237,7 +237,7 @@ const ProductView = (props: PropTypes) => {
                       styles.product__main__filter__data__list__item__label
                     }
                   >
-                    Photograper
+                    Photographer
                   </label>
                 </div>
                 <div className={styles.product__main__filter__data__list__item}>

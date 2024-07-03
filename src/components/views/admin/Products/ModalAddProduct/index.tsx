@@ -211,10 +211,12 @@ const ModalAddProduct = (props: Proptypes) => {
               selected: true,
               className: "placeholder",
             },
-            { label: "Wedding", value: "Wedding" },
-            { label: "Make Up", value: "Make Up" },
-            { label: "Dekoration", value: "Dekoration" },
             { label: "Catering", value: "Catering" },
+            { label: "Dekoration", value: "Dekoration" },
+            { label: "Make Up", value: "Make Up" },
+            { label: "Photographer", value: "Photographer" },
+            { label: "Sound System", value: "Sound" },
+            { label: "Wedding", value: "Wedding" },
           ]}
           className={styles.modal__form__select}
         />
