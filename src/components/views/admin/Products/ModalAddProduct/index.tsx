@@ -174,6 +174,43 @@ const ModalAddProduct = (props: Proptypes) => {
     setStockCount(newStockCout);
   };
 
+  const CategoriesType = [
+    {
+      value: "",
+      label: "--- Pilih Kategori ---",
+      disabled: true,
+      selected: true,
+      className: "placeholder",
+    },
+    {
+      label: "Katering",
+      value: "Catering",
+    },
+    { label: "Dekorasi", value: "Decoration" },
+    { label: "Make Up", value: "Make Up" },
+    { label: "Photographer", value: "Photographer" },
+    { label: "Paket Pernikahan", value: "Wedding" },
+    { label: "Sound", value: "Sound System" },
+  ];
+
+  const Locations = [
+    {
+      value: "",
+      label: "--- Pilih location ---",
+      disabled: true,
+      selected: true,
+      className: "placeholder",
+    },
+    {
+      label: "Jakarta",
+      value: "Jakarta",
+    },
+    { label: "Bogor", value: "Bogor" },
+    { label: "Depok", value: "Depok" },
+    { label: "Tangerang", value: "Tangerang" },
+    { label: "Bekasi", value: "Bekasi" },
+  ];
+
   return (
     <Modal onClose={() => setModalAddProduct(false)}>
       <h1 className={styles.modal__title}>Add Product</h1>
@@ -203,45 +240,14 @@ const ModalAddProduct = (props: Proptypes) => {
         <Select
           label="Category"
           name="category"
-          options={[
-            {
-              value: "",
-              label: "--- Pilih category ---",
-              disabled: true,
-              selected: true,
-              className: "placeholder",
-            },
-            { label: "Catering", value: "Catering" },
-            { label: "Decoration", value: "Decoration" },
-            { label: "Make Up", value: "Make Up" },
-            { label: "Photographer", value: "Photographer" },
-            { label: "Sound System", value: "Sound" },
-            { label: "Wedding", value: "Wedding" },
-          ]}
           className={styles.modal__form__select}
+          options={CategoriesType}
         />
         <Select
           label="Location"
           name="location"
           className={styles.modal__form__select}
-          options={[
-            {
-              value: "",
-              label: "--- Pilih location ---",
-              disabled: true,
-              selected: true,
-              className: "placeholder",
-            },
-            { label: "Bandung", value: "Bandung" },
-            { label: "Bekasi", value: "Bekasi" },
-            { label: "Depok", value: "Depok" },
-            { label: "Bogor", value: "Bogor" },
-            { label: "Jakarta Barat", value: "Jakarta Barat" },
-            { label: "Jakarta Pusat", value: "Jakarta Selatan" },
-            { label: "Jakarta Selatan", value: "Jakarta Selatan" },
-            { label: "Jakarta Utara", value: "Jakarta Utara" },
-            { label: "Tangerang", value: "Tangerang" },
-          ]}
+          options={Locations}
         />
         <Select
           label="Status"

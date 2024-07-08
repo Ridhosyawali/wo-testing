@@ -9,6 +9,7 @@ import { useContext, useMemo, useState } from "react";
 import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 import ModalDetailProduct from "./ModalDetailProduct";
+import ProductDesc from "./ProductDesc";
 
 type PropTypes = {
   product: Product | any;
@@ -129,7 +130,7 @@ const DetailProductView = (props: PropTypes) => {
               Add to Cart
             </Button>
             <div className={styles.detail__main__right__description}>
-              <p>{product?.description}</p>
+              <ProductDesc productDesc={product.description} />
             </div>
             <button
               className={styles.detail__main__detailproduct}

@@ -1,5 +1,5 @@
 .detail {
-  padding: 15vh 15vw;
+  padding: 15vh 10vw;
   &__main {
     display: flex;
     gap: 60px;
@@ -30,6 +30,7 @@
       &__size {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
         gap: 10px;
         &__item {
           &__label {
@@ -75,10 +76,12 @@
         border-radius: 50px;
       }
       &__description {
-        margin-top: 30px;
+        background-color: aqua;
+
+        margin-top: 20px;
         font-size: 16px;
         text-align: justify;
-        line-height: 1.6;
+        line-height: 1.5;
       }
     }
     &__detailproduct {

@@ -5,7 +5,7 @@ export type Product = {
   category: string;
   location: string;
   image: string;
-  desription: string;
+  description: string;
   created_at: Date;
   updated_at: Date;
   stock: [
