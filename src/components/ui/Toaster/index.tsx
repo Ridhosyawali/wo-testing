@@ -12,13 +12,13 @@ const toasterVariant: any = {
   },
   danger: {
     title: "Error",
-    icon: "bx-check-circle",
+    icon: "bx bx-x-circle",
     color: "#f39b9a",
     barColor: "#bb2525",
   },
   warning: {
     title: "Warning",
-    icon: "bx-check-circle",
+    icon: "bx bxs-bell-ring",
     color: "#f8e3a2",
     barColor: "#e9b949",
   },

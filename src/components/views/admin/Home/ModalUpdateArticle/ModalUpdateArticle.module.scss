@@ -1,0 +1,107 @@
+.modal {
+  &__form {
+    &__input {
+      width: 100%;
+      margin: 5px 0;
+    }
+    &__select {
+      width: 100%;
+      margin: 5px 0;
+    }
+    &__detail {
+      width: 100%;
+      &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        &__item {
+          width: 100%;
+          // margin-top: -5px;
+          margin-bottom: -10px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  &__sizeguide {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    &__item {
+      width: 50%;
+      margin-top: 10px;
+      margin-bottom: -10px;
+      font-size: 11px;
+      :nth-child(1) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+  &__stock {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    &__item {
+      width: 50%;
+      // margin-top: -5px;
+      margin-bottom: -10px;
+      font-size: 11px;
+      :nth-child(1) {
+        margin-bottom: 5px;
+      }
+      &__min {
+        margin-top: 38px;
+        &__button {
+          padding: 5px 6px;
+          i {
+            font-size: 18px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    &__subtitle {
+      margin-left: 45%;
+      font-weight: bold;
+    }
+    &__button {
+      padding: 7px 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      i {
+        font-size: 15px;
+        margin-right: 5px;
+        font-weight: bold;
+      }
+    }
+  }
+  &__title {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  &__button {
+    width: 22%;
+    margin-left: 78%;
+    margin-top: 15px;
+  }
+  &__image {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    &__preview {
+      padding: 5px;
+      width: 15%;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      border-radius: 8px;
+    }
+    &__upload {
+      width: 100%;
+    }
+  }
+}

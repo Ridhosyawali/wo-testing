@@ -1,9 +1,9 @@
-import HomeAdminView from "@/components/views/admin/Home";
+import AdminHomeView from "./articles";
 
 const HomeAdminPage = () => {
   return (
     <>
-      <HomeAdminView />
+      <AdminHomeView />
     </>
   );
 };

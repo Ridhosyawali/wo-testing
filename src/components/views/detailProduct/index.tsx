@@ -5,7 +5,7 @@ import { convertIDR } from "@/utils/currency";
 import Button from "@/components/ui/Button";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 import ModalDetailProduct from "./ModalDetailProduct";
@@ -25,6 +25,7 @@ const DetailProductView = (props: PropTypes) => {
 
   const router = useRouter();
   const [selectedSize, setSelectedSize] = useState("");
+  const [truncatedContent, setTruncatedContent] = useState(product.description);
 
   const handleAddToCart = async () => {
     if (selectedSize !== "") {
@@ -70,6 +71,14 @@ const DetailProductView = (props: PropTypes) => {
     }
   };
 
+  useEffect(() => {
+    const limit = 200; // Batasi teks hingga 100 karakter
+    if (product?.description?.length > limit) {
+      setTruncatedContent(product.description.substring(0, limit) + "...");
+    } else {
+      setTruncatedContent(product.description);
+    }
+  }, [product.description]);
   return (
     <>
       <div className={styles.detail}>
@@ -122,15 +131,19 @@ const DetailProductView = (props: PropTypes) => {
               className={styles.detail__main__right__add}
               type={status === "authenticated" ? "submit" : "button"}
               onClick={() => {
-                status === "unauthenticated"
-                  ? router.push(`/auth/login?callbackUrl=${router.asPath}`)
-                  : handleAddToCart();
+                if (selectedSize === "") {
+                  setToaster({ variant: "warning", message: "Select Size" });
+                } else {
+                  status === "unauthenticated"
+                    ? router.push(`/auth/login?callbackUrl=${router.asPath}`)
+                    : handleAddToCart();
+                }
               }}
             >
               Add to Cart
             </Button>
             <div className={styles.detail__main__right__description}>
-              <ProductDesc productDesc={product.description} />
+              <ProductDesc productDesc={truncatedContent} />
             </div>
             <button
               className={styles.detail__main__detailproduct}

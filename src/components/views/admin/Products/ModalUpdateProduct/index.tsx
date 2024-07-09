@@ -197,7 +197,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
 
   return (
     <Modal onClose={() => setUpdatedProduct(false)}>
-      <h1 className={styles.modal__title}>Update User</h1>
+      <h1 className={styles.modal__title}>Update Home</h1>
       <form onSubmit={handleSubmit} className={styles.modal_form}>
         <Input
           label="Name"

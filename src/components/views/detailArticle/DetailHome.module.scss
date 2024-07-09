@@ -1,0 +1,24 @@
+.detail {
+  padding: 15vh 10vw;
+  &__main {
+    display: flex;
+    gap: 60px;
+    &__image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      border-radius: 7px;
+      object-fit: cover;
+      object-position: center;
+    }
+    &__desc {
+      margin-top: 20px;
+      font-size: 16px;
+      text-align: justify;
+      line-height: 1.5;
+      &__judul {
+        margin-left: 20px;
+      }
+    }
+  }
+}
