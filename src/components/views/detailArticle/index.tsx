@@ -21,19 +21,25 @@ const DetailArticleView = (props: PropTypes) => {
             </h3>
             <ArticleDesc articleDesc={article?.isi} />
           </div>
-          <div>
+          <div className={styles.detail__main__image}>
             <Image
-              alt="article"
+              alt={article?.image}
               src={article?.image}
               width={500}
               height={500}
-              className={styles.detail__main__image}
+              className={styles.detail__main__image__image}
+              priority
             />
           </div>
         </div>
-        <div>
+        <div className={styles.detail__link}>
           <p>Jika anda tertarik klik link ini untuk melihat detail produk</p>
-          <Link href={`/products/${article.linkproduct}`}>disini</Link>
+          <Link
+            className={styles.detail__link__link}
+            href={`/products/${article.linkproduct}`}
+          >
+            disini
+          </Link>
         </div>
       </div>
     </>

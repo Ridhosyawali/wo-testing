@@ -31,9 +31,9 @@ const CardArticle = (props: Proptypes) => {
         <div className={styles.card__content__left}>
           <Image
             src={article.image}
-            alt="article"
-            width={50}
-            height={50}
+            alt={article.image}
+            width={500}
+            height={500}
             className={styles.card__content__left__image}
           />
         </div>

@@ -4,14 +4,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { uploadFile } from "@/lib/firebase/service";
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import userServices from "@/services/user";
 import { User } from "@/types/user.type";
 import { ToasterContext } from "@/context/ToasterContext";
@@ -125,7 +118,7 @@ const ProfileMemberView = () => {
   };
 
   return (
-    <MemberLayout>
+    <div className={styles.profile}>
       <h1 className={styles.profile__title}>Profile</h1>
       <div className={styles.profile__main}>
         <div className={styles.profile__main__row}>
@@ -261,7 +254,7 @@ const ProfileMemberView = () => {
           </div>
         </div>
       </div>
-    </MemberLayout>
+    </div>
   );
 };
 

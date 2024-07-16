@@ -12,6 +12,14 @@ import ModalChangeAddress from "./ModalChangeAddress";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // ini css untuk react-date-range
 import "react-date-range/dist/theme/default.css"; // ini tema react-date-range
+import Script from "next/script";
+import transactionServices from "@/services/transaction";
+
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
 
 const CheckoutView = () => {
   const { setToaster } = useContext(ToasterContext);
@@ -58,7 +66,7 @@ const CheckoutView = () => {
     return product;
   };
 
-  const handleSelect = (ranges: any) => {
+  const handleSelectDate = (ranges: any) => {
     setSelectionRange(ranges.selection);
   };
 
@@ -78,11 +86,61 @@ const CheckoutView = () => {
       0
     );
     const totalall = totalprice + totalday + tax + delivery;
-    return { totalprice, totalday, totalall, tax, delivery };
+    const getDownPayment = totalall * 0.2;
+    const remainingPayment = totalall - getDownPayment;
+    return {
+      totalprice,
+      totalday,
+      totalall,
+      tax,
+      delivery,
+      getDownPayment,
+      remainingPayment,
+    };
+  };
+
+  const handleCheckout = async () => {
+    const payload = {
+      user: {
+        fullname: profile.fullname,
+        email: profile.email,
+        phone: profile.phone,
+        address: profile.address[selectedAddress],
+      },
+      transaction: {
+        startDate: selectionRange.startDate,
+        endDate: selectionRange.endDate,
+        items: profile.carts.map(
+          (item: { id: string; size: string; qty: number }) => {
+            const product: any = getProduct(item.id);
+            return {
+              id: item.id,
+              size: item.size,
+              qty: item.qty,
+              name: product.name,
+              category: product.category,
+              image: product.image, // tambahkan properti image dengan URL gambar produk
+            };
+          }
+        ),
+        remaining: getTotalPrize().remainingPayment,
+        totalall: getTotalPrize().totalall,
+        total: getTotalPrize().getDownPayment,
+        status: "pending",
+      },
+    };
+    const { data } = await transactionServices.generateTransaction(payload);
+
+    window.snap.pay(data.data.token);
   };
 
   return (
     <>
+      <Script
+        src={process.env.NEXT_PUBLIC_MIDTRANS_SNAP_URL}
+        data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
+        strategy="lazyOnload"
+      />
       <div className={styles.checkout}>
         <div className={styles.checkout__main}>
           <h1 className={styles.checkout__main__title}>Checkout</h1>
@@ -179,7 +237,7 @@ const CheckoutView = () => {
           <div className={styles.checkout__main__date}>
             <DateRangePicker
               ranges={[selectionRange]}
-              onChange={handleSelect}
+              onChange={handleSelectDate}
             />
             <p>
               Date range from{" "}
@@ -214,11 +272,24 @@ const CheckoutView = () => {
             <h4>Total</h4>
             <p>{convertIDR(getTotalPrize().totalall)}</p>
           </div>
+
+          <div className={styles.checkout__summary__item}>
+            <h4>Sisa Bayar</h4>
+            <p>{convertIDR(getTotalPrize().remainingPayment)}</p>
+          </div>
+
+          {/* sebaiknya sisa bayar ini diletakkan pada redirect URL nanti */}
+
+          <div className={styles.checkout__summary__item}>
+            <h4>Uang Muka</h4>
+            <p>{convertIDR(getTotalPrize().getDownPayment)}</p>
+          </div>
           <hr />
           <Button
             type="button"
             variant="update"
             className={styles.checkout__summary__button}
+            onClick={() => handleCheckout()}
           >
             Proses Payment
           </Button>

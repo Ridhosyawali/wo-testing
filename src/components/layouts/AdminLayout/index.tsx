@@ -21,6 +21,11 @@ const listSidebarItem = [
     url: "/admin/users",
     icon: "bxs-group",
   },
+  {
+    title: "Orders",
+    url: "/admin/orders",
+    icon: "bx-wallet",
+  },
 ];
 
 const AdminLayout = (props: Proptypes) => {

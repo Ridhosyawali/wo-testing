@@ -83,7 +83,7 @@ const Navbar = () => {
           <div className={styles.navbar__user__profile}>
             <Image
               className={styles.navbar__user__profile__image}
-              src={data?.user.image}
+              src={data?.user.image || "/default.jpg"}
               alt={data?.user.name}
               width={40}
               height={40}

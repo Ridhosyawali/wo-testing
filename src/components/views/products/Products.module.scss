@@ -59,4 +59,29 @@
       grid-template-columns: repeat(3, 1fr);
     }
   }
+  &__bottom {
+    margin-top: 100px;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    &__pagination {
+      border: none;
+      text-align: center;
+      font-size: 15px;
+      padding: 10px 15px;
+      color: #fff;
+      background-color: #58876a;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:disabled {
+        cursor: auto;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
 }

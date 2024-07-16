@@ -1,7 +1,6 @@
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import styles from "./Home.module.scss";
-import Footerview from "@/components/ui/Footer";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -117,7 +116,6 @@ const HomeView = (props: PropTypes) => {
           ))}
         </div>
       </div>
-      <Footerview />
     </div>
   );
 };

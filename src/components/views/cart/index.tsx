@@ -114,9 +114,22 @@ const CartView = () => {
                     />
                   )}
                   <div className={styles.cart__main__list__item__info}>
-                    <h4 className={styles.cart__main__list__item__info__title}>
-                      {getProduct(item.id)?.name}
-                    </h4>
+                    <div className={styles.cart__main__list__item__info__top}>
+                      <h4
+                        className={
+                          styles.cart__main__list__item__info__top__title
+                        }
+                      >
+                        {getProduct(item.id)?.name}
+                      </h4>
+                      <h4
+                        className={
+                          styles.cart__main__list__item__info__top__price
+                        }
+                      >
+                        {convertIDR(getProduct(item.id)?.price)}
+                      </h4>
+                    </div>
                     <p
                       className={styles.cart__main__list__item__info__category}
                     >
@@ -164,9 +177,6 @@ const CartView = () => {
                       <i className="bx bxs-trash" />
                     </button>
                   </div>
-                  <h4 className={styles.cart__main__list__item__price}>
-                    {convertIDR(getProduct(item.id)?.price)}
-                  </h4>
                 </div>
                 <hr className={styles.cart__main__list__devider} />
               </Fragment>

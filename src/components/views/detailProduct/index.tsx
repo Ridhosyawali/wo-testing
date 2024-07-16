@@ -90,6 +90,7 @@ const DetailProductView = (props: PropTypes) => {
               width={500}
               height={500}
               className={styles.detail__main__left__image}
+              priority={true}
             />
           </div>
           <div className={styles.detail__main__right}>

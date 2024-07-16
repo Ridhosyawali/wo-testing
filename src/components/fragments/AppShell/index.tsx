@@ -5,6 +5,8 @@ import Navbar from "../Navbar";
 import { useContext, useEffect } from "react";
 import { ToasterContext } from "@/context/ToasterContext";
 import { ToasterType } from "@/types/toaster.type";
+import Footerview from "@/components/ui/Footer";
+import PopupWhatsApp from "@/components/ui/Popup";
 
 const inter = Lato({
   subsets: ["latin"],
@@ -12,7 +14,9 @@ const inter = Lato({
   display: "swap",
 });
 
-const disableNavbar = ["auth", "admin", "member"];
+const disableNavbar = ["auth", "admin"];
+const disableFooter = ["auth", "admin", "cart", "checkout"];
+const disableWhatsapp = ["auth", "admin", "home"];
 
 type Proptypes = {
   children: React.ReactNode;
@@ -29,6 +33,8 @@ const AppShell = (props: Proptypes) => {
         {!disableNavbar.includes(pathname.split("/")[1]) && <Navbar />}
         {children}
         {Object.keys(toaster).length > 0 && <Toaster />}
+        {!disableFooter.includes(pathname.split("/")[1]) && <Footerview />}
+        {!disableWhatsapp.includes(pathname.split("/")[1]) && <PopupWhatsApp />}
       </div>
     </>
   );

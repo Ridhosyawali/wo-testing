@@ -4,14 +4,19 @@
     display: flex;
     gap: 60px;
     &__image {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      height: auto;
-      border-radius: 7px;
-      object-fit: cover;
+      width: 30%;
+      &__image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        height: auto;
+        border-radius: 7px;
+        object-fit: cover;
+      }
+
       object-position: center;
     }
     &__desc {
+      width: 60%;
       margin-top: 20px;
       font-size: 16px;
       text-align: justify;
@@ -19,6 +24,16 @@
       &__judul {
         margin-left: 20px;
       }
+    }
+  }
+  &__link {
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+    font-style: italic;
+    a {
+      color: #0f6e8c;
+      text-decoration: underline;
     }
   }
 }

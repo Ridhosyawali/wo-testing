@@ -1,3 +1,4 @@
+import { Lato } from "next/font/google";
 import Styles from "./Footer.module.scss";
 
 const Footerview = () => {
@@ -23,7 +24,7 @@ const Footerview = () => {
                 weddingorganizer@gmail.com
               </li>
               <li>
-                <i className="bx bx-map-alt" /> Alamat: Jl. H Nawi 1 No.32 Rt
+                <i className="bx bx-map" /> Alamat: Jl. H Nawi 1 No.32 Rt
                 006/002 Gandaria Selatan
               </li>
             </ul>
@@ -34,12 +35,6 @@ const Footerview = () => {
               <a href="https://www.instagram.com/desi_rira/" target="_blank">
                 <i className="bx bxl-instagram" />
               </a>
-              <a
-                href="https://wa.me/6287888231078?text=Halo%20saya%20ingin%20bertanya%20tentang%20produk%20Anda"
-                target="_blank"
-              >
-                <i className="bx bxl-whatsapp" />
-              </a>
             </div>
           </div>
           <div className={Styles.footer__content__location}>
@@ -47,8 +42,10 @@ const Footerview = () => {
             <a
               href="https://www.google.com/maps/place/Rira+griya+rias+pengantin/@-6.2646054,106.7941219,20.89z/data=!4m6!3m5!1s0x2e69f1477032a773:0x70333526419828ed!8m2!3d-6.264686!4d106.7942384!16s%2Fg%2F11h9m_f5wl?entry=ttu"
               target="_blank"
+              className={Styles.footer__content__location__link}
             >
-              <i className="bx bx-map" />
+              <i className="bx bx-map-alt" />
+              Google Maps
             </a>
           </div>
         </div>

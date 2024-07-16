@@ -21,7 +21,7 @@ const HomeAdminView = (props: PropTypes) => {
 
   const [startIndex, setStartIndex] = useState(0);
 
-  const itemsPerPage = 15; // Jumlah produk yang ingin ditampilkan per halaman
+  const itemsPerPage = 10; // Jumlah produk yang ingin ditampilkan per halaman
 
   const handleNextClick = () => {
     setStartIndex((prevIndex) => prevIndex + itemsPerPage);

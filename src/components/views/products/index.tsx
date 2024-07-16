@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/ui/Select";
 import Footer from "@/components/ui/Footer";
+import PopupWhatsApp from "@/components/ui/Popup";
 
 type PropTypes = {
   products: Product[];
@@ -19,6 +20,20 @@ const ProductView = (props: PropTypes) => {
   const [selectedPriceRange, setSelectedPriceRange] = useState<string | null>(
     null
   );
+  const [startIndex, setStartIndex] = useState(0);
+  const [itemsPerPage] = useState(18);
+
+  const displayedProducts = useMemo(() => {
+    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProducts, itemsPerPage, startIndex]);
+
+  const handleNextClick = () => {
+    setStartIndex((prevIndex) => prevIndex + itemsPerPage);
+  };
+
+  const handlePreviousClick = () => {
+    setStartIndex((prevIndex) => Math.max(0, prevIndex - itemsPerPage));
+  };
 
   const handleFilterPriceRange = (priceRange: string) => {
     setSelectedPriceRange(priceRange || null);
@@ -290,15 +305,30 @@ const ProductView = (props: PropTypes) => {
             )}
           </div>
           <div className={styles.product__main__content}>
-            {filteredProducts.map((product) => (
+            {displayedProducts.map((product) => (
               <Link href={`/products/${product.id}`} key={product.id}>
                 <Card product={product} />
               </Link>
             ))}
           </div>
         </div>
+        <div className={styles.product__bottom}>
+          <button
+            className={styles.product__bottom__pagination}
+            onClick={handlePreviousClick}
+            disabled={startIndex === 0}
+          >
+            Prev
+          </button>
+          <button
+            onClick={handleNextClick}
+            className={styles.product__bottom__pagination}
+            disabled={startIndex + itemsPerPage >= filteredProducts.length}
+          >
+            Next
+          </button>
+        </div>
       </div>
-      <Footer />
     </>
   );
 };
