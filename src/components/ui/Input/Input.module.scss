@@ -7,9 +7,6 @@
     border: none;
     border-radius: 8px;
     outline: none;
-    &:focus {
-      border: 1px solid darkslategrey;
-    }
     &:disabled {
       opacity: 0.7;
     }

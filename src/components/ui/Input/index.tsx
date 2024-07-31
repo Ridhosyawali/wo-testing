@@ -10,6 +10,7 @@ type Proptypes = {
   onChange?: (e: any) => void;
   className?: string;
   onKeyDown?: (e: any) => void;
+  value?: string | null;
 };
 
 const Input = (props: Proptypes) => {
@@ -23,6 +24,7 @@ const Input = (props: Proptypes) => {
     onChange,
     onKeyDown,
     className,
+    value,
   } = props;
   return (
     <div className={`${styles.container} ${className}`}>
@@ -41,6 +43,7 @@ const Input = (props: Proptypes) => {
         disabled={disabled}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        // value={value || ""}
       />
     </div>
   );

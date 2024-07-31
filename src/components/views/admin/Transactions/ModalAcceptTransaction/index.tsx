@@ -19,27 +19,10 @@ const ModalDeleteArticle = (props: Proptypes) => {
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
 
+  const data1 = {};
   const handleDelete = async () => {
     const result = await articleServices.deleteArticles(deletedArticle.id);
     if (result.status === 200) {
-      setIsLoading(false);
-      deleteFile(
-        `/images/articles/${deletedArticle.id}/${
-          deletedArticle.image.split("%2F")[3].split("?")[0]
-        }`,
-        async (status: boolean) => {
-          if (status) {
-            setToaster({
-              variant: "success",
-              message: "Success Delete Product",
-            });
-            setDeletedArticle({});
-            const { data } = await articleServices.getAllArticles();
-            setArticlesData(data.data);
-          }
-        }
-      );
-    } else {
       setIsLoading(false);
       setToaster({
         variant: "danger",

@@ -33,7 +33,7 @@ const PopupWhatsApp = () => {
   return (
     <div className={`popup ${showPopup ? "show" : ""}`}>
       <a
-        href="https://wa.me/6287888231078?text=Halo%20saya%20ingin%20bertanya%20tentang%20produk%20Anda"
+        href="https://wa.me/6287888231078?text=Halo%20saya%20ingin%20menanyakan%20tentang%20produk%20anda"
         target="_blank"
       >
         <i className="bx bxl-whatsapp" />

@@ -15,8 +15,8 @@ const inter = Lato({
 });
 
 const disableNavbar = ["auth", "admin"];
-const disableFooter = ["auth", "admin", "cart", "checkout"];
-const disableWhatsapp = ["auth", "admin", "home"];
+const disableFooter = ["auth", "admin", "cart", "checkout", "transaction"];
+const disableWhatsapp = ["auth", "admin", "home", "index"];
 
 type Proptypes = {
   children: React.ReactNode;

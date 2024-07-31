@@ -1,17 +1,19 @@
 .select {
   label {
-    display: flex;
     margin-bottom: 5px;
   }
   &__container {
     display: flex;
     flex-direction: column;
     background-color: #eee;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f2f2f2;
+    position: relative;
+    padding: 10px 8px 5px 8px;
     border-radius: 8px;
-    padding-right: 15px;
-    margin-top: 10px;
     &__input {
-      padding: 15px;
       border: none;
       outline: none;
       background-color: transparent;

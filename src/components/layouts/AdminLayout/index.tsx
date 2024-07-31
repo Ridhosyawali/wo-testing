@@ -22,8 +22,8 @@ const listSidebarItem = [
     icon: "bxs-group",
   },
   {
-    title: "Orders",
-    url: "/admin/orders",
+    title: "Transactions",
+    url: "/admin/transactions",
     icon: "bx-wallet",
   },
 ];

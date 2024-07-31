@@ -4,8 +4,7 @@ import Card from "./Card";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/ui/Select";
-import Footer from "@/components/ui/Footer";
-import PopupWhatsApp from "@/components/ui/Popup";
+import Input from "@/components/ui/Input";
 
 type PropTypes = {
   products: Product[];
@@ -13,6 +12,7 @@ type PropTypes = {
 
 const ProductView = (props: PropTypes) => {
   const { products } = props;
+  const [searchValue, setSearchValue] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedLocation, setSelectedLocation] = useState<null | string>(null);
   const [selectedCategory, setSelectedCategory] = useState<null | string>(null);
@@ -21,7 +21,17 @@ const ProductView = (props: PropTypes) => {
     null
   );
   const [startIndex, setStartIndex] = useState(0);
-  const [itemsPerPage] = useState(18);
+  const [itemsPerPage] = useState(15);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchVal = event.target.value;
+    setSearchValue(searchVal);
+
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(searchVal.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
 
   const displayedProducts = useMemo(() => {
     return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
@@ -228,9 +238,22 @@ const ProductView = (props: PropTypes) => {
   return (
     <>
       <div className={styles.product}>
-        <h1 className={styles.product__title}>
-          Semua Produk ({filteredProducts.length})
-        </h1>
+        <div className={styles.product__header}>
+          <h1 className={styles.product__header__title}>
+            Semua Produk ({filteredProducts.length})
+          </h1>
+          <div className={styles.product__header__search}>
+            <i className="bx bx-search-alt" />
+            <Input
+              className={styles.product__header__search__input}
+              name="search"
+              type="text"
+              placeholder="Cari Produk"
+              value={searchValue}
+              onChange={handleSearch}
+            />
+          </div>
+        </div>
         <div className={styles.product__main}>
           <div className={styles.product__main__filter}>
             <div className={styles.product__main__filter__data}>

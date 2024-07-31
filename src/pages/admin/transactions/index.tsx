@@ -1,5 +1,4 @@
-import HomeAdminView from "@/components/views/admin/Home";
-import OrdersAdminView from "@/components/views/admin/Orders";
+import TransactionsAdminView from "@/components/views/admin/Transactions";
 import userServices from "@/services/user";
 import { useEffect, useState } from "react";
 
@@ -15,7 +14,7 @@ const AdminOrdersPage = () => {
 
   return (
     <>
-      <OrdersAdminView orders={users} />
+      <TransactionsAdminView orders={users} />
     </>
   );
 };

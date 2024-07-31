@@ -8,6 +8,7 @@ import { Product } from "@/types/product.type";
 import ModalAddProduct from "./ModalAddProduct";
 import ModalUpdateProduct from "./ModalUpdateProduct";
 import ModalDeleteProduct from "./ModalDeleteProduct";
+import Input from "@/components/ui/Input";
 
 type PropTypes = {
   products: Product[];
@@ -19,9 +20,20 @@ const ProductsAdminView = (props: PropTypes) => {
   const [modalAddProduct, setModalAddProduct] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState<Product | {}>({});
   const [deletedProduct, setDeletedProduct] = useState<Product | {}>({});
+  const [searchValue, setSearchValue] = useState("");
   const [startIndex, setStartIndex] = useState(0);
 
   const itemsPerPage = 15; // Jumlah produk yang ingin ditampilkan per halaman
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchVal = event.target.value;
+    setSearchValue(searchVal);
+
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(searchVal.toLowerCase())
+    );
+    setProductsData(filtered);
+  };
 
   const handleNextClick = () => {
     setStartIndex((prevIndex) => prevIndex + itemsPerPage);
@@ -45,14 +57,27 @@ const ProductsAdminView = (props: PropTypes) => {
       <AdminLayout>
         <div className={styles.products}>
           <h2 className={styles.products__title}>Products Management</h2>
-          <Button
-            type="button"
-            className={styles.products__add}
-            variant=""
-            onClick={() => setModalAddProduct(true)}
-          >
-            <i className="bx bx-plus" /> Add Product
-          </Button>
+          <div className={styles.products__header}>
+            <Button
+              type="button"
+              className={styles.products__header__add}
+              variant=""
+              onClick={() => setModalAddProduct(true)}
+            >
+              <i className="bx bx-plus" /> Add Product
+            </Button>
+            <div className={styles.products__header__search}>
+              <i className="bx bx-search-alt" />
+              <Input
+                name="search"
+                type="text"
+                placeholder="Cari Produk"
+                value={searchValue}
+                onChange={handleSearch}
+              />
+            </div>
+          </div>
+
           <table className={styles.products__table}>
             <thead>
               <tr>

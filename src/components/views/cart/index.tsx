@@ -11,6 +11,7 @@ import { ToasterContext } from "@/context/ToasterContext";
 import { useSession } from "next-auth/react";
 import productServices from "@/services/product";
 import Link from "next/link";
+import router from "next/router";
 
 const CartView = () => {
   const { setToaster } = useContext(ToasterContext);
@@ -83,15 +84,29 @@ const CartView = () => {
         setCart(newCart);
         setToaster({
           variant: "success",
-          message: "Success Delete Item From Cart",
+          message: "Berhasil Menghapus Item Dari Keranjang",
         });
       }
     } catch (error) {
       setToaster({
         variant: "danger",
-        message: "Failed Delete Item From Cart",
+        message: "Gagal Menghapus Item Dari Keranjang",
       });
     }
+  };
+
+  const handleCheckout = () => {
+    if (cart.length === 0) {
+      // Tampilkan pesan peringatan
+      setToaster({
+        variant: "warning",
+        message: "Keranjang anda kosong",
+      });
+      return;
+    }
+
+    // Jika ada produk dalam keranjang, masuk ke halaman checkout
+    router.push("/checkout");
   };
 
   return (
@@ -210,11 +225,14 @@ const CartView = () => {
           <p>{convertIDR(getTotalPrize())}</p>
         </div>
         <hr />
-        <Link href="/checkout">
-          <Button type="button" className={styles.cart__summary__button}>
-            Checkout
-          </Button>
-        </Link>
+
+        <Button
+          onClick={handleCheckout}
+          type="button"
+          className={styles.cart__summary__button}
+        >
+          Checkout
+        </Button>
         <div></div>
       </div>
     </div>

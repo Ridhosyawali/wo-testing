@@ -1,8 +1,33 @@
 .product {
   padding: 80px 2.5vw;
-  &__title {
-    font-size: 24px;
-    font-weight: 500;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+    &__search {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      background-color: #eee;
+      border-radius: 8px;
+      &__input {
+        width: 100%;
+        &:focus {
+          outline: none;
+          border: none;
+        }
+      }
+      i {
+        font-size: 22px;
+      }
+    }
   }
   &__main {
     display: flex;
@@ -10,7 +35,7 @@
     &__filter {
       width: 20%;
       &__data {
-        padding: 20px;
+        padding: 10px;
         border-bottom: 1px solid #000;
         &__title {
           font-size: 18px;

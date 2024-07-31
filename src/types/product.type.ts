@@ -8,6 +8,7 @@ export type Product = {
   description: string;
   created_at: Date;
   updated_at: Date;
+  agenda: [{ startDate: Date; endDate: Date }];
   stock: [
     {
       id: string;

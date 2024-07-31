@@ -14,6 +14,7 @@ import "react-date-range/dist/styles.css"; // ini css untuk react-date-range
 import "react-date-range/dist/theme/default.css"; // ini tema react-date-range
 import Script from "next/script";
 import transactionServices from "@/services/transaction";
+import { eachDayOfInterval } from "date-fns";
 
 declare global {
   interface Window {
@@ -28,6 +29,7 @@ const CheckoutView = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedAddress, setSelectedAddress] = useState(0);
   const [changeAddress, setChangeAddress] = useState(false);
+
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -134,6 +136,34 @@ const CheckoutView = () => {
     window.snap.pay(data.data.token);
   };
 
+  const getDisabledDates = () => {
+    const disabledDates: Date[] = [];
+
+    profile?.carts?.forEach((item: any) => {
+      const product = getProduct(item.id);
+      if (product) {
+        // Add this check
+        if (product.agenda?.length > 0) {
+          product.agenda.forEach((agenda) => {
+            const startDate = agenda.startDate;
+            const endDate = agenda.endDate;
+
+            const days = eachDayOfInterval({
+              start: startDate,
+              end: endDate,
+            });
+
+            days.forEach((day) => {
+              disabledDates.push(day);
+            });
+          });
+        }
+      }
+    });
+
+    return disabledDates;
+  };
+
   return (
     <>
       <Script
@@ -238,6 +268,7 @@ const CheckoutView = () => {
             <DateRangePicker
               ranges={[selectionRange]}
               onChange={handleSelectDate}
+              disabledDates={getDisabledDates()}
             />
             <p>
               Date range from{" "}
@@ -293,7 +324,9 @@ const CheckoutView = () => {
           >
             Proses Payment
           </Button>
-          <div></div>
+          <div className={styles.checkout__summary__desc}>
+            <p>Tolong periksa kembali pesanan anda!</p>
+          </div>
         </div>
       </div>
       {changeAddress && (

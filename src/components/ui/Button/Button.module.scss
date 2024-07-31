@@ -38,6 +38,15 @@
   }
 }
 
+.accept {
+  background-color: #0bca18;
+  color: #fff;
+  font-size: 13px;
+  &:hover {
+    background-color: #6cbc71;
+  }
+}
+
 .delete {
   background-color: #fe6565;
   color: #fff;
