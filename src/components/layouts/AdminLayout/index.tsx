@@ -26,6 +26,11 @@ const listSidebarItem = [
     url: "/admin/transactions",
     icon: "bx-wallet",
   },
+  {
+    title: "History",
+    url: "/admin/history",
+    icon: "bx-money-withdraw",
+  },
 ];
 
 const AdminLayout = (props: Proptypes) => {

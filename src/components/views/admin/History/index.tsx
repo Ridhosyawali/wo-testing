@@ -1,20 +1,17 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Button from "@/components/ui/Button";
 import { FormEvent, Fragment, useContext, useEffect, useState } from "react";
-import styles from "./Transactions.module.scss";
+import styles from "./History.module.scss";
 
 import { User } from "@/types/user.type";
 import { convertIDR } from "@/utils/currency";
 import moment from "moment";
-import ModalUpdateTransaction from "./ModalUpdateTransaction";
-import ModalApproveTransaction from "./ModalApproveTransaction";
-import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 
 type PropTypes = {
   orders: User[];
 };
-const TransactionsAdminView = (props: PropTypes) => {
+const HistoryAdminView = (props: PropTypes) => {
   const { orders } = props;
   const [ordersData, setOrdersData] = useState<User[]>([]);
   const { setToaster } = useContext(ToasterContext);
@@ -48,7 +45,7 @@ const TransactionsAdminView = (props: PropTypes) => {
     <>
       <AdminLayout>
         <div className={styles.homes}>
-          <h2 className={styles.homes__title}>Transaction Management</h2>
+          <h2 className={styles.homes__title}>Order Management</h2>
           <table className={styles.homes__table}>
             <thead>
               <tr>
@@ -87,7 +84,7 @@ const TransactionsAdminView = (props: PropTypes) => {
                             <Button
                               type="button"
                               variant="accept"
-                              onClick={() => setUpdateOrder(data)}
+                              onClick={() => {}}
                             >
                               <i className="bx bxs-detail" />
                             </Button>
@@ -95,9 +92,7 @@ const TransactionsAdminView = (props: PropTypes) => {
                               <Button
                                 type="button"
                                 variant="accept"
-                                onClick={() =>
-                                  setApproveOrder({ ...data, id: orders.id })
-                                }
+                                onClick={() => {}}
                                 // disabled={data?.status === "pending"}
                               >
                                 <i className="bx bx-check" />
@@ -133,22 +128,7 @@ const TransactionsAdminView = (props: PropTypes) => {
           </div>
         </div>
       </AdminLayout>
-      {Object.keys(approveOrder).length > 0 && (
-        <ModalApproveTransaction
-          approveTransaction={approveOrder}
-          setApproveTransaction={setApproveOrder}
-          setOrdersData={setOrdersData}
-        />
-      )}
-      {Object.keys(updateOrder).length > 0 && (
-        <ModalUpdateTransaction
-          updatedOrder={updateOrder}
-          setUpdatedOrder={setUpdateOrder}
-          setOrdersData={setOrdersData}
-          orders={orders}
-        />
-      )}
     </>
   );
 };
-export default TransactionsAdminView;
+export default HistoryAdminView;

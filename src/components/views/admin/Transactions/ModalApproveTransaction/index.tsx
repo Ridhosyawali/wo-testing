@@ -10,7 +10,6 @@ import {
 } from "react";
 import { ToasterContext } from "@/context/ToasterContext";
 import { User } from "@/types/user.type";
-import userServices from "@/services/user";
 import Select from "@/components/ui/Select";
 
 type Proptypes = {
