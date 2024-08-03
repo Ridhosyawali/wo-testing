@@ -1,6 +1,6 @@
 import instance from "@/lib/axios/instance";
 
-const endpoint = "/api/order";
+const endpoint = { product: "/api/order" };
 export const orderServices = {
   updateAgenda: (id: string, data: any) =>
     instance.post(`${endpoint}/${id}`, { data }),

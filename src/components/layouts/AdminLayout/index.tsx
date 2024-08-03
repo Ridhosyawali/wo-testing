@@ -7,27 +7,27 @@ type Proptypes = {
 
 const listSidebarItem = [
   {
-    title: "Home",
+    title: "Beranda",
     url: "/admin",
     icon: "bxs-dashboard",
   },
   {
-    title: "Products",
+    title: "Produk",
     url: "/admin/products",
     icon: "bxs-box",
   },
   {
-    title: "Users",
+    title: "Pengguna",
     url: "/admin/users",
     icon: "bxs-group",
   },
   {
-    title: "Transactions",
+    title: "Transaksi",
     url: "/admin/transactions",
     icon: "bx-wallet",
   },
   {
-    title: "History",
+    title: "Riwayat",
     url: "/admin/history",
     icon: "bx-money-withdraw",
   },

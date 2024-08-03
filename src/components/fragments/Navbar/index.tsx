@@ -8,11 +8,11 @@ import { useEffect, useRef, useState } from "react";
 
 const NavItems = [
   {
-    title: "Home",
+    title: "Beranda",
     url: "/home",
   },
   {
-    title: "Products",
+    title: "Produk",
     url: "/products",
   },
 ];

@@ -1,10 +1,4 @@
-import {
-  addData,
-  deleteData,
-  retrieveData,
-  retrieveDataById,
-  updateData,
-} from "@/lib/firebase/service";
+import { retrieveDataById, updateData } from "@/lib/firebase/service";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { verify } from "@/utils/verifyToken";
 import {
@@ -12,7 +6,6 @@ import {
   responseApiMethodNotAllowed,
   responseApiSuccess,
 } from "@/utils/responseApi";
-import { User } from "@/types/user.type";
 
 export default async function handler(
   req: NextApiRequest,

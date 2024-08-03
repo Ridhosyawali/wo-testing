@@ -19,16 +19,16 @@ const divStyle = {
 
 const slideImages = [
   {
-    url: "/slide1.png",
+    url: "/devided2.jpg",
+    caption: "Slide 3",
+  },
+  {
+    url: "/devided3.jpg",
     caption: "Slide 1",
   },
   {
     url: "/slide2.png",
     caption: "Slide 2",
-  },
-  {
-    url: "/slide3.png",
-    caption: "Slide 3",
   },
 ];
 
@@ -99,15 +99,16 @@ const HomeView = (props: PropTypes) => {
 
       <div className={styles.home__devide}>
         <Image
-          src=""
+          src="/devided.jpg"
           alt="devide"
-          width={50}
-          height={50}
+          width={500}
+          height={500}
+          priority
           className={styles.home__devide__image}
         />
       </div>
       <div className={styles.home__main}>
-        <h2 className={styles.home__main__title}>Artikel Rira</h2>
+        <h2 className={styles.home__main__title}>Testimoni</h2>
         <div className={styles.home__main__content}>
           {articles.map((article) => (
             <Link href={`/home/${article.id}`} key={article.id}>
@@ -115,6 +116,16 @@ const HomeView = (props: PropTypes) => {
             </Link>
           ))}
         </div>
+      </div>
+      <div className={styles.home__devide}>
+        <Image
+          src="/devided4.jpg"
+          alt="devide"
+          width={500}
+          height={500}
+          priority
+          className={styles.home__devide__image}
+        />
       </div>
     </div>
   );
