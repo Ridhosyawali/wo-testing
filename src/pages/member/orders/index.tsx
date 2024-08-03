@@ -1,5 +1,11 @@
-const OrdersPage = () => {
-  return <div>Order page</div>;
+import MemberOrdersView from "@/components/views/member/Orders";
+
+const MemberOrdersPage = () => {
+  return (
+    <>
+      <MemberOrdersView />
+    </>
+  );
 };
 
-export default OrdersPage;
+export default MemberOrdersPage;

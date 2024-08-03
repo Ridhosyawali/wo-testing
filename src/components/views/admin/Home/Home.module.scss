@@ -1,4 +1,13 @@
 .homes {
+  &__calendar {
+    width: 100%;
+    margin-bottom: 50px;
+    &__date {
+      .react-daterange-picker__inputGroup__input:focus {
+        background: red;
+      }
+    }
+  }
   &__title {
     margin-top: -20px;
     font-size: 22px;

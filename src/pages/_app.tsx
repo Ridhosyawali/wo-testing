@@ -4,6 +4,12 @@ import type { AppProps } from "next/app";
 import { ToasterProvider } from "@/context/ToasterContext";
 import AppShell from "@/components/fragments/AppShell";
 
+declare global {
+  interface Window {
+    snap: any;
+  }
+}
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },

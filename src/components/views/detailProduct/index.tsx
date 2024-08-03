@@ -103,7 +103,7 @@ const DetailProductView = (props: PropTypes) => {
             <h3 className={styles.detail__main__right__price}>
               {convertIDR(product?.price)}
             </h3>
-            <p className={styles.detail__main__right__subtitle}>Select Size</p>
+            <p className={styles.detail__main__right__subtitle}>Pilih Varian</p>
             <div className={styles.detail__main__right__size}>
               {product?.stock?.map((item: { size: string; qty: number }) => (
                 <div
@@ -141,7 +141,7 @@ const DetailProductView = (props: PropTypes) => {
                 }
               }}
             >
-              Add to Cart
+              + Tambahkan ke keranjang
             </Button>
             <div className={styles.detail__main__right__description}>
               <ProductDesc productDesc={truncatedContent} />
@@ -151,7 +151,7 @@ const DetailProductView = (props: PropTypes) => {
               type="button"
               onClick={() => setDetailProduct(true)}
             >
-              Product Details
+              Detail Produk
             </button>
             <hr className={styles.detail__main__right__devider} />
           </div>

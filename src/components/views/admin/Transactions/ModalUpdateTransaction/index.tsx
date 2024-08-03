@@ -1,6 +1,5 @@
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
-import Select from "@/components/ui/Select";
 import userServices from "@/services/user";
 import {
   Dispatch,
@@ -9,7 +8,7 @@ import {
   useContext,
   useState,
 } from "react";
-import styles from "./ModalUpdateOrder.module.scss";
+import styles from "./ModalUpdateTransaction.module.scss";
 import { User } from "@/types/user.type";
 import { ToasterContext } from "@/context/ToasterContext";
 import { convertIDR } from "@/utils/currency";
@@ -20,15 +19,15 @@ import { orderServices } from "@/services/order";
 type Proptypes = {
   setOrdersData: Dispatch<SetStateAction<User[]>>;
   updatedOrder: User | any;
-  setAgenda: Dispatch<SetStateAction<{}>>;
   setUpdatedOrder: Dispatch<SetStateAction<{}>>;
+  orders: User | any;
 };
 const ModalUpdateTransaction = (props: Proptypes) => {
-  const { updatedOrder, setUpdatedOrder, setOrdersData } = props;
+  const { updatedOrder, setUpdatedOrder, setOrdersData, orders } = props;
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
 
-  const idProduct = updatedOrder.items[0].id;
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -38,40 +37,18 @@ const ModalUpdateTransaction = (props: Proptypes) => {
       startDate: updatedOrder.startDate,
       endDate: updatedOrder.endDate,
     };
-    const data = {
-      transaction: [
-        {
-          status: form.status.value,
-          endDate: updatedOrder.endDate,
-          startDate: updatedOrder.startDate,
-          total: updatedOrder.total,
-          redirect_url: updatedOrder.redirect_url,
-          token: updatedOrder.token,
-          remaining: updatedOrder.remaining,
-          totalall: updatedOrder.totalall,
-          items: [
-            {
-              category: updatedOrder.items[0].category,
-              id: updatedOrder.items[0].id,
-              name: updatedOrder.items[0].name,
-              image: updatedOrder.items[0].image,
-              qty: updatedOrder.items[0].qty,
-              size: updatedOrder.items[0].size,
-            },
-          ],
-          address: {
-            recipient: updatedOrder.address.recipient,
-            addressLine: updatedOrder.address.addressLine,
-            note: updatedOrder.address.note,
-            phone: updatedOrder.address.phone,
-          },
-        },
-      ],
-    };
 
-    const result2 = await orderServices.updateAgenda(idProduct, dataTime);
-    if (result2.status === 200) {
+    const promises = updatedOrder.items.map(async (item: any) => {
+      const result = await orderServices.updateAgenda(item.id, dataTime);
+      if (result.status !== 200) {
+        throw new Error("Failed to update agenda");
+      }
+    });
+
+    try {
+      await Promise.all(promises);
       setIsLoading(false);
+      setIsDataUpdated(true);
       setUpdatedOrder({});
       const { data } = await userServices.getAllUsers();
       setOrdersData(data.data);
@@ -79,7 +56,7 @@ const ModalUpdateTransaction = (props: Proptypes) => {
         variant: "success",
         message: "Success Update",
       });
-    } else {
+    } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
@@ -92,6 +69,9 @@ const ModalUpdateTransaction = (props: Proptypes) => {
     <Modal onClose={() => setUpdatedOrder({})}>
       <h1 className={styles.modal__title}>Detail Transaksi</h1>
       <form onSubmit={handleSubmit} className={styles.modal}>
+        <p>Customer Name: {orders.fullname}</p>
+        <p>Order Id: {updatedOrder.order_id}</p>
+        <hr className={styles.modal__devide} />
         {updatedOrder.items.map((item: any) => (
           <div key={item.id} className={styles.modal__preview}>
             <div className={styles.modal__preview__desc}>
@@ -114,27 +94,19 @@ const ModalUpdateTransaction = (props: Proptypes) => {
         <hr className={styles.modal__devide} />
         <div className={styles.modal__summary}>
           <div className={styles.modal__summary__desc}>
-            <p>Harga Total: {convertIDR(updatedOrder.totalall)}</p>
-            <p>Uang Muka: {convertIDR(updatedOrder.total)}</p>
-            <p>Sisa Pembayaran: {convertIDR(updatedOrder.remaining)}</p>
             <p>
               Pelaksanaan : {moment(updatedOrder.startDate).format("LL")} -{" "}
               {moment(updatedOrder.endDate).format("LL")}
             </p>
-            <Select
-              label="Status"
-              name="status"
-              className={styles.modal__summary__select}
-              defaultValue={updatedOrder.status}
-              options={[
-                { value: "pending", label: "Pending" },
-                { value: "settlement", label: "Settlement" },
-                { value: "success", label: "Success" },
-              ]}
-            />
+            <p>Uang Muka: {convertIDR(updatedOrder.total)}</p>
+            <p>Sisa Pembayaran: {convertIDR(updatedOrder.remaining)}</p>
+            <p>Harga Total: {convertIDR(updatedOrder.totalall)}</p>
+            <p>Status: {updatedOrder.status}</p>
           </div>
           <hr className={styles.modal__devide__vertical} />
           <div className={styles.modal__summary__address}>
+            <h3>Data Pengiriman</h3>
+
             <p>Pemesan: {updatedOrder.address.recipient}</p>
             <p>Alamat: {updatedOrder.address.addressLine}</p>
             <p>Phone: {updatedOrder.address.phone}</p>

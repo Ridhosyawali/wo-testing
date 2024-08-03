@@ -30,16 +30,19 @@
   &__summary {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 25px;
     &__desc {
       font-size: 16px;
       text-align: justify;
       line-height: 1.5;
     }
     &__address {
-      font-size: 16px;
+      font-size: 14px;
       text-align: justify;
       line-height: 1.5;
+      h3 {
+        font-weight: 550;
+      }
     }
     &__select {
       display: flex;

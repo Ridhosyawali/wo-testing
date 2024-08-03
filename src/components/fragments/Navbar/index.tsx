@@ -103,6 +103,12 @@ const Navbar = () => {
               </button>
               <button
                 className={styles.navbar__user__profile__dropdown__item}
+                onClick={() => push("/member/orders")}
+              >
+                Pesanan
+              </button>
+              <button
+                className={styles.navbar__user__profile__dropdown__item}
                 onClick={() => signOut()}
               >
                 Logout

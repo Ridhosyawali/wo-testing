@@ -1,5 +1,5 @@
 import Modal from "@/components/ui/Modal";
-import styles from "./ModalChangeAddress.module.scss";
+import styles from "./ModalDetailProduct.module.scss";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { Product } from "@/types/product.type";
 import Image from "next/image";

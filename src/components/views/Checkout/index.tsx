@@ -16,12 +16,6 @@ import Script from "next/script";
 import transactionServices from "@/services/transaction";
 import { eachDayOfInterval } from "date-fns";
 
-declare global {
-  interface Window {
-    snap: any;
-  }
-}
-
 const CheckoutView = () => {
   const { setToaster } = useContext(ToasterContext);
   const [profile, setProfile] = useState<any>([]);
@@ -132,7 +126,6 @@ const CheckoutView = () => {
       },
     };
     const { data } = await transactionServices.generateTransaction(payload);
-
     window.snap.pay(data.data.token);
   };
 

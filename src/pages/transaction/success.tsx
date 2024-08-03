@@ -8,11 +8,11 @@ const TransactionSuccessPage = () => {
   const checkPayment = async () => {
     await transactionServices.updateTransaction(query.order_id as string);
   };
-  useEffect(() => {
-    if (isReady) {
-      checkPayment();
-    }
-  }, [isReady]);
+  // useEffect(() => {
+  //   if (isReady) {
+  //     checkPayment();
+  //   }
+  // }, [isReady]);
   //React Hook useEffect has a missing dependency: 'checkPayment'. Either include it or remove the dependency array.
   return (
     <>

@@ -1,24 +1,27 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
-import styles from "./Home.module.scss";
 import Button from "@/components/ui/Button";
-import { Fragment, useEffect, useState } from "react";
+import { FormEvent, Fragment, useContext, useEffect, useState } from "react";
+import styles from "./Transactions.module.scss";
 
 import { User } from "@/types/user.type";
 import { convertIDR } from "@/utils/currency";
 import moment from "moment";
-import { Product } from "@/types/product.type";
 import ModalUpdateTransaction from "./ModalUpdateTransaction";
+import ModalApproveTransaction from "./ModalApproveTransaction";
+import userServices from "@/services/user";
+import { ToasterContext } from "@/context/ToasterContext";
 
 type PropTypes = {
   orders: User[];
 };
 const TransactionsAdminView = (props: PropTypes) => {
   const { orders } = props;
-  const [ordersData, setOrders] = useState<User[]>([]);
+  const [ordersData, setOrdersData] = useState<User[]>([]);
+  const { setToaster } = useContext(ToasterContext);
 
-  const [deletedArticle, setDeletedArticle] = useState<User | {}>({});
   const [updateOrder, setUpdateOrder] = useState<User | {}>({});
-  const [agenda, setAgenda] = useState<Product | {}>({});
+  const [approveOrder, setApproveOrder] = useState<User | {}>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const [startIndex, setStartIndex] = useState(0);
 
@@ -38,7 +41,7 @@ const TransactionsAdminView = (props: PropTypes) => {
   );
 
   useEffect(() => {
-    setOrders(orders);
+    setOrdersData(orders);
   }, [orders]);
 
   return (
@@ -49,17 +52,15 @@ const TransactionsAdminView = (props: PropTypes) => {
           <table className={styles.homes__table}>
             <thead>
               <tr>
-                <th rowSpan={2}>#</th>
-                <th rowSpan={2}>Nama</th>
-                <th rowSpan={2}>Pemesan</th>
-                <th colSpan={2}>Transaksi</th>
+                <th rowSpan={2}>Nama Users</th>
+                <th rowSpan={2}>Status</th>
+                <th rowSpan={2}>Nama Pemesan</th>
                 <th colSpan={2}>Pelaksanaan</th>
+                <th rowSpan={2}>Uang Muka</th>
                 <th rowSpan={2}>Total Harga</th>
                 <th rowSpan={2}>Action</th>
               </tr>
               <tr>
-                <th>Uang Muka</th>
-                <th>Sisa Bayar</th>
                 <th>Mulai</th>
                 <th>Berakhir</th>
               </tr>
@@ -68,17 +69,18 @@ const TransactionsAdminView = (props: PropTypes) => {
               {visibleArticles
                 .filter((orders) => orders.transaction)
                 .map((orders: any) =>
-                  orders.transaction.map((data: any, index: number) => (
+                  orders.transaction.map((data: any) => (
                     <Fragment key={data.id}>
                       <tr>
-                        <td>{index + 1}</td>
-                        <td>{orders.fullname}</td>
+                        <td>{orders?.fullname}</td>
+                        <td>{data?.status}</td>
                         <td>{data.address?.recipient}</td>
-                        <td>{convertIDR(data.total)}</td>
-                        <td>{convertIDR(data.remaining)}</td>
-                        <td>{moment(data.startDate).format("LL")}</td>
-                        <td>{moment(data.endDate).format("LL")}</td>
-                        <td>{convertIDR(data.totalall)}</td>
+                        <td>{moment(data?.startDate).format("LL")}</td>
+                        <td>{moment(data?.endDate).format("LL")}</td>
+                        <td>{convertIDR(data?.remaining)}</td>
+                        <td>
+                          <strong>{convertIDR(data?.totalall)}</strong>
+                        </td>
 
                         <td>
                           <div className={styles.homes__table__action}>
@@ -89,13 +91,18 @@ const TransactionsAdminView = (props: PropTypes) => {
                             >
                               <i className="bx bxs-detail" />
                             </Button>
-                            <Button
-                              type="button"
-                              variant="delete"
-                              onClick={() => setDeletedArticle(data)}
-                            >
-                              <i className="bx bx-trash" />
-                            </Button>
+                            {data.status !== "approve" && (
+                              <Button
+                                type="button"
+                                variant="accept"
+                                onClick={() =>
+                                  setApproveOrder({ ...data, id: orders.id })
+                                }
+                                // disabled={data?.status === "pending"}
+                              >
+                                <i className="bx bx-check" />
+                              </Button>
+                            )}
                           </div>
                         </td>
                       </tr>
@@ -126,19 +133,19 @@ const TransactionsAdminView = (props: PropTypes) => {
           </div>
         </div>
       </AdminLayout>
-      {/* {Object.keys(deletedArticle).length > 0 && (
-        <ModalDeleteArticle
-          setDeletedArticle={setDeletedArticle}
-          deletedArticle={deletedArticle}
-          setOrders={setOrders}
+      {Object.keys(approveOrder).length > 0 && (
+        <ModalApproveTransaction
+          approveTransaction={approveOrder}
+          setApproveTransaction={setApproveOrder}
+          setOrdersData={setOrdersData}
         />
-      )} */}
+      )}
       {Object.keys(updateOrder).length > 0 && (
         <ModalUpdateTransaction
           updatedOrder={updateOrder}
           setUpdatedOrder={setUpdateOrder}
-          setAgenda={setAgenda}
-          setOrdersData={setOrders}
+          setOrdersData={setOrdersData}
+          orders={orders}
         />
       )}
     </>

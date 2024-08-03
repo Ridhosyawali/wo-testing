@@ -1,0 +1,53 @@
+.orders {
+  padding: 10px 10vw;
+  margin-top: 100px;
+  margin-bottom: 230px;
+  &__title {
+    font-size: 22px;
+  }
+  &__table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    margin-top: 40px;
+    th,
+    td {
+      text-align: left;
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 15px;
+    }
+
+    thead {
+      tr {
+        background-color: #f2f2f2;
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    &__action {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      &__edit {
+        background-color: #f2bd1e;
+        padding: 10px;
+      }
+      &__pay {
+        padding: 10px;
+      }
+    }
+  }
+  &__empty {
+    margin-top: 20px;
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #8f8f8f;
+    }
+  }
+}

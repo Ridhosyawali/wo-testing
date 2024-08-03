@@ -1,6 +1,8 @@
 import Button from "@/components/ui/Button";
 import styles from "./Success.module.scss";
+import { useRouter } from "next/router";
 const SuccessView = () => {
+  const { push } = useRouter();
   return (
     <div className={styles.success}>
       <div className={styles.success__container}>
@@ -11,8 +13,12 @@ const SuccessView = () => {
             kanan bawah, untuk melakukan pelunasan dan fitting baju
           </p>
         </div>
-        <Button type="button" variant="accept">
-          Check Your Order Here
+        <Button
+          type="button"
+          variant="accept"
+          onClick={() => push("/member/orders")}
+        >
+          Cek Pesanan Anda
         </Button>
       </div>
     </div>
