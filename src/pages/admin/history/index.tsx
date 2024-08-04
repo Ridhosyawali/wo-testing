@@ -1,4 +1,4 @@
-import TransactionsAdminView from "@/components/views/admin/Transactions";
+import HistoryAdminView from "@/components/views/admin/History";
 import userServices from "@/services/user";
 import { useEffect, useState } from "react";
 
@@ -14,7 +14,7 @@ const AdminOrdersPage = () => {
 
   return (
     <>
-      <TransactionsAdminView orders={users} />
+      <HistoryAdminView orders={users} />
     </>
   );
 };

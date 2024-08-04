@@ -112,7 +112,7 @@ const CartView = () => {
   return (
     <div className={styles.cart}>
       <div className={styles.cart__main}>
-        <h1 className={styles.cart__main__title}>Cart</h1>
+        <h1 className={styles.cart__main__title}>Keranjang</h1>
         {cart.length > 0 ? (
           <div className={styles.cart__main__list}>
             {cart.map((item: { id: string; size: string; qty: number }) => (
@@ -157,7 +157,7 @@ const CartView = () => {
                           styles.cart__main__list__item__info__data__size
                         }
                       >
-                        Size
+                        Varian
                         <Select
                           name="size"
                           options={getOptionsSize(item.id, item.size)}
@@ -200,7 +200,7 @@ const CartView = () => {
         ) : (
           <div className={styles.cart__main__empty}>
             <h1 className={styles.cart__main__empty__title}>
-              Your cart is empty
+              Keranjang anda kosong
             </h1>
           </div>
         )}

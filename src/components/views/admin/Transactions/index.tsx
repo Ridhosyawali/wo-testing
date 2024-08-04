@@ -10,6 +10,7 @@ import ModalUpdateTransaction from "./ModalUpdateTransaction";
 import ModalApproveTransaction from "./ModalApproveTransaction";
 import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
+import orderServices from "@/services/order";
 
 type PropTypes = {
   orders: User[];
@@ -44,11 +45,40 @@ const TransactionsAdminView = (props: PropTypes) => {
     setOrdersData(orders);
   }, [orders]);
 
+  const handleDelete = async (orderId: string) => {
+    try {
+      const data = {
+        transaction: null,
+      };
+      const result = await orderServices.deleteOrder(orderId, data);
+      if (result.status === 200) {
+        setIsLoading(false);
+        setToaster({
+          variant: "success",
+          message: "Success Delete Transaction",
+        });
+        // Jika berhasil, Anda dapat melakukan operasi lainnya, seperti memperbarui state atau melakukan refresh data
+      } else {
+        setIsLoading(false);
+        setToaster({
+          variant: "danger",
+          message: "Failed Delete Transaction",
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setToaster({
+        variant: "danger",
+        message: "Failed Delete Transaction",
+      });
+    }
+  };
+
   return (
     <>
       <AdminLayout>
         <div className={styles.homes}>
-          <h2 className={styles.homes__title}>Transaction Management</h2>
+          <h2 className={styles.homes__title}>Transaksi Management</h2>
           <table className={styles.homes__table}>
             <thead>
               <tr>
@@ -69,44 +99,58 @@ const TransactionsAdminView = (props: PropTypes) => {
               {visibleArticles
                 .filter((orders) => orders.transaction)
                 .map((orders: any) =>
-                  orders.transaction.map((data: any) => (
-                    <Fragment key={data.id}>
-                      <tr>
-                        <td>{orders?.fullname}</td>
-                        <td>{data?.status}</td>
-                        <td>{data.address?.recipient}</td>
-                        <td>{moment(data?.startDate).format("LL")}</td>
-                        <td>{moment(data?.endDate).format("LL")}</td>
-                        <td>{convertIDR(data?.remaining)}</td>
-                        <td>
-                          <strong>{convertIDR(data?.totalall)}</strong>
-                        </td>
+                  orders?.transaction?.map((item: any) => (
+                    <tr key={item.order_id}>
+                      <td>{orders?.fullname}</td>
+                      <td>{item?.status}</td>
+                      <td>{item.address?.recipient}</td>
+                      <td>{moment(item?.startDate).format("LL")}</td>
+                      <td>{moment(item?.endDate).format("LL")}</td>
+                      <td>{convertIDR(item?.remaining)}</td>
+                      <td>
+                        <strong>{convertIDR(item?.totalall)}</strong>
+                      </td>
 
-                        <td>
-                          <div className={styles.homes__table__action}>
+                      <td>
+                        <div className={styles.homes__table__action}>
+                          <Button
+                            type="button"
+                            variant="accept"
+                            onClick={() =>
+                              setUpdateOrder({
+                                ...item,
+                                fullname: orders.fullname,
+                              })
+                            }
+                          >
+                            <i className="bx bxs-detail" />
+                          </Button>
+                          {item.status !== "approve" && (
                             <Button
                               type="button"
                               variant="accept"
-                              onClick={() => setUpdateOrder(data)}
+                              onClick={() =>
+                                setApproveOrder({
+                                  ...item,
+                                  id: orders.id,
+                                  fullname: orders.fullname,
+                                })
+                              }
+                              // disabled={data?.status === "pending"}
                             >
-                              <i className="bx bxs-detail" />
+                              <i className="bx bx-check" />
                             </Button>
-                            {data.status !== "approve" && (
-                              <Button
-                                type="button"
-                                variant="accept"
-                                onClick={() =>
-                                  setApproveOrder({ ...data, id: orders.id })
-                                }
-                                // disabled={data?.status === "pending"}
-                              >
-                                <i className="bx bx-check" />
-                              </Button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    </Fragment>
+                          )}
+                          <Button
+                            type="button"
+                            variant="delete"
+                            onClick={() => handleDelete(item.order_id)}
+                          >
+                            <i className="bx bx-trash" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
                   ))
                 )}
             </tbody>

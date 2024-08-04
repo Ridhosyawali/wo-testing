@@ -38,7 +38,7 @@ const MemberOrdersView = () => {
         strategy="lazyOnload"
       />
       <div className={styles.orders}>
-        <h2 className={styles.orders__title}>Order History</h2>
+        <h2 className={styles.orders__title}>Riwayat Pesanan</h2>
         {profile?.transaction?.length > 0 ? (
           <div>
             <table className={styles.orders__table}>

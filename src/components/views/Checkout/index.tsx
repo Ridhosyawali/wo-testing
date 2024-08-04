@@ -169,7 +169,7 @@ const CheckoutView = () => {
           <h1 className={styles.checkout__main__title}>Checkout</h1>
           <div className={styles.checkout__main__address}>
             <h3 className={styles.checkout__main__address__title}>
-              Shipping Address
+              Alamat Penerima
             </h3>
             {profile?.address?.length > 0 ? (
               <div className={styles.checkout__main__address__selected}>
@@ -186,12 +186,12 @@ const CheckoutView = () => {
                   Note : {profile?.address[selectedAddress]?.note}
                 </p>
                 <Button type="button" onClick={() => setChangeAddress(true)}>
-                  Change Address
+                  Ubah Alamat
                 </Button>
               </div>
             ) : (
               <Button type="button" onClick={() => setChangeAddress(true)}>
-                Add Address
+                Tambah Address
               </Button>
             )}
           </div>
@@ -253,7 +253,7 @@ const CheckoutView = () => {
           ) : (
             <div className={styles.checkout__main__empty}>
               <h1 className={styles.checkout__main__empty__title}>
-                Your cart is empty
+                keranjang Anda kosong
               </h1>
             </div>
           )}
@@ -264,17 +264,17 @@ const CheckoutView = () => {
               disabledDates={getDisabledDates()}
             />
             <p>
-              Date range from{" "}
+              Rentang tanggal dari{" "}
               <strong>{selectionRange.startDate.toDateString()}</strong> -{" "}
               <strong>{selectionRange.endDate.toDateString()}</strong>
             </p>
             <p className={styles.checkout__main__date__price}>
-              Price if more than one day: {convertIDR(pricePerDay)}
+              Harga jika lebih dari satu hari: {convertIDR(pricePerDay)}
             </p>
           </div>
         </div>
         <div className={styles.checkout__summary}>
-          <h1 className={styles.checkout__summary__title}>Summary</h1>
+          <h1 className={styles.checkout__summary__title}>Ringkasan Biaya</h1>
           <div className={styles.checkout__summary__item}>
             <h4>Subtotal</h4>
             <p>{convertIDR(getTotalPrize().totalprice)}</p>

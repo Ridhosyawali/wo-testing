@@ -69,7 +69,7 @@ const ModalUpdateTransaction = (props: Proptypes) => {
     <Modal onClose={() => setUpdatedOrder({})}>
       <h1 className={styles.modal__title}>Detail Transaksi</h1>
       <form onSubmit={handleSubmit} className={styles.modal}>
-        <p>Customer Name: {orders.fullname}</p>
+        <p>Customer Name: {updatedOrder.fullname}</p>
         <p>Order Id: {updatedOrder.order_id}</p>
         <hr className={styles.modal__devide} />
         {updatedOrder.items.map((item: any) => (

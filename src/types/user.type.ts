@@ -37,4 +37,33 @@ export type User = {
       ];
     }
   ];
+  history?: [
+    {
+      id: string;
+      fullname: string;
+      order_id: string;
+      startDate: Date;
+      endDate: Date;
+      total: number;
+      totalall: number;
+      remaining: number;
+      status: string;
+      token: string;
+      redirect_url: string;
+      address: {
+        addressLine: string;
+        note: string;
+        phone: string;
+        recipient: string;
+      };
+      items: [
+        {
+          id: string;
+          price: number;
+          qty: number;
+          size: string;
+        }
+      ];
+    }
+  ];
 };

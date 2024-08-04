@@ -1,0 +1,58 @@
+.modal {
+  &__title {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  &__preview {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    &__image {
+      &__img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        object-position: center;
+        height: auto;
+        border-radius: 8px;
+      }
+    }
+    &__desc {
+      font-size: 16px;
+      text-align: justify;
+      line-height: 1.7;
+    }
+  }
+  &__devide {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  &__summary {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    &__desc {
+      font-size: 16px;
+      text-align: justify;
+      line-height: 1.5;
+    }
+    &__address {
+      font-size: 14px;
+      text-align: justify;
+      line-height: 1.5;
+      h3 {
+        font-weight: 550;
+      }
+    }
+    &__select {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+  }
+  &__button {
+    width: 30%;
+    margin-left: 70%;
+    margin-top: 15px;
+  }
+}
