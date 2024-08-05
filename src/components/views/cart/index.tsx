@@ -206,7 +206,7 @@ const CartView = () => {
         )}
       </div>
       <div className={styles.cart__summary}>
-        <h1 className={styles.cart__summary__title}>Summary</h1>
+        <h1 className={styles.cart__summary__title}>Ringkasan Biaya</h1>
         <div className={styles.cart__summary__item}>
           <h4>Subtotal</h4>
           <p>{convertIDR(getTotalPrize())}</p>

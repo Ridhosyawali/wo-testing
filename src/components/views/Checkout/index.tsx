@@ -280,10 +280,6 @@ const CheckoutView = () => {
             <p>{convertIDR(getTotalPrize().totalprice)}</p>
           </div>
           <div className={styles.checkout__summary__item}>
-            <h4>Delivery</h4>
-            <p>{convertIDR(getTotalPrize().delivery)}</p>
-          </div>
-          <div className={styles.checkout__summary__item}>
             <h4>Tax</h4>
             <p>{convertIDR(getTotalPrize().tax)}</p>
           </div>

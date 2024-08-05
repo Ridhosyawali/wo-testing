@@ -46,6 +46,16 @@ const ModalUpdateTransaction = (props: Proptypes) => {
     });
 
     try {
+      // Check if the date already exists
+      const existingDates = orders.map((order: any) => order.startDate);
+      if (existingDates.includes(dataTime.startDate)) {
+        setIsLoading(false);
+        setToaster({
+          variant: "danger",
+          message: "Date already exists",
+        });
+        return;
+      }
       await Promise.all(promises);
       setIsLoading(false);
       setIsDataUpdated(true);

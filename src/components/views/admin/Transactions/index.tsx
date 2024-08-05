@@ -23,6 +23,7 @@ const TransactionsAdminView = (props: PropTypes) => {
   const [updateOrder, setUpdateOrder] = useState<User | {}>({});
   const [approveOrder, setApproveOrder] = useState<User | {}>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [transaction, setTransaction] = useState([]);
 
   const [startIndex, setStartIndex] = useState(0);
 
@@ -45,14 +46,19 @@ const TransactionsAdminView = (props: PropTypes) => {
     setOrdersData(orders);
   }, [orders]);
 
-  const handleDelete = async (orderId: string) => {
+  const handleDelete = async (userID: string, order_id: string) => {
+    const newTransaction = transaction.filter((item: { order_id: string }) => {
+      return item.order_id !== order_id;
+    });
     try {
-      const data = {
-        transaction: null,
-      };
-      const result = await orderServices.deleteOrder(orderId, data);
+      const result = await orderServices.deleteOrder(userID, {
+        transaction: newTransaction,
+      });
       if (result.status === 200) {
+        setTransaction(newTransaction);
         setIsLoading(false);
+        const { data } = await userServices.getAllUsers();
+        setOrdersData(data.data);
         setToaster({
           variant: "success",
           message: "Success Delete Transaction",
@@ -144,7 +150,9 @@ const TransactionsAdminView = (props: PropTypes) => {
                           <Button
                             type="button"
                             variant="delete"
-                            onClick={() => handleDelete(item.order_id)}
+                            onClick={() =>
+                              handleDelete(orders.id, item.order_id)
+                            }
                           >
                             <i className="bx bx-trash" />
                           </Button>

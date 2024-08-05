@@ -12,7 +12,7 @@ const TransactionSuccessPage = () => {
     if (isReady) {
       checkPayment();
     }
-  }, [isReady]);
+  });
   //React Hook useEffect has a missing dependency: 'checkPayment'. Either include it or remove the dependency array.
   return (
     <>

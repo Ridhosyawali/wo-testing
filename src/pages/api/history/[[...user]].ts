@@ -46,13 +46,25 @@ export default async function handler(
     verify(req, res, true, async () => {
       const { user }: any = req.query;
       const { data } = req.body;
-      await updateData("users", user[0], data, (status: boolean) => {
-        if (status) {
-          responseApiSuccess(res);
-        } else {
-          responseApiFailed(res);
-        }
-      });
+      const userID: any = await retrieveDataById("users", user[0]);
+      const transactionID = data.order_id;
+      if (userID.transaction) {
+        const newTransaction = userID.transaction.filter(
+          (item: any) => item.transactionID !== transactionID
+        );
+        await updateData(
+          "users",
+          user[0],
+          { transaction: newTransaction },
+          (status: boolean) => {
+            if (status) {
+              responseApiSuccess(res);
+            } else {
+              responseApiFailed(res);
+            }
+          }
+        );
+      }
     });
   } else {
     responseApiMethodNotAllowed(res);
