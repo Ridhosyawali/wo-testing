@@ -1,5 +1,6 @@
 import { Lato } from "next/font/google";
 import Styles from "./Footer.module.scss";
+import Link from "next/link";
 
 const Footerview = () => {
   return (
@@ -17,7 +18,7 @@ const Footerview = () => {
             <h3 className={Styles.footer__content__title}>Kontak Kami</h3>
             <ul className={Styles.footer__content__contact__list}>
               <li>
-                <i className="bx bx-phone" /> Telepon: +62-85693123
+                <i className="bx bx-phone" /> Telepon: +6287888231078
               </li>
               <li>
                 <i className="bx bx-envelope" /> Email:
@@ -29,11 +30,27 @@ const Footerview = () => {
               </li>
             </ul>
           </div>
+          <div className={Styles.footer__content__help}>
+            <h3 className={Styles.footer__content__title}>Bantuan</h3>
+            <ul className={Styles.footer__content__help__list}>
+              <li>
+                <Link href="/help/panduan_pemesanan">Panduan Pemesanan?</Link>
+              </li>
+              <li>
+                <Link href="/help/pilihan_pembayaran">Pilihan Pembayaran?</Link>
+              </li>
+            </ul>
+          </div>
           <div className={Styles.footer__content__social}>
             <h3 className={Styles.footer__content__title}>Ikuti Kami</h3>
             <div className={Styles.footer__content__social__list}>
-              <a href="https://www.instagram.com/desi_rira/" target="_blank">
+              <a
+                href="https://www.instagram.com/desi_rira/"
+                target="_blank"
+                className={Styles.footer__content__social__link}
+              >
                 <i className="bx bxl-instagram" />
+                Instagram
               </a>
             </div>
           </div>

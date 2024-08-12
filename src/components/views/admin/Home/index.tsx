@@ -14,6 +14,7 @@ import "react-date-range/dist/theme/default.css";
 import { Calendar } from "react-date-range";
 import { Product } from "@/types/product.type";
 import { eachDayOfInterval } from "date-fns";
+import moment from "moment";
 type PropTypes = {
   articles: Article[];
   products: Product[];
@@ -42,6 +43,8 @@ const HomeAdminView = (props: PropTypes) => {
     startIndex + itemsPerPage
   );
 
+  const visibleEvent = products.slice(startIndex, startIndex + itemsPerPage);
+
   useEffect(() => {
     setArticlesData(articles);
   }, [articles]);
@@ -62,13 +65,43 @@ const HomeAdminView = (props: PropTypes) => {
     <>
       <AdminLayout>
         <div className={styles.homes}>
-          <div className={styles.homes__calendar}>
+          <h2 className={styles.homes__title}>Event Management</h2>
+          <div className={styles.homes__event}>
             <Calendar
-              className={styles.homes__calendar__date}
+              className={styles.homes__event__date}
               date={new Date()}
               onChange={(date) => console.log(date)}
               disabledDates={disabledDates.map((date) => new Date(date))}
             />
+            <div className={styles.homes__event__desc}>
+              <table className={styles.homes__table}>
+                <thead>
+                  <tr>
+                    <th colSpan={2}>Day</th>
+                    <th rowSpan={2}>Nama</th>
+                    <th rowSpan={2}>Id</th>
+                  </tr>
+                  <tr>
+                    <th>Mulai</th>
+                    <th>Selesai</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visibleEvent
+                    .filter((product) => product.agenda)
+                    .map((product: any) =>
+                      product.agenda.map((agenda: any) => (
+                        <tr key={agenda?.id}>
+                          <td>{moment(agenda?.startDate).format("LL")}</td>
+                          <td>{moment(agenda?.endDate).format("LL")}</td>
+                          <td>{product?.name}</td>
+                          <td>{product?.id}</td>
+                        </tr>
+                      ))
+                    )}
+                </tbody>
+              </table>
+            </div>
           </div>
           <div>
             <h2 className={styles.homes__title}>Feedback Management</h2>

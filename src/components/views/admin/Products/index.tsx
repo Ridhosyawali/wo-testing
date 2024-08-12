@@ -56,7 +56,7 @@ const ProductsAdminView = (props: PropTypes) => {
     <>
       <AdminLayout>
         <div className={styles.products}>
-          <h2 className={styles.products__title}>Products Management</h2>
+          <h2 className={styles.products__title}>Produk Management</h2>
           <div className={styles.products__header}>
             <Button
               type="button"
@@ -86,6 +86,7 @@ const ProductsAdminView = (props: PropTypes) => {
                 <th rowSpan={2}>Name</th>
                 <th rowSpan={2}>Category</th>
                 <th rowSpan={2}>Price</th>
+                <th rowSpan={2}>lokasi</th>
                 <th colSpan={2}>Stock</th>
                 <th rowSpan={2}>Action</th>
               </tr>
@@ -115,6 +116,7 @@ const ProductsAdminView = (props: PropTypes) => {
                     <td rowSpan={product.stock.length}>
                       {convertIDR(product.price)}
                     </td>
+                    <td>{product.location}</td>
                     <td>{product.stock[0].size}</td>
                     <td>{product.stock[0].qty}</td>
                     <td rowSpan={product.stock.length}>

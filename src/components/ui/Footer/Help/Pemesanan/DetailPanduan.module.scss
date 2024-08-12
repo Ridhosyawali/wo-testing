@@ -1,0 +1,43 @@
+.detail {
+  padding: 15vh 8vw;
+  &__main {
+    display: flex;
+    gap: 60px;
+    &__contact {
+      display: flex;
+      flex-direction: column;
+      width: 30%;
+
+      &__us {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        margin-bottom: 30px;
+        font-size: 18px;
+        &__title {
+          font-weight: 600;
+        }
+        i {
+          font-size: 70px;
+          padding: 10px;
+        }
+      }
+    }
+    &__desc {
+      width: 90%;
+      padding: 10px;
+
+      &__list {
+        padding: 30px;
+        display: flex;
+        font-size: 18px;
+        flex-direction: column;
+        gap: 10px;
+        li {
+          list-style: square;
+        }
+      }
+    }
+  }
+}

@@ -165,7 +165,8 @@ const ProductView = (props: PropTypes) => {
         category === "Decoration" ||
         category === "Catering" ||
         category === "Wedding" ||
-        category === "Photographer"
+        category === "Photographer" ||
+        category === "Soundsystem"
       ) {
         setShowLocationOptions(true); // Show location options for Make Up
       } else {
@@ -221,7 +222,7 @@ const ProductView = (props: PropTypes) => {
     { label: "Make Up", value: "Make Up" },
     { label: "Photographer", value: "Photographer" },
     { label: "Paket Pernikahan", value: "Wedding" },
-    { label: "Sound", value: "Sound System" },
+    { label: "Sound System", value: "Soundsystem" },
   ];
 
   const Locations = [
@@ -233,6 +234,7 @@ const ProductView = (props: PropTypes) => {
     { label: "Depok", value: "Depok" },
     { label: "Tangerang", value: "Tangerang" },
     { label: "Bekasi", value: "Bekasi" },
+    { label: "Bandung", value: "Bandung" },
   ];
 
   return (

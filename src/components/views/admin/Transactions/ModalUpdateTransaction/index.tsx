@@ -75,6 +75,8 @@ const ModalUpdateTransaction = (props: Proptypes) => {
     }
   };
 
+  console.log(updatedOrder);
+
   return (
     <Modal onClose={() => setUpdatedOrder({})}>
       <h1 className={styles.modal__title}>Detail Transaksi</h1>

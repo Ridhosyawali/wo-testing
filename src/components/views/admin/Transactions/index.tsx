@@ -88,6 +88,7 @@ const TransactionsAdminView = (props: PropTypes) => {
           <table className={styles.homes__table}>
             <thead>
               <tr>
+                <th rowSpan={2}>#</th>
                 <th rowSpan={2}>Nama Users</th>
                 <th rowSpan={2}>Status</th>
                 <th rowSpan={2}>Nama Pemesan</th>
@@ -131,31 +132,38 @@ const TransactionsAdminView = (props: PropTypes) => {
                           >
                             <i className="bx bxs-detail" />
                           </Button>
-                          {item.status !== "approve" && (
-                            <Button
-                              type="button"
-                              variant="accept"
-                              onClick={() =>
-                                setApproveOrder({
-                                  ...item,
-                                  id: orders.id,
-                                  fullname: orders.fullname,
-                                })
-                              }
-                              // disabled={data?.status === "pending"}
-                            >
-                              <i className="bx bx-check" />
-                            </Button>
-                          )}
+
                           <Button
                             type="button"
-                            variant="delete"
+                            variant="update"
                             onClick={() =>
-                              handleDelete(orders.id, item.order_id)
+                              setApproveOrder({
+                                ...item,
+                                id: orders.id,
+                                fullname: orders.fullname,
+                              })
+                            }
+                            disabled={
+                              item?.status === "pending" ||
+                              item?.status === "expire"
                             }
                           >
-                            <i className="bx bx-trash" />
+                            <i className="bx bx-check" />
                           </Button>
+
+                          {orders.history?.some(
+                            (history: any) => history.order_id === item.order_id
+                          ) && (
+                            <Button
+                              type="button"
+                              variant="delete"
+                              onClick={() =>
+                                handleDelete(orders.id, item.order_id)
+                              }
+                            >
+                              <i className="bx bx-trash" />
+                            </Button>
+                          )}
                         </div>
                       </td>
                     </tr>

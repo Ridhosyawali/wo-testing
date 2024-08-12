@@ -190,7 +190,7 @@ const ModalAddProduct = (props: Proptypes) => {
     { label: "Make Up", value: "Make Up" },
     { label: "Photographer", value: "Photographer" },
     { label: "Paket Pernikahan", value: "Wedding" },
-    { label: "Sound", value: "Sound System" },
+    { label: "Sound System", value: "Soundsystem" },
   ];
 
   const Locations = [
@@ -209,6 +209,7 @@ const ModalAddProduct = (props: Proptypes) => {
     { label: "Depok", value: "Depok" },
     { label: "Tangerang", value: "Tangerang" },
     { label: "Bekasi", value: "Bekasi" },
+    { label: "Bandung", value: "Bandung" },
   ];
 
   return (

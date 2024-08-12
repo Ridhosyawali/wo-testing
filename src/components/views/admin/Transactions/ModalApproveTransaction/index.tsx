@@ -27,8 +27,6 @@ const ModalApproveTransaction = (props: Proptypes) => {
   const [isLoading, setIsLoading] = useState(false);
   const [itemsCount, setItemsCount] = useState(approveTransaction.items);
 
-  console.log(approveTransaction);
-
   const handleApprove = async (event: FormEvent<HTMLFormElement>) => {
     const form: any = event.target as HTMLFormElement;
     const items = itemsCount.map(

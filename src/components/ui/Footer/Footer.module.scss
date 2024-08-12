@@ -16,7 +16,7 @@
       text-decoration: underline;
     }
     &__contact {
-      width: 50%;
+      width: 40%;
       li {
         list-style-type: none;
       }
@@ -25,22 +25,42 @@
         flex-direction: column;
         gap: 7px;
         font-size: 15px;
+        opacity: 0.7;
       }
     }
-    &__social {
-      width: 30%;
-      i {
-        font-size: 20px;
+    &__help {
+      width: 20%;
+      li {
+        list-style-type: none;
       }
       &__list {
         display: flex;
-        gap: 3px;
+        flex-direction: column;
+        gap: 7px;
+        opacity: 0.7;
+        font-size: 15px;
+      }
+    }
+    &__social {
+      width: 20%;
+      &__link {
+        font-size: 15px;
+        display: flex;
+        opacity: 0.7;
+        align-items: center;
+        i {
+          margin-right: 5px;
+          font-size: 22px;
+        }
       }
     }
     &__location {
       width: 20%;
       &__link {
         font-size: 15px;
+        opacity: 0.7;
+        display: flex;
+        align-items: center;
         i {
           margin-right: 5px;
           font-size: 20px;

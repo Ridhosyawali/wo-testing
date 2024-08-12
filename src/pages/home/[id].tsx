@@ -22,7 +22,7 @@ const DetailHomePage = () => {
   return (
     <>
       <Head>
-        <title>Product Detail</title>
+        <title>Testimoni</title>
       </Head>
       <DetailArticleView article={article} />
     </>

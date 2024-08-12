@@ -98,6 +98,53 @@ const MemberOrdersView = () => {
           </div>
         )}
       </div>
+      <div className={styles.orders}>
+        <h2 className={styles.orders__title}>Pesanan Selesai</h2>
+        {profile?.transaction?.length > 0 ? (
+          <div>
+            <table className={styles.orders__table}>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Order Id</th>
+                  <th>Uang Muka</th>
+                  <th>Total Pembayaran</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {profile?.history?.map((transaction: any, index: number) => (
+                  <tr key={transaction.order_id}>
+                    <td>{index + 1}</td>
+                    <td>{transaction.order_id}</td>
+                    <td>{convertIDR(transaction.total)}</td>
+                    <td>{convertIDR(transaction.totalall)}</td>
+                    <td>{transaction.status}</td>
+                    <td>
+                      <div className={styles.orders__table__action}>
+                        <Button
+                          type="button"
+                          onClick={() => setDetailOrder(transaction)}
+                          className={styles.orders__table__action__edit}
+                        >
+                          <i className="bx bx-dots-vertical-rounded" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className={styles.orders__empty}>
+            <h1 className={styles.orders__empty__title}>
+              Your orders is empty
+            </h1>
+          </div>
+        )}
+      </div>
       {Object.keys(detailOrder).length > 0 && (
         <ModalDetailOrder
           setDetailOrder={setDetailOrder}
