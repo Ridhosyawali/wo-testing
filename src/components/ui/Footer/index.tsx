@@ -34,10 +34,10 @@ const Footerview = () => {
             <h3 className={Styles.footer__content__title}>Bantuan</h3>
             <ul className={Styles.footer__content__help__list}>
               <li>
-                <Link href="/help/panduan_pemesanan">Panduan Pemesanan?</Link>
+                <Link href="/help/panduan_pemesanan">Panduan Pemesanan</Link>
               </li>
               <li>
-                <Link href="/help/pilihan_pembayaran">Pilihan Pembayaran?</Link>
+                <Link href="/help/pilihan_pembayaran">Pilihan Pembayaran</Link>
               </li>
             </ul>
           </div>

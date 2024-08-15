@@ -11,23 +11,24 @@ import ModalApproveTransaction from "./ModalApproveTransaction";
 import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 import orderServices from "@/services/order";
+import { Transactions } from "@/types/transactions.type";
 
 type PropTypes = {
-  orders: User[];
+  orders: Transactions[];
 };
 const TransactionsAdminView = (props: PropTypes) => {
   const { orders } = props;
-  const [ordersData, setOrdersData] = useState<User[]>([]);
+  const [ordersData, setOrdersData] = useState<Transactions[]>([]);
   const { setToaster } = useContext(ToasterContext);
 
-  const [updateOrder, setUpdateOrder] = useState<User | {}>({});
-  const [approveOrder, setApproveOrder] = useState<User | {}>({});
+  const [updateOrder, setUpdateOrder] = useState<Transactions | {}>({});
+  const [approveOrder, setApproveOrder] = useState<Transactions | {}>({});
   const [isLoading, setIsLoading] = useState(false);
   const [transaction, setTransaction] = useState([]);
 
   const [startIndex, setStartIndex] = useState(0);
 
-  const itemsPerPage = 15; // Jumlah produk yang ingin ditampilkan per halaman
+  const itemsPerPage = 10; // Jumlah produk yang ingin ditampilkan per halaman
 
   const handleNextClick = () => {
     setStartIndex((prevIndex) => prevIndex + itemsPerPage);
@@ -37,48 +38,15 @@ const TransactionsAdminView = (props: PropTypes) => {
     setStartIndex((prevIndex) => Math.max(0, prevIndex - itemsPerPage));
   };
 
-  const visibleArticles = ordersData.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const visibleOrders = ordersData.slice(startIndex, startIndex + itemsPerPage);
+
+  const sortedTransactions = visibleOrders.sort((a: any, b: any) => {
+    return moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf();
+  });
 
   useEffect(() => {
     setOrdersData(orders);
   }, [orders]);
-
-  const handleDelete = async (userID: string, order_id: string) => {
-    const newTransaction = transaction.filter((item: { order_id: string }) => {
-      return item.order_id !== order_id;
-    });
-    try {
-      const result = await orderServices.deleteOrder(userID, {
-        transaction: newTransaction,
-      });
-      if (result.status === 200) {
-        setTransaction(newTransaction);
-        setIsLoading(false);
-        const { data } = await userServices.getAllUsers();
-        setOrdersData(data.data);
-        setToaster({
-          variant: "success",
-          message: "Success Delete Transaction",
-        });
-        // Jika berhasil, Anda dapat melakukan operasi lainnya, seperti memperbarui state atau melakukan refresh data
-      } else {
-        setIsLoading(false);
-        setToaster({
-          variant: "danger",
-          message: "Failed Delete Transaction",
-        });
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setToaster({
-        variant: "danger",
-        message: "Failed Delete Transaction",
-      });
-    }
-  };
 
   return (
     <>
@@ -88,7 +56,7 @@ const TransactionsAdminView = (props: PropTypes) => {
           <table className={styles.homes__table}>
             <thead>
               <tr>
-                <th rowSpan={2}>#</th>
+                <th rowSpan={2}>No</th>
                 <th rowSpan={2}>Nama Users</th>
                 <th rowSpan={2}>Status</th>
                 <th rowSpan={2}>Nama Pemesan</th>
@@ -103,72 +71,44 @@ const TransactionsAdminView = (props: PropTypes) => {
               </tr>
             </thead>
             <tbody>
-              {visibleArticles
-                .filter((orders) => orders.transaction)
-                .map((orders: any) =>
-                  orders?.transaction?.map((item: any) => (
-                    <tr key={item.order_id}>
-                      <td>{orders?.fullname}</td>
-                      <td>{item?.status}</td>
-                      <td>{item.address?.recipient}</td>
-                      <td>{moment(item?.startDate).format("LL")}</td>
-                      <td>{moment(item?.endDate).format("LL")}</td>
-                      <td>{convertIDR(item?.remaining)}</td>
-                      <td>
-                        <strong>{convertIDR(item?.totalall)}</strong>
-                      </td>
+              {sortedTransactions.map((item: any, index: number) => (
+                <tr key={item.id}>
+                  <td>{index + 1}</td>
+                  <td>{item?.fullname}</td>
+                  <td>{item?.status}</td>
+                  <td>{item.address?.recipient}</td>
+                  <td>{moment(item?.startDate).format("LL")}</td>
+                  <td>{moment(item?.endDate).format("LL")}</td>
+                  <td>{convertIDR(item?.total)}</td>
+                  <td>
+                    <strong>{convertIDR(item?.totalall)}</strong>
+                  </td>
 
-                      <td>
-                        <div className={styles.homes__table__action}>
-                          <Button
-                            type="button"
-                            variant="accept"
-                            onClick={() =>
-                              setUpdateOrder({
-                                ...item,
-                                fullname: orders.fullname,
-                              })
-                            }
-                          >
-                            <i className="bx bxs-detail" />
-                          </Button>
+                  <td>
+                    <div className={styles.homes__table__action}>
+                      <Button
+                        type="button"
+                        variant="accept"
+                        onClick={() => setUpdateOrder(item)}
+                      >
+                        <i className="bx bxs-detail" />
+                      </Button>
 
-                          <Button
-                            type="button"
-                            variant="update"
-                            onClick={() =>
-                              setApproveOrder({
-                                ...item,
-                                id: orders.id,
-                                fullname: orders.fullname,
-                              })
-                            }
-                            disabled={
-                              item?.status === "pending" ||
-                              item?.status === "expire"
-                            }
-                          >
-                            <i className="bx bx-check" />
-                          </Button>
-
-                          {orders.history?.some(
-                            (history: any) => history.order_id === item.order_id
-                          ) && (
-                            <Button
-                              type="button"
-                              variant="delete"
-                              onClick={() =>
-                                handleDelete(orders.id, item.order_id)
-                              }
-                            >
-                              <i className="bx bx-trash" />
-                            </Button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                      <Button
+                        type="button"
+                        variant="update"
+                        onClick={() => setApproveOrder(item)}
+                        disabled={
+                          item?.status === "pending" ||
+                          item?.status === "expire"
+                        }
+                      >
+                        <i className="bx bx-check" />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <div className={styles.homes__bottom}>
@@ -181,7 +121,7 @@ const TransactionsAdminView = (props: PropTypes) => {
                 Previous
               </Button>
             )}
-            {visibleArticles.length < ordersData.length && (
+            {visibleOrders.length < ordersData.length && (
               <Button
                 type="button"
                 className={styles.homes__bottom__pagination}

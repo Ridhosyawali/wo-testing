@@ -8,15 +8,16 @@ import { convertIDR } from "@/utils/currency";
 import moment from "moment";
 import { ToasterContext } from "@/context/ToasterContext";
 import ModalDetailHistory from "./ModalDetailHistory";
+import { Histories } from "@/types/histories.type.";
 
 type PropTypes = {
-  orders: User[];
+  history: Histories[];
 };
 const HistoryAdminView = (props: PropTypes) => {
-  const { orders } = props;
-  const [ordersData, setOrdersData] = useState<User[]>([]);
+  const { history } = props;
+  const [historiesData, setHistoriesData] = useState<Histories[]>([]);
 
-  const [updateOrder, setUpdateOrder] = useState<User | {}>({});
+  const [detailHistory, setDetailHistory] = useState<Histories | {}>({});
 
   const [startIndex, setStartIndex] = useState(0);
 
@@ -30,14 +31,18 @@ const HistoryAdminView = (props: PropTypes) => {
     setStartIndex((prevIndex) => Math.max(0, prevIndex - itemsPerPage));
   };
 
-  const visibleArticles = ordersData.slice(
+  const visibleHistories = historiesData.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
+  const sortedTransactions = visibleHistories.sort((a: any, b: any) => {
+    return moment(b.created_at).valueOf() - moment(a.created_at).valueOf();
+  });
+
   useEffect(() => {
-    setOrdersData(orders);
-  }, [orders]);
+    setHistoriesData(history);
+  }, [history]);
 
   return (
     <>
@@ -47,51 +52,42 @@ const HistoryAdminView = (props: PropTypes) => {
           <table className={styles.homes__table}>
             <thead>
               <tr>
-                <th rowSpan={2}>Nama Users</th>
-                <th rowSpan={2}>Status</th>
-                <th rowSpan={2}>Nama Pemesan</th>
-                <th colSpan={2}>Pelaksanaan</th>
-                <th rowSpan={2}>Uang Muka</th>
-                <th rowSpan={2}>Total Harga</th>
-                <th rowSpan={2}>Action</th>
-              </tr>
-              <tr>
-                <th>Mulai</th>
-                <th>Berakhir</th>
+                <th>No</th>
+                <th>Nama Users</th>
+                <th>Status</th>
+                <th>Nama Pemesan</th>
+                <th>Tanggal</th>
+                <th>Uang Muka</th>
+                <th>Total Harga</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {visibleArticles
-                .filter((orders) => orders.history)
-                .map((orders: any) =>
-                  orders.history.map((data: any) => (
-                    <Fragment key={data.id}>
-                      <tr>
-                        <td>{orders?.fullname}</td>
-                        <td>{data?.status}</td>
-                        <td>{data.address?.recipient}</td>
-                        <td>{moment(data?.startDate).format("LL")}</td>
-                        <td>{moment(data?.endDate).format("LL")}</td>
-                        <td>{convertIDR(data?.remaining)}</td>
-                        <td>
-                          <strong>{convertIDR(data?.totalall)}</strong>
-                        </td>
+              {sortedTransactions.map((data: any, index: number) => (
+                <tr key={data.id}>
+                  <td>{index + 1}</td>
+                  <td>{data?.fullname}</td>
+                  <td>{data?.status}</td>
+                  <td>{data.address?.recipient}</td>
+                  <td>{moment(data?.created_at).format("LLLL")}</td>
+                  <td>{convertIDR(data?.remaining)}</td>
+                  <td>
+                    <strong>{convertIDR(data?.totalall)}</strong>
+                  </td>
 
-                        <td>
-                          <div className={styles.homes__table__action}>
-                            <Button
-                              type="button"
-                              variant="accept"
-                              onClick={() => setUpdateOrder(data)}
-                            >
-                              <i className="bx bxs-detail" />
-                            </Button>
-                          </div>
-                        </td>
-                      </tr>
-                    </Fragment>
-                  ))
-                )}
+                  <td>
+                    <div className={styles.homes__table__action}>
+                      <Button
+                        type="button"
+                        variant="accept"
+                        onClick={() => setDetailHistory(data)}
+                      >
+                        <i className="bx bxs-detail" />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <div className={styles.homes__bottom}>
@@ -104,7 +100,7 @@ const HistoryAdminView = (props: PropTypes) => {
                 Previous
               </Button>
             )}
-            {visibleArticles.length < ordersData.length && (
+            {visibleHistories.length < historiesData.length && (
               <Button
                 type="button"
                 className={styles.homes__bottom__pagination}
@@ -116,12 +112,10 @@ const HistoryAdminView = (props: PropTypes) => {
           </div>
         </div>
       </AdminLayout>
-      {Object.keys(updateOrder).length > 0 && (
+      {Object.keys(detailHistory).length > 0 && (
         <ModalDetailHistory
-          updatedOrder={updateOrder}
-          setUpdatedOrder={setUpdateOrder}
-          setOrdersData={setOrdersData}
-          orders={orders}
+          detailHistory={detailHistory}
+          setDetailHistory={setDetailHistory}
         />
       )}
     </>

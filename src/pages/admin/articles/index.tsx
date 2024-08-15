@@ -1,20 +1,10 @@
-import HomeAdminView from "@/components/views/admin/Home";
+import ArticleAdminView from "@/components/views/admin/Articles";
 import articleServices from "@/services/article";
-import productServices from "@/services/product";
 import { useEffect, useState } from "react";
 
-const AdminHomePage = () => {
+const AdminArticlePage = () => {
   const [articles, setArticle] = useState([]);
-  const [products, setProduct] = useState([]);
 
-  const getAllProducts = async () => {
-    const { data } = await productServices.getAllProducts();
-    setProduct(data.data);
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
   const getAllArticle = async () => {
     const { data } = await articleServices.getAllArticles();
     setArticle(data.data);
@@ -25,9 +15,9 @@ const AdminHomePage = () => {
 
   return (
     <>
-      <HomeAdminView articles={articles} products={products} />
+      <ArticleAdminView articles={articles} />
     </>
   );
 };
 
-export default AdminHomePage;
+export default AdminArticlePage;

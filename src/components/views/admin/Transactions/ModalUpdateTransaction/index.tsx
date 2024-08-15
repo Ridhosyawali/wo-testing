@@ -15,12 +15,13 @@ import { convertIDR } from "@/utils/currency";
 import Image from "next/image";
 import moment from "moment";
 import { orderServices } from "@/services/order";
+import { Transactions } from "@/types/transactions.type";
 
 type Proptypes = {
-  setOrdersData: Dispatch<SetStateAction<User[]>>;
-  updatedOrder: User | any;
+  setOrdersData: Dispatch<SetStateAction<Transactions[]>>;
+  updatedOrder: Transactions | any;
   setUpdatedOrder: Dispatch<SetStateAction<{}>>;
-  orders: User | any;
+  orders: Transactions | any;
 };
 const ModalUpdateTransaction = (props: Proptypes) => {
   const { updatedOrder, setUpdatedOrder, setOrdersData, orders } = props;
@@ -83,6 +84,9 @@ const ModalUpdateTransaction = (props: Proptypes) => {
       <form onSubmit={handleSubmit} className={styles.modal}>
         <p>Customer Name: {updatedOrder.fullname}</p>
         <p>Order Id: {updatedOrder.order_id}</p>
+        <p>
+          Tanggal Order: {moment(updatedOrder.createdAt).format("LLLL HH:mm")}
+        </p>
         <hr className={styles.modal__devide} />
         {updatedOrder.items.map((item: any) => (
           <div key={item.id} className={styles.modal__preview}>

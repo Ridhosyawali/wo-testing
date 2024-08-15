@@ -1,0 +1,90 @@
+.homes {
+  &__event {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    max-height: 300px;
+    &__date {
+      width: 35%;
+    }
+    &__desc {
+      width: 65%;
+    }
+  }
+  &__title {
+    margin-top: -20px;
+    font-size: 22px;
+  }
+  &__add {
+    margin-top: 30px;
+    padding: 10px 16px;
+    font-size: 16px;
+    i {
+      font-size: 15px;
+      margin-right: 5px;
+      font-weight: bold;
+    }
+  }
+  &__table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+
+    &__image {
+      object-fit: cover;
+      border-radius: 7px;
+    }
+
+    &__size {
+      font-size: 13px;
+      font-weight: 400;
+    }
+    th {
+      border: 1px solid #ccc;
+      font-size: 15px;
+      padding: 5px;
+    }
+    td {
+      text-align: center;
+      font-size: 14px;
+      padding: 5px;
+      border: none;
+      border: 1px solid #ddd;
+    }
+
+    thead {
+      tr {
+        background-color: #f2f2f2;
+      }
+    }
+
+    &__action {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 5px;
+    }
+  }
+  &__bottom {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    &__pagination {
+      border: none;
+      padding: 7px 15px;
+      text-align: center;
+      font-size: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      :hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}

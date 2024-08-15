@@ -51,14 +51,6 @@ export default async function handler(
           },
           item_details: payload.transaction.items,
         },
-        item_details: [
-          {
-            id: payload.transaction.items.id,
-            price: payload.transaction.items.price,
-            quantity: payload.transaction.items.qty,
-            name: payload.transaction.items.name,
-          },
-        ],
       };
       createTransaction(
         params,
@@ -70,7 +62,7 @@ export default async function handler(
             redirect_url: transaction.redirect_url,
             status: "pending",
             order_id: generateOrderId,
-            orderDate: new Date(Date.now()),
+            createdAt: new Date().toLocaleString(),
           };
 
           const data = {

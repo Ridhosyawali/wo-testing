@@ -1,20 +1,21 @@
 import TransactionsAdminView from "@/components/views/admin/Transactions";
+import ordersServices from "@/services/orders";
 import userServices from "@/services/user";
 import { useEffect, useState } from "react";
 
 const AdminOrdersPage = () => {
-  const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
   useEffect(() => {
-    const getAllUsers = async () => {
-      const { data } = await userServices.getAllUsers();
-      setUsers(data.data);
+    const getAllOrders = async () => {
+      const { data } = await ordersServices.getAllOrders();
+      setOrders(data.data);
     };
-    getAllUsers();
+    getAllOrders();
   }, []);
 
   return (
     <>
-      <TransactionsAdminView orders={users} />
+      <TransactionsAdminView orders={orders} />
     </>
   );
 };

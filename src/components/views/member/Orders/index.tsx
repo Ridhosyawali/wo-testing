@@ -7,10 +7,17 @@ import Button from "@/components/ui/Button";
 import Script from "next/script";
 import ModalDetailOrder from "./ModalDetailOrder";
 import productServices from "@/services/product";
+import { Transactions } from "@/types/transactions.type";
+import moment from "moment";
+import { Histories } from "@/types/histories.type.";
 
-const MemberOrdersView = () => {
+type Propstype = {
+  transaction: Transactions[];
+  history: Histories[];
+};
+const MemberOrdersView = (props: Propstype) => {
+  const { transaction, history } = props;
   const [profile, setProfile] = useState<User | any>({});
-  const [changeImage, setChangeImage] = useState<File | any>({});
   const [detailOrder, setDetailOrder] = useState<any>({});
   const [products, setProducts] = useState<any>([]);
 
@@ -30,6 +37,22 @@ const MemberOrdersView = () => {
     getAllProducts();
   }, []);
 
+  const filteredTransactions = transaction.filter(
+    (trx: any) => trx.userId === profile.id
+  );
+
+  const sortedTransactions = filteredTransactions.sort((a: any, b: any) => {
+    return moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf();
+  });
+
+  const filteredHistory = history.filter(
+    (htr: any) => htr.userId === profile.id
+  );
+
+  const sortedHistory = filteredHistory.sort((a: any, b: any) => {
+    return moment(b.created_at).valueOf() - moment(a.created_at).valueOf();
+  });
+
   return (
     <>
       <Script
@@ -39,57 +62,56 @@ const MemberOrdersView = () => {
       />
       <div className={styles.orders}>
         <h2 className={styles.orders__title}>Riwayat Pesanan</h2>
-        {profile?.transaction?.length > 0 ? (
-          <div>
-            <table className={styles.orders__table}>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Order Id</th>
-                  <th>Uang Muka</th>
-                  <th>Total Pembayaran</th>
-                  <th>Status</th>
-                  <th>Action</th>
+        {sortedTransactions?.length > 0 ? (
+          <table className={styles.orders__table}>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Order Id</th>
+                <th>Tanggal Pesanan</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedTransactions?.map((trx: any, index) => (
+                <tr key={trx.id}>
+                  <td>{index + 1}</td>
+                  <td>{trx.order_id}</td>
+                  <td>
+                    {moment(trx.createdAt).format("DD - MMMM - YYYY HH:mm")}
+                  </td>
+                  <td>{trx.total}</td>
+                  <td>{trx.status}</td>
+                  <td>
+                    <div className={styles.orders__table__action}>
+                      <Button
+                        type="button"
+                        onClick={() => setDetailOrder(trx)}
+                        className={styles.orders__table__action__edit}
+                      >
+                        <i className="bx bx-dots-vertical-rounded" />
+                      </Button>
+                      <Button
+                        variant="accept"
+                        type="button"
+                        onClick={() => {
+                          window.snap.pay(trx.token);
+                        }}
+                        className={styles.orders__table__action__pay}
+                        disabled={
+                          trx.status !== "pending" && trx.status !== "expired"
+                        }
+                      >
+                        <i className="bx bx-money" />
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {profile?.transaction?.map(
-                  (transaction: any, index: number) => (
-                    <tr key={transaction.order_id}>
-                      <td>{index + 1}</td>
-                      <td>{transaction.order_id}</td>
-                      <td>{convertIDR(transaction.total)}</td>
-                      <td>{convertIDR(transaction.totalall)}</td>
-                      <td>{transaction.status}</td>
-                      <td>
-                        <div className={styles.orders__table__action}>
-                          <Button
-                            type="button"
-                            onClick={() => setDetailOrder(transaction)}
-                            className={styles.orders__table__action__edit}
-                          >
-                            <i className="bx bx-dots-vertical-rounded" />
-                          </Button>
-
-                          <Button
-                            variant="accept"
-                            type="button"
-                            onClick={() => {
-                              window.snap.pay(transaction.token);
-                            }}
-                            className={styles.orders__table__action__pay}
-                            disabled={transaction.status !== "pending"}
-                          >
-                            <i className="bx bx-money" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         ) : (
           <div className={styles.orders__empty}>
             <h1 className={styles.orders__empty__title}>
@@ -100,7 +122,7 @@ const MemberOrdersView = () => {
       </div>
       <div className={styles.orders}>
         <h2 className={styles.orders__title}>Pesanan Selesai</h2>
-        {profile?.transaction?.length > 0 ? (
+        {sortedHistory?.length > 0 ? (
           <div>
             <table className={styles.orders__table}>
               <thead>
@@ -110,22 +132,26 @@ const MemberOrdersView = () => {
                   <th>Uang Muka</th>
                   <th>Total Pembayaran</th>
                   <th>Status</th>
+                  <th>Tanggal Persetujuan</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {profile?.history?.map((transaction: any, index: number) => (
-                  <tr key={transaction.order_id}>
+                {sortedHistory.map((item: any, index: number) => (
+                  <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td>{transaction.order_id}</td>
-                    <td>{convertIDR(transaction.total)}</td>
-                    <td>{convertIDR(transaction.totalall)}</td>
-                    <td>{transaction.status}</td>
+                    <td>{item.order_id}</td>
+                    <td>{convertIDR(item.total)}</td>
+                    <td>{convertIDR(item.totalall)}</td>
+                    <td>{item.status}</td>
+                    <td>
+                      {moment(item.created_at).format("DD - MMMM - YYYY HH:mm")}
+                    </td>
                     <td>
                       <div className={styles.orders__table__action}>
                         <Button
                           type="button"
-                          onClick={() => setDetailOrder(transaction)}
+                          onClick={() => setDetailOrder(item)}
                           className={styles.orders__table__action__edit}
                         >
                           <i className="bx bx-dots-vertical-rounded" />

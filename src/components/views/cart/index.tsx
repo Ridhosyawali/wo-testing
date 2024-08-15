@@ -10,7 +10,6 @@ import userServices from "@/services/user";
 import { ToasterContext } from "@/context/ToasterContext";
 import { useSession } from "next-auth/react";
 import productServices from "@/services/product";
-import Link from "next/link";
 import router from "next/router";
 
 const CartView = () => {

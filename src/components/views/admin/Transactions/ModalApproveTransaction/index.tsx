@@ -13,11 +13,13 @@ import { User } from "@/types/user.type";
 import Select from "@/components/ui/Select";
 import orderServices from "@/services/order";
 import userServices from "@/services/user";
+import { Transactions } from "@/types/transactions.type";
+import ordersServices from "@/services/orders";
 
 type Proptypes = {
-  approveTransaction: User | any;
+  approveTransaction: Transactions | any;
   setApproveTransaction: Dispatch<SetStateAction<{}>>;
-  setOrdersData: Dispatch<SetStateAction<User[]>>;
+  setOrdersData: Dispatch<SetStateAction<Transactions[]>>;
 };
 
 const ModalApproveTransaction = (props: Proptypes) => {
@@ -47,34 +49,52 @@ const ModalApproveTransaction = (props: Proptypes) => {
       }
     );
     event.preventDefault();
+
+    setIsLoading(true);
+
     const data = {
-      history: {
-        id: approveTransaction.id,
-        fullname: approveTransaction.fullname,
-        status: "Approved",
-        endDate: approveTransaction.endDate,
-        order_id: approveTransaction.order_id,
-        startDate: approveTransaction.startDate,
-        total: approveTransaction.total,
-        redirect_url: approveTransaction.redirect_url,
-        token: approveTransaction.token,
-        remaining: approveTransaction.remaining,
-        totalall: approveTransaction.totalall,
-        items: items,
-        address: {
-          recipient: approveTransaction.address.recipient,
-          addressLine: approveTransaction.address.addressLine,
-          note: approveTransaction.address.note,
-          phone: approveTransaction.address.phone,
-        },
+      id: approveTransaction.id,
+      fullname: approveTransaction.fullname,
+      status: "Approved",
+      endDate: approveTransaction.endDate,
+      order_id: approveTransaction.order_id,
+      startDate: approveTransaction.startDate,
+      total: approveTransaction.total,
+      redirect_url: approveTransaction.redirect_url,
+      token: approveTransaction.token,
+      remaining: approveTransaction.remaining,
+      totalall: approveTransaction.totalall,
+      items: items,
+      transactionDate: approveTransaction.createdAt,
+      userId: approveTransaction.userId,
+      address: {
+        recipient: approveTransaction.address.recipient,
+        addressLine: approveTransaction.address.addressLine,
+        note: approveTransaction.address.note,
+        phone: approveTransaction.address.phone,
       },
     };
 
-    const result = await orderServices.updateOrder(approveTransaction.id, data);
+    const dataTime = {
+      startDate: approveTransaction.startDate,
+      endDate: approveTransaction.endDate,
+    };
+
+    const promises = approveTransaction.items.map(async (item: any) => {
+      const result = await orderServices.updateAgenda(item.id, dataTime);
+      if (result.status !== 200) {
+        throw new Error("Failed to update agenda");
+      }
+    });
+
+    const result =
+      (await orderServices.addHistory(data)) &&
+      (await ordersServices.deleteProduct(approveTransaction.id));
     if (result.status === 200) {
+      await Promise.all(promises);
       setIsLoading(false);
       setApproveTransaction({});
-      const { data } = await userServices.getAllUsers();
+      const { data } = await ordersServices.getAllOrders();
       setOrdersData(data.data);
       setToaster({
         variant: "success",
@@ -88,6 +108,9 @@ const ModalApproveTransaction = (props: Proptypes) => {
       });
     }
   };
+
+  console.log(approveTransaction);
+
   return (
     <Modal onClose={() => setApproveTransaction({})}>
       <form onSubmit={handleApprove}>

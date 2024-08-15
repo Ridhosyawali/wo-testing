@@ -15,6 +15,7 @@ import "react-date-range/dist/theme/default.css"; // ini tema react-date-range
 import Script from "next/script";
 import transactionServices from "@/services/transaction";
 import { eachDayOfInterval } from "date-fns";
+import ordersServices from "@/services/orders";
 
 const CheckoutView = () => {
   const { setToaster } = useContext(ToasterContext);
@@ -107,14 +108,15 @@ const CheckoutView = () => {
         startDate: selectionRange.startDate,
         endDate: selectionRange.endDate,
         items: profile.carts.map(
-          (item: { id: string; size: string; qty: number }) => {
+          (item: { id: string; size: string; qty: string }) => {
             const product: any = getProduct(item.id);
             return {
               id: item.id,
               size: item.size,
-              qty: item.qty,
+              qty: parseInt(item.qty),
               name: product.name,
               category: product.category,
+              price: parseInt(product.price),
               image: product.image, // tambahkan properti image dengan URL gambar produk
             };
           }
@@ -122,16 +124,28 @@ const CheckoutView = () => {
         remaining: getTotalPrize().remainingPayment,
         totalall: getTotalPrize().totalall,
         total: getTotalPrize().getDownPayment,
-        status: "pending",
       },
     };
-    const { data } = await transactionServices.generateTransaction(payload);
+    const { data } = await ordersServices.addTransaction(payload);
     window.snap.pay(data.data.token);
+    // Kosongkan carts setelah transaksi berhasil
+    profile.carts = [];
   };
 
   const getDisabledDates = () => {
     const disabledDates: Date[] = [];
 
+    // Tambahkan tanggal hari ini
+    const today = new Date();
+    disabledDates.push(today);
+
+    // Tambahkan tanggal yang telah lewat
+    for (let i = 1; i <= 365; i++) {
+      const date = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
+      disabledDates.push(date);
+    }
+
+    // Tambahkan tanggal yang telah di-disable oleh fungsi getDisabledDates sebelumnya
     profile?.carts?.forEach((item: any) => {
       const product = getProduct(item.id);
       if (product) {
@@ -156,7 +170,6 @@ const CheckoutView = () => {
 
     return disabledDates;
   };
-
   return (
     <>
       <Script
@@ -314,7 +327,7 @@ const CheckoutView = () => {
             Proses Payment
           </Button>
           <div className={styles.checkout__summary__desc}>
-            <p>Tolong periksa kembali pesanan anda!</p>
+            <p>Periksa kembali pesanan anda!</p>
           </div>
         </div>
       </div>

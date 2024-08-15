@@ -4,6 +4,7 @@ import { verify } from "@/utils/verifyToken";
 import {
   responseApiFailed,
   responseApiMethodNotAllowed,
+  responseApiNotFound,
   responseApiSuccess,
 } from "@/utils/responseApi";
 
@@ -33,6 +34,19 @@ export default async function handler(
           responseApiSuccess(res);
         } else {
           responseApiFailed(res);
+        }
+      });
+    });
+  }
+  if (req.method === "PUT") {
+    verify(req, res, true, async () => {
+      const { data } = req.body;
+      const { product }: any = req.query;
+      await updateData("users", product[0], data, (result: boolean) => {
+        if (result) {
+          responseApiSuccess(res);
+        } else {
+          responseApiNotFound(res);
         }
       });
     });

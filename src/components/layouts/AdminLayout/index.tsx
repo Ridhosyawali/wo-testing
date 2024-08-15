@@ -24,12 +24,17 @@ const listSidebarItem = [
   {
     title: "Transaksi",
     url: "/admin/transactions",
-    icon: "bx-wallet",
+    icon: "bxs-wallet",
   },
   {
     title: "Riwayat",
     url: "/admin/history",
-    icon: "bx-money-withdraw",
+    icon: "bxs-bank",
+  },
+  {
+    title: "Article",
+    url: "/admin/articles",
+    icon: "bxs-news",
   },
 ];
 
