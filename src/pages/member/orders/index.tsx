@@ -1,5 +1,5 @@
 import MemberOrdersView from "@/components/views/member/Orders";
-import orderServices from "@/services/order";
+import historyServices from "@/services/history";
 import ordersServices from "@/services/orders";
 import { useEffect, useState } from "react";
 
@@ -17,7 +17,7 @@ const MemberOrdersPage = () => {
   }, []);
 
   const getAllHistories = async () => {
-    const { data } = await orderServices.getAllHistories();
+    const { data } = await historyServices.getAllHistories();
     setHistories(data.data);
   };
 

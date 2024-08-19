@@ -9,12 +9,9 @@ import {
   useState,
 } from "react";
 import { ToasterContext } from "@/context/ToasterContext";
-import { User } from "@/types/user.type";
-import Select from "@/components/ui/Select";
-import orderServices from "@/services/order";
-import userServices from "@/services/user";
 import { Transactions } from "@/types/transactions.type";
 import ordersServices from "@/services/orders";
+import historyServices from "@/services/history";
 
 type Proptypes = {
   approveTransaction: Transactions | any;
@@ -53,7 +50,6 @@ const ModalApproveTransaction = (props: Proptypes) => {
     setIsLoading(true);
 
     const data = {
-      id: approveTransaction.id,
       fullname: approveTransaction.fullname,
       status: "Approved",
       endDate: approveTransaction.endDate,
@@ -75,23 +71,11 @@ const ModalApproveTransaction = (props: Proptypes) => {
       },
     };
 
-    const dataTime = {
-      startDate: approveTransaction.startDate,
-      endDate: approveTransaction.endDate,
-    };
-
-    const promises = approveTransaction.items.map(async (item: any) => {
-      const result = await orderServices.updateAgenda(item.id, dataTime);
-      if (result.status !== 200) {
-        throw new Error("Failed to update agenda");
-      }
-    });
-
-    const result =
-      (await orderServices.addHistory(data)) &&
-      (await ordersServices.deleteProduct(approveTransaction.id));
-    if (result.status === 200) {
-      await Promise.all(promises);
+    const result = await historyServices.addHistory(data);
+    const result2 = await ordersServices.deleteTransaction(
+      approveTransaction.id
+    );
+    if (result.status === 200 && result2.status === 200) {
       setIsLoading(false);
       setApproveTransaction({});
       const { data } = await ordersServices.getAllOrders();

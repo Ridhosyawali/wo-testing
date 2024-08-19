@@ -6,7 +6,7 @@ export const ordersServices = {
   addTransaction: (data: any) => instance.post(endpoint, data),
   updateTransaction: (order_id: string) =>
     instance.put(`${endpoint}?order_id=${order_id}`),
-  deleteProduct: (id: string) => instance.delete(`${endpoint}/${id}`),
+  deleteTransaction: (id: string) => instance.delete(`${endpoint}/${id}`),
 };
 
 export default ordersServices;

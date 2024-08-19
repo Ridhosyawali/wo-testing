@@ -23,6 +23,22 @@ export default async function handler(
         startDate: data?.startDate,
         endDate: data?.endDate,
       };
+
+      if (
+        productsID.agenda &&
+        productsID.agenda.some((agenda: any) => {
+          return (
+            agenda.startDate === newAgenda.startDate &&
+            agenda.endDate === newAgenda.endDate &&
+            agenda.agenda === newAgenda.agenda
+          );
+        })
+      ) {
+        // Jika data agenda yang baru sama dengan yang sudah ada sebelumnya, maka kirimkan peringatan gagal mengUpdate
+        responseApiFailed(res);
+        return;
+      }
+
       if (productsID.agenda) {
         data2 = { agenda: [...productsID.agenda, newAgenda] };
       } else {
@@ -34,19 +50,6 @@ export default async function handler(
           responseApiSuccess(res);
         } else {
           responseApiFailed(res);
-        }
-      });
-    });
-  }
-  if (req.method === "PUT") {
-    verify(req, res, true, async () => {
-      const { data } = req.body;
-      const { product }: any = req.query;
-      await updateData("users", product[0], data, (result: boolean) => {
-        if (result) {
-          responseApiSuccess(res);
-        } else {
-          responseApiNotFound(res);
         }
       });
     });

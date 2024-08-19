@@ -4,7 +4,7 @@ export type Histories = {
   fullname: string;
   id: string;
   userId: string;
-  create_at: string;
+  created_at: string;
   startDate: Date;
   endDate: Date;
   total: number;
@@ -26,6 +26,7 @@ export type Histories = {
       qty: number;
       size: string;
       image: string;
+      name: string;
     }
   ];
 };

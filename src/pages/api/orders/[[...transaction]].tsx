@@ -20,14 +20,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const { transaction }: any = req.query;
-    if (transaction && transaction[0]) {
-      const data = await retrieveDataById("transactions", transaction[0]);
-      responseApiSuccess(res, data);
-    } else {
-      const data = await retrieveData("transactions");
-      responseApiSuccess(res, data);
-    }
+    verify(req, res, true && false, async () => {
+      const { transaction }: any = req.query;
+      if (transaction && transaction[0]) {
+        const data = await retrieveDataById("transactions", transaction[0]);
+        responseApiSuccess(res, data);
+      } else {
+        const data = await retrieveData("transactions");
+        responseApiSuccess(res, data);
+      }
+    });
   } else if (req.method === "POST") {
     verify(req, res, false, async (decoded: { id: string }) => {
       const payload = req.body;

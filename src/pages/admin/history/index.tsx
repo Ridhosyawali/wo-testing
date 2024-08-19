@@ -1,13 +1,12 @@
 import HistoryAdminView from "@/components/views/admin/History";
-import orderServices from "@/services/order";
-import userServices from "@/services/user";
+import historyServices from "@/services/history";
 import { useEffect, useState } from "react";
 
 const AdminOrdersPage = () => {
   const [history, setHistory] = useState([]);
 
   const getAllHistory = async () => {
-    const { data } = await orderServices.getAllHistories();
+    const { data } = await historyServices.getAllHistories();
     setHistory(data.data);
   };
 

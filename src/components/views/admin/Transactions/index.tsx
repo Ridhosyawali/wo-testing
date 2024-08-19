@@ -1,17 +1,12 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Button from "@/components/ui/Button";
-import { FormEvent, Fragment, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Transactions.module.scss";
-
-import { User } from "@/types/user.type";
 import { convertIDR } from "@/utils/currency";
 import moment from "moment";
-import ModalUpdateTransaction from "./ModalUpdateTransaction";
 import ModalApproveTransaction from "./ModalApproveTransaction";
-import userServices from "@/services/user";
-import { ToasterContext } from "@/context/ToasterContext";
-import orderServices from "@/services/order";
 import { Transactions } from "@/types/transactions.type";
+import ModalDetailTransaction from "./ModalDetailTransaction";
 
 type PropTypes = {
   orders: Transactions[];
@@ -19,12 +14,9 @@ type PropTypes = {
 const TransactionsAdminView = (props: PropTypes) => {
   const { orders } = props;
   const [ordersData, setOrdersData] = useState<Transactions[]>([]);
-  const { setToaster } = useContext(ToasterContext);
 
   const [updateOrder, setUpdateOrder] = useState<Transactions | {}>({});
   const [approveOrder, setApproveOrder] = useState<Transactions | {}>({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [transaction, setTransaction] = useState([]);
 
   const [startIndex, setStartIndex] = useState(0);
 
@@ -141,11 +133,10 @@ const TransactionsAdminView = (props: PropTypes) => {
         />
       )}
       {Object.keys(updateOrder).length > 0 && (
-        <ModalUpdateTransaction
+        <ModalDetailTransaction
           updatedOrder={updateOrder}
           setUpdatedOrder={setUpdateOrder}
           setOrdersData={setOrdersData}
-          orders={orders}
         />
       )}
     </>

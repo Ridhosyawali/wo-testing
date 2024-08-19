@@ -1,6 +1,4 @@
-import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
-import userServices from "@/services/user";
 import {
   Dispatch,
   FormEvent,
@@ -9,22 +7,24 @@ import {
   useState,
 } from "react";
 import styles from "./ModalUpdateTransaction.module.scss";
-import { User } from "@/types/user.type";
-import { ToasterContext } from "@/context/ToasterContext";
 import { convertIDR } from "@/utils/currency";
 import Image from "next/image";
 import moment from "moment";
-import { orderServices } from "@/services/order";
 import { Transactions } from "@/types/transactions.type";
+import historyServices from "@/services/history";
+import { ToasterContext } from "@/context/ToasterContext";
+import ordersServices from "@/services/orders";
+import Button from "@/components/ui/Button";
+import productServices from "@/services/product";
+import { Product } from "@/types/product.type";
 
 type Proptypes = {
   setOrdersData: Dispatch<SetStateAction<Transactions[]>>;
   updatedOrder: Transactions | any;
   setUpdatedOrder: Dispatch<SetStateAction<{}>>;
-  orders: Transactions | any;
 };
-const ModalUpdateTransaction = (props: Proptypes) => {
-  const { updatedOrder, setUpdatedOrder, setOrdersData, orders } = props;
+const ModalDetailTransaction = (props: Proptypes) => {
+  const { updatedOrder, setUpdatedOrder, setOrdersData } = props;
   const { setToaster } = useContext(ToasterContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
@@ -32,56 +32,50 @@ const ModalUpdateTransaction = (props: Proptypes) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const form: any = event.target as HTMLFormElement;
 
     const dataTime = {
       startDate: updatedOrder.startDate,
       endDate: updatedOrder.endDate,
     };
 
-    const promises = updatedOrder.items.map(async (item: any) => {
-      const result = await orderServices.updateAgenda(item.id, dataTime);
-      if (result.status !== 200) {
-        throw new Error("Failed to update agenda");
+    const result = updatedOrder.items.map(async (item: any) => {
+      try {
+        const response = await historyServices.agendaUpdate(item.id, dataTime);
+        if (response.status !== 200) {
+          throw new Error(`Failed to update agenda: ${response.status}`);
+        }
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
       }
     });
 
-    try {
-      // Check if the date already exists
-      const existingDates = orders.map((order: any) => order.startDate);
-      if (existingDates.includes(dataTime.startDate)) {
+    Promise.all(result)
+      .then(async (responses) => {
+        setIsLoading(false);
+        setIsDataUpdated(true);
+        setUpdatedOrder({});
+        const { data } = await ordersServices.getAllOrders();
+        setOrdersData(data.data);
+        setToaster({
+          variant: "success",
+          message: "Sukses Update Agenda",
+        });
+      })
+      .catch((error) => {
         setIsLoading(false);
         setToaster({
           variant: "danger",
-          message: "Date already exists",
+          message: "gagal Update Agenda",
         });
-        return;
-      }
-      await Promise.all(promises);
-      setIsLoading(false);
-      setIsDataUpdated(true);
-      setUpdatedOrder({});
-      const { data } = await userServices.getAllUsers();
-      setOrdersData(data.data);
-      setToaster({
-        variant: "success",
-        message: "Success Update",
       });
-    } catch (error) {
-      setIsLoading(false);
-      setToaster({
-        variant: "danger",
-        message: "Failed Update",
-      });
-    }
   };
-
-  console.log(updatedOrder);
 
   return (
     <Modal onClose={() => setUpdatedOrder({})}>
       <h1 className={styles.modal__title}>Detail Transaksi</h1>
-      <form onSubmit={handleSubmit} className={styles.modal}>
+      <form className={styles.modal} onSubmit={handleSubmit}>
         <p>Customer Name: {updatedOrder.fullname}</p>
         <p>Order Id: {updatedOrder.order_id}</p>
         <p>
@@ -121,7 +115,7 @@ const ModalUpdateTransaction = (props: Proptypes) => {
           </div>
           <hr className={styles.modal__devide__vertical} />
           <div className={styles.modal__summary__address}>
-            <h3>Data Pengiriman</h3>
+            <h3>Data Penerima</h3>
 
             <p>Pemesan: {updatedOrder.address.recipient}</p>
             <p>Alamat: {updatedOrder.address.addressLine}</p>
@@ -130,11 +124,11 @@ const ModalUpdateTransaction = (props: Proptypes) => {
           </div>
         </div>
         <Button type="submit" variant="accept" className={styles.modal__button}>
-          Update Agenda Product
+          {isLoading ? "Loading..." : "Update Event"}
         </Button>
       </form>
     </Modal>
   );
 };
 
-export default ModalUpdateTransaction;
+export default ModalDetailTransaction;

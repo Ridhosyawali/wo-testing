@@ -24,6 +24,7 @@ const CheckoutView = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedAddress, setSelectedAddress] = useState(0);
   const [changeAddress, setChangeAddress] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
@@ -97,16 +98,17 @@ const CheckoutView = () => {
   };
 
   const handleCheckout = async () => {
+    setIsLoading(true);
     const payload = {
       user: {
-        fullname: profile.fullname,
-        email: profile.email,
-        phone: profile.phone,
-        address: profile.address[selectedAddress],
+        fullname: profile?.fullname,
+        email: profile?.email,
+        phone: profile?.phone,
+        address: profile?.address[selectedAddress],
       },
       transaction: {
-        startDate: selectionRange.startDate,
-        endDate: selectionRange.endDate,
+        startDate: selectionRange?.startDate,
+        endDate: selectionRange?.endDate,
         items: profile.carts.map(
           (item: { id: string; size: string; qty: string }) => {
             const product: any = getProduct(item.id);
@@ -324,7 +326,7 @@ const CheckoutView = () => {
             className={styles.checkout__summary__button}
             onClick={() => handleCheckout()}
           >
-            Proses Payment
+            {isLoading ? "Loading..." : "Proses Payment"}
           </Button>
           <div className={styles.checkout__summary__desc}>
             <p>Periksa kembali pesanan anda!</p>
