@@ -5,18 +5,8 @@ import productServices from "@/services/product";
 import historyServices from "@/services/history";
 
 const HomeAdminPage = () => {
-  const [products, setProduct] = useState([]);
   const [orders, setOrders] = useState([]);
   const [history, setHistory] = useState([]);
-
-  const getAllProducts = async () => {
-    const { data } = await productServices.getAllProducts();
-    setProduct(data.data);
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
 
   const getAllOrders = async () => {
     const { data } = await ordersServices.getAllOrders();
@@ -38,7 +28,7 @@ const HomeAdminPage = () => {
 
   return (
     <>
-      <HomeAdminView products={products} order={orders} history={history} />
+      <HomeAdminView order={orders} history={history} />
     </>
   );
 };

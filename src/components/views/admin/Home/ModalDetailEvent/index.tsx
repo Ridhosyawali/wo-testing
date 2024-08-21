@@ -127,6 +127,7 @@ const ModalDetailEvent = (props: Proptypes) => {
             label="Status"
             defaultValue={detailEvent?.status}
             value={detailEvent?.status}
+            className={styles.modal__select}
             options={[
               { label: "Approved", value: "Approved" },
               { label: "Finished", value: "Finished" },
@@ -134,7 +135,11 @@ const ModalDetailEvent = (props: Proptypes) => {
           />
         </div>
         <div>
-          <Button type="submit" variant="update">
+          <Button
+            type="submit"
+            variant="update"
+            className={styles.modal__button}
+          >
             {isLoading ? "Loading..." : "Hapus Event"}
           </Button>
         </div>

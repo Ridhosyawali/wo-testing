@@ -23,19 +23,19 @@ import {
 } from "recharts";
 import ModalDetailEvent from "./ModalDetailEvent";
 import { convertIDR } from "@/utils/currency";
+import Select from "@/components/ui/Select";
 
 type PropTypes = {
-  products: Product[];
   order: Transactions[];
   history: Histories[];
 };
 const HomeAdminView = (props: PropTypes) => {
-  const { products, order, history } = props;
-  const [productsData, setProductsData] = useState<Product[]>([]);
-  const [historiesData, setHistoriesData] = useState<Histories[]>([]);
+  const { order, history } = props;
   const [detailEvent, setDetailEvent] = useState<Histories | {}>({});
-  const [tahun, setTahun] = useState(new Date().getFullYear()); // default tahun adalah tahun sekarang
-  const [filteredHistory, setFilteredHistory] = useState(history);
+  const [historiesData, setHistoriesData] = useState<Histories[]>([]);
+  const [totalPemasukan, setTotalPemasukan] = useState(0);
+  const [totalPesanan, setTotalPesanan] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(moment().format("YYYY"));
 
   const [chartData, setChartData] = useState<
     { name: string; Invoice: number }[]
@@ -56,13 +56,9 @@ const HomeAdminView = (props: PropTypes) => {
     ?.filter((history) => history.status === "Approved")
     .slice(startIndex, startIndex + itemsPerPage);
 
-  const sortedEvent = visibleEvent.sort((a, b) => {
-    const tanggalA = moment(a.startDate);
-    const tanggalB = moment(b.startDate);
-    const hariIni = moment();
-
-    return tanggalA.diff(hariIni) - tanggalB.diff(hariIni);
-  });
+  const handleYearChange = (year: any) => {
+    setSelectedYear(year);
+  };
 
   useEffect(() => {
     const bulan = [
@@ -79,25 +75,69 @@ const HomeAdminView = (props: PropTypes) => {
       "November",
       "December",
     ];
-
     const data = bulan.map((month) => ({
       name: month,
       Invoice: history.reduce((acc, item) => {
         const tanggal = moment(item.created_at);
-        if (bulan[tanggal.month()] === month) {
+        if (
+          bulan[tanggal.month()] === month &&
+          moment(item.created_at).format("YYYY") === selectedYear
+        ) {
           return acc + 1;
         }
         return acc;
       }, 0),
     }));
 
-    setHistoriesData(history);
-    setChartData(data);
-  }, [history]);
+    const filteredData = history.filter(
+      (item) => moment(item.startDate).format("YYYY") === selectedYear
+    );
 
-  useEffect(() => {
-    setProductsData(products);
-  }, [products]);
+    setChartData(data);
+    setTotalPemasukan(
+      filteredData.reduce((acc, item) => acc + item.totalall, 0)
+    );
+    setTotalPesanan(filteredData.length);
+  }, [selectedYear, history]);
+
+  const sortedEvent = visibleEvent.sort((a, b) => {
+    const tanggalA = moment(a.startDate);
+    const tanggalB = moment(b.startDate);
+    const hariIni = moment();
+
+    return tanggalA.diff(hariIni) - tanggalB.diff(hariIni);
+  });
+
+  // useEffect(() => {
+  //   const bulan = [
+  //     "January",
+  //     "February",
+  //     "March",
+  //     "April",
+  //     "May",
+  //     "June",
+  //     "July",
+  //     "August",
+  //     "September",
+  //     "October",
+  //     "November",
+  //     "December",
+  //   ];
+
+  // const data = bulan.map((month) => ({
+  //   name: month,
+  //   Invoice: history.reduce((acc, item) => {
+  //     const tanggal = moment(item.created_at);
+  //     if (bulan[tanggal.month()] === month) {
+  //       return acc + 1;
+  //     }
+  //     return acc;
+  //   }, 0),
+  // }));
+
+  // setHistoriesData(history);
+  //  setChartData(data);
+  // }, [history]);
 
   useEffect(() => {
     setHistoriesData(history);
@@ -122,17 +162,16 @@ const HomeAdminView = (props: PropTypes) => {
           <h2>Grafik Penjualan</h2>
           <div className={styles.homes__chart}>
             <div className={styles.homes__chart__filter}>
-              <select
-                value={tahun}
+              <Select
+                name="year"
                 className={styles.homes__chart__filter__select}
-              >
-                <option value={new Date().getFullYear()}>Tahun Sekarang</option>
-                <option value={new Date().getFullYear() - 1}>Tahun Lalu</option>
-                <option value={new Date().getFullYear() - 2}>
-                  2 Tahun Lalu
-                </option>
-                {/* tambahkan opsi tahun lainnya jika perlu */}
-              </select>
+                onChange={(e) => handleYearChange(e.target.value)}
+                options={[
+                  { value: "2024", label: "2024" },
+                  { value: "2023", label: "2023" },
+                  { value: "2022", label: "2022" },
+                ]}
+              />
             </div>
             <AreaChart
               width={900}
@@ -162,14 +201,14 @@ const HomeAdminView = (props: PropTypes) => {
               <div className={styles.homes__chart__invoice__pemasukan}>
                 <div className={styles.homes__chart__invoice__pemasukan__title}>
                   <h5>Jumlah Pemasukan</h5>
-                  <p>{convertIDR(totalAll)}</p>
+                  <p>{convertIDR(totalPemasukan)}</p>
                 </div>
                 <i className="bx bx-money" />
               </div>
               <div className={styles.homes__chart__invoice__pemasukan}>
                 <div className={styles.homes__chart__invoice__pemasukan__title}>
                   <h5>Total Pesanan</h5>
-                  <p>{history.length}</p>
+                  <p>{totalPesanan}</p>
                 </div>
                 <i className="bx bx-transfer-alt" />
               </div>

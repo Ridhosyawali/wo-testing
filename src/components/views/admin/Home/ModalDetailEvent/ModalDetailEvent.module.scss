@@ -42,12 +42,12 @@
         font-weight: 550;
       }
     }
-    &__select {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 5px;
-    }
+  }
+  &__select {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
   }
   &__button {
     width: 30%;
