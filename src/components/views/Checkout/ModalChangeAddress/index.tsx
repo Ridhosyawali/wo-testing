@@ -182,7 +182,7 @@ const ModalChangeAddress = (props: Proptypes) => {
   return (
     <Modal onClose={() => setChangeAddress(false)}>
       <div className={styles.modal}>
-        <h1 className={styles.modal__title}>Select Shipping Address</h1>
+        <h1 className={styles.modal__title}>Pilih Alamat Penerima</h1>
         {profile?.address?.map((item: any, id: number) => (
           <div key={item.addressLine}>
             <div
@@ -198,11 +198,11 @@ const ModalChangeAddress = (props: Proptypes) => {
                 }}
               >
                 <h4 className={styles.modal__address__info__title}>
-                  Recipient: {item.recipient}
+                  Penerima: {item.recipient}
                 </h4>
-                <p>Phone: {item.phone}</p>
-                <p>Address: {item.addressLine}</p>
-                <p>Note: {item.note}</p>
+                <p>No Telepon: {item.phone}</p>
+                <p>Alamat: {item.addressLine}</p>
+                <p>Catatan: {item.note}</p>
               </div>
 
               <div className={styles.modal__address__action}>
@@ -247,27 +247,27 @@ const ModalChangeAddress = (props: Proptypes) => {
                     type="text"
                     name="recipient"
                     label="Recipient"
-                    placeholder="insert recipient"
+                    placeholder="Masukkan nama pemesan"
                     defaultValue={item.recipient}
                   />
                   <Input
                     type="text"
                     name="phone"
                     label="Phone"
-                    placeholder="insert the recipient's phone number"
+                    placeholder="Tambahkan nomor telepon pemesan"
                     defaultValue={item.phone}
                   />
                   <Textarea
                     name="addressLine"
                     label="Address Line"
-                    placeholder="insert address line"
+                    placeholder="Tambahkan alamat pemesan"
                     defaultValue={item.addressLine}
                   />
                   <Input
                     type="text"
                     name="note"
                     label="Note"
-                    placeholder="insert note"
+                    placeholder="Tambahkan catatan pemesan"
                     defaultValue={item.note}
                   />
                   <Button
@@ -275,7 +275,7 @@ const ModalChangeAddress = (props: Proptypes) => {
                     type="submit"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Loading..." : "Change Address"}
+                    {isLoading ? "Loading..." : "Buat alamat baru"}
                   </Button>
                 </form>
               </div>
@@ -288,7 +288,7 @@ const ModalChangeAddress = (props: Proptypes) => {
         className={styles.modal__btn}
         type="button"
       >
-        {isAddNew ? "Cancel" : "Add New Address"}
+        {isAddNew ? "Cancel" : "Tambah Alamat Baru"}
       </Button>
       {isAddNew && (
         <div className={styles.modal__form}>
@@ -301,24 +301,24 @@ const ModalChangeAddress = (props: Proptypes) => {
               type="text"
               name="recipient"
               label="Recipient"
-              placeholder="insert recipient"
+              placeholder="Masukkan nama pemesan"
             />
             <Input
               type="text"
               name="phone"
               label="Phone"
-              placeholder="insert the recipient's phone number"
+              placeholder="Tambahkan nomor telepon pemesan"
             />
             <Textarea
               name="addressLine"
               label="Address Line"
-              placeholder="insert address line"
+              placeholder="Tambahkan alamat pemesan"
             />
             <Input
               type="text"
               name="note"
               label="Note"
-              placeholder="insert note"
+              placeholder="Tambahkan catatan"
             />
             <Button
               className={styles.modal__btn}

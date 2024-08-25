@@ -133,7 +133,7 @@ const DetailProductView = (props: PropTypes) => {
               type={status === "authenticated" ? "submit" : "button"}
               onClick={() => {
                 if (selectedSize === "") {
-                  setToaster({ variant: "warning", message: "Select Size" });
+                  setToaster({ variant: "warning", message: "Pilih Varian" });
                 } else {
                   status === "unauthenticated"
                     ? router.push(`/auth/login?callbackUrl=${router.asPath}`)

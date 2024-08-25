@@ -98,6 +98,13 @@ const CheckoutView = () => {
   };
 
   const handleCheckout = async () => {
+    if (!profile?.address || profile?.address.length === 0) {
+      setToaster({
+        variant: "danger",
+        message: "Tambahkan alamat terlebih dahulu",
+      });
+      return;
+    }
     setIsLoading(true);
     const payload = {
       user: {
