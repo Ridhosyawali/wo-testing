@@ -9,6 +9,18 @@ type Proptypes = {
 
 const Card = (props: Proptypes) => {
   const { product } = props;
+
+  const categoryMap: any = {
+    Wedding: "Paket Pernikahan",
+    "Make Up": "Tata Rias",
+    Catering: "Katering",
+    Photographer: "Fotografi",
+    Decoration: "Dekorasi",
+    Soundsystem: "Peralatan Suara",
+  };
+
+  const newCategory = categoryMap[product.category] || product.category;
+
   return (
     <div className={styles.card}>
       <Image
@@ -21,9 +33,7 @@ const Card = (props: Proptypes) => {
       <div className={styles.card__content}>
         <div className={styles.card__content__left}>
           <h4 className={styles.card__content__left__title}>{product.name}</h4>
-          <p className={styles.card__content__left__category}>
-            {product.category}
-          </p>
+          <p className={styles.card__content__left__category}>{newCategory}</p>
           <p className={styles.card__content__left__price}>
             {convertIDR(product.price)}
           </p>

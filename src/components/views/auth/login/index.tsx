@@ -33,20 +33,20 @@ const LoginView = () => {
         push(callbackUrl);
         setToaster({
           variant: "success",
-          message: "Login success",
+          message: "Login sukses",
         });
       } else {
         setIsLoading(false);
         setToaster({
           variant: "danger",
-          message: "Email or password is incorrect",
+          message: "Email atau password salah",
         });
       }
     } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
-        message: "Login failed, please call suppport",
+        message: "Login gagal, silahkan hubungi admin",
       });
     }
   };

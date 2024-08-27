@@ -219,10 +219,10 @@ const ProductView = (props: PropTypes) => {
       value: "Catering",
     },
     { label: "Dekorasi", value: "Decoration" },
-    { label: "Make Up", value: "Make Up" },
-    { label: "Photographer", value: "Photographer" },
+    { label: "Tata rias", value: "Make Up" },
+    { label: "Fotografi", value: "Photographer" },
     { label: "Paket Pernikahan", value: "Wedding" },
-    { label: "Sound System", value: "Soundsystem" },
+    { label: "Peralatan Suara", value: "Soundsystem" },
   ];
 
   const Locations = [

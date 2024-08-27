@@ -184,14 +184,14 @@ const ProfileMemberView = () => {
               className={styles.profile__main__row__profile__form}
             >
               <Input
-                label="Fullname"
+                label="Nama Panjang"
                 type="text"
                 name="fullname"
                 defaultValue={profile.fullname}
                 className={styles.profile__main__row__profile__form__input}
               />
               <Input
-                label="Phone"
+                label="Nomor Telepon"
                 type="number"
                 name="phone"
                 defaultValue={profile.phone}
@@ -221,7 +221,7 @@ const ProfileMemberView = () => {
           </div>
           <div className={styles.profile__main__row__password}>
             <h2 className={styles.profile__main__row__password__title}>
-              Change Password
+              Ganti Password
             </h2>
             <form
               onSubmit={handleChangePassword}
@@ -229,7 +229,7 @@ const ProfileMemberView = () => {
             >
               <Input
                 name="old-password"
-                label="Old Password"
+                label="Password lama"
                 type="password"
                 disabled={profile.type === "google"}
                 placeholder="Enter your current password"
@@ -237,7 +237,7 @@ const ProfileMemberView = () => {
               />
               <Input
                 name="new-password"
-                label="New Password"
+                label="Password baru"
                 type="password"
                 disabled={profile.type === "google"}
                 placeholder="Enter your new password"

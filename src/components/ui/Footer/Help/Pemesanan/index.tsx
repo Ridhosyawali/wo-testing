@@ -47,7 +47,7 @@ const PanduanPemesanan = () => {
           <hr />
           <div className={styles.detail__main__contact}>
             <div className={styles.detail__main__contact__us}>
-              <h2>Contact Us</h2>
+              <h2>Kontak Kami</h2>
               <a
                 href="https://wa.me/6287888231078?text=Halo%20saya%20ingin%20menanyakan%20tentang%20produk%20anda"
                 target="_blank"

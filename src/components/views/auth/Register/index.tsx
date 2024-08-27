@@ -39,20 +39,20 @@ const RegisterView = () => {
         push("/auth/login");
         setToaster({
           variant: "success",
-          message: "Register success, please login",
+          message: "Register sukses, silahkan login",
         });
       } else {
         setIsLoading(false);
         setToaster({
           variant: "danger",
-          message: "Register failed, please call suppport",
+          message: "Register gagal, email sudah terdaftar",
         });
       }
     } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
-        message: "Register failed, email is already exist",
+        message: "Register gagal, silahkan hubungi admin",
       });
     }
   };

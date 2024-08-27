@@ -213,7 +213,7 @@ const CheckoutView = () => {
               </div>
             ) : (
               <Button type="button" onClick={() => setChangeAddress(true)}>
-                Tambah Address
+                Tambah Alamat
               </Button>
             )}
           </div>
@@ -333,7 +333,7 @@ const CheckoutView = () => {
             className={styles.checkout__summary__button}
             onClick={() => handleCheckout()}
           >
-            {isLoading ? "Loading..." : "Proses Payment"}
+            {isLoading ? "Loading..." : "Proses Pembayaran"}
           </Button>
           <div className={styles.checkout__summary__desc}>
             <p>Periksa kembali pesanan anda!</p>

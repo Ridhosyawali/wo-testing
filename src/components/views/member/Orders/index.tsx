@@ -115,7 +115,7 @@ const MemberOrdersView = (props: Propstype) => {
         ) : (
           <div className={styles.orders__empty}>
             <h1 className={styles.orders__empty__title}>
-              Your orders is empty
+              Pesanan Anda Masih Kosong
             </h1>
           </div>
         )}
@@ -166,7 +166,7 @@ const MemberOrdersView = (props: Propstype) => {
         ) : (
           <div className={styles.orders__empty}>
             <h1 className={styles.orders__empty__title}>
-              Your orders is empty
+              Pesanan Anda Masih Kosong
             </h1>
           </div>
         )}

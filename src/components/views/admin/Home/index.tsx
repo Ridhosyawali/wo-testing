@@ -62,18 +62,18 @@ const HomeAdminView = (props: PropTypes) => {
 
   useEffect(() => {
     const bulan = [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const data = bulan.map((month) => ({
       name: month,

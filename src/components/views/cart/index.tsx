@@ -211,10 +211,6 @@ const CartView = () => {
           <p>{convertIDR(getTotalPrize())}</p>
         </div>
         <div className={styles.cart__summary__item}>
-          <h4>Delivery</h4>
-          <p>{convertIDR(0)}</p>
-        </div>
-        <div className={styles.cart__summary__item}>
           <h4>Tax</h4>
           <p>{convertIDR(0)}</p>
         </div>

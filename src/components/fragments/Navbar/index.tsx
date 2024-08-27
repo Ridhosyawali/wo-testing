@@ -111,7 +111,7 @@ const Navbar = () => {
                 className={styles.navbar__user__profile__dropdown__item}
                 onClick={() => signOut()}
               >
-                Logout
+                Keluar
               </button>
             </div>
           </div>
@@ -122,7 +122,7 @@ const Navbar = () => {
           className={styles.navbar__login}
           onClick={() => signIn()}
         >
-          Login
+          Masuk
         </Button>
       )}
     </div>

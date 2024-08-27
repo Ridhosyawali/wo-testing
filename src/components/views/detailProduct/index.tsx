@@ -59,13 +59,13 @@ const DetailProductView = (props: PropTypes) => {
           setSelectedSize("");
           setToaster({
             variant: "success",
-            message: "Success Add To Cart",
+            message: "Berhasil Menambahkan Item Ke Keranjang",
           });
         }
       } catch (error) {
         setToaster({
           variant: "danger",
-          message: "Failed Add To Cart",
+          message: "Gagal Menambahkan Item Ke Keranjang",
         });
       }
     }

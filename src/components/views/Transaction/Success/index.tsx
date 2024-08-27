@@ -7,7 +7,7 @@ const SuccessView = () => {
     <div className={styles.success}>
       <div className={styles.success__container}>
         <div className={styles.success__container__title}>
-          <h2>Payment Success</h2>
+          <h2>Pembayaran Berhasil</h2>
           <p>
             Silahkan hubungi admin kami dengan click icon whatsapp pada pojok
             kanan bawah, untuk melakukan pelunasan dan fitting baju
