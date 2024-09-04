@@ -28,9 +28,9 @@ const UserAdminView = (props: PropTypes) => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Fullname</th>
+                <th>Nama</th>
                 <th>Email</th>
-                <th>Phone</th>
+                <th>No Telepon</th>
                 <th>Role</th>
                 <th>Action</th>
               </tr>

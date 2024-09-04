@@ -40,8 +40,8 @@ const ModalDeleteUser = (props: Proptypes) => {
   return (
     <Modal onClose={() => setDeletedUser({})}>
       <div className={styles.modal}>
-        <h1 className={styles.modal__title}>Delete Account</h1>
-        <p>Are you sure you want to delete your account?</p>
+        <h1 className={styles.modal__title}>Delete Pengguna</h1>
+        <p>Apakah Anda yakin ingin menghapus akun Anda?</p>
       </div>
       <Button
         className={styles.modal__button}
@@ -49,7 +49,7 @@ const ModalDeleteUser = (props: Proptypes) => {
         variant="delete"
         onClick={() => handleDelete()}
       >
-        {isLoading ? "Deleting..." : "Yes, delete"}
+        {isLoading ? "Deleting..." : "Ya, Hapus"}
         <i className="bx bx-check" />
       </Button>
     </Modal>

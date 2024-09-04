@@ -49,7 +49,7 @@ const TransactionsAdminView = (props: PropTypes) => {
             <thead>
               <tr>
                 <th rowSpan={2}>No</th>
-                <th rowSpan={2}>Nama Users</th>
+                <th rowSpan={2}>Nama Pengguna</th>
                 <th rowSpan={2}>Status</th>
                 <th rowSpan={2}>Nama Pemesan</th>
                 <th colSpan={2}>Pelaksanaan</th>

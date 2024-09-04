@@ -18,10 +18,11 @@ const InputFile = (props: Proptypes) => {
         ) : (
           <>
             <p>
-              Upload a new Image, Larger image will be resized automatically
+              Unggah gambar baru, gambar yang lebih besar akan diubah ukurannya
+              secara otomatis
             </p>
             <p>
-              Maximum Upload size is <b>1 MB</b>
+              Maksimum ukuran <b>1 MB</b>
             </p>
           </>
         )}

@@ -217,35 +217,35 @@ const ModalAddProduct = (props: Proptypes) => {
       <h1 className={styles.modal__title}>Add Product</h1>
       <form onSubmit={handleSubmit} className={styles.modal_form}>
         <Input
-          label="Name"
-          placeholder="Insert product name"
+          label="Nama"
+          placeholder="Masukkan Nama Produk"
           name="name"
           type="text"
           className={styles.modal__form__input}
         />
         <Input
-          label="Price"
-          placeholder="Insert product price"
+          label="Harga"
+          placeholder="Masukkan Harga Produk"
           name="price"
           type="number"
           className={styles.modal__form__input}
         />
 
         <Textarea
-          label="Description"
-          placeholder="Insert product Description"
+          label="Deskripsi"
+          placeholder="Masukkan deskripsi produk"
           name="description"
           className={styles.modal__form__input}
         />
 
         <Select
-          label="Category"
+          label="Kategori"
           name="category"
           className={styles.modal__form__select}
           options={CategoriesType}
         />
         <Select
-          label="Location"
+          label="Lokasi"
           name="location"
           className={styles.modal__form__select}
           options={Locations}
@@ -268,7 +268,7 @@ const ModalAddProduct = (props: Proptypes) => {
         />
 
         <label className={styles.modal__image__subtitle} htmlFor="image">
-          Image
+          Gambar
         </label>
         <div className={styles.modal__image}>
           {uploadedImage ? (
@@ -280,7 +280,9 @@ const ModalAddProduct = (props: Proptypes) => {
               className={styles.modal__image__preview}
             />
           ) : (
-            <div className={styles.modal__image__placeholder}>No Image</div>
+            <div className={styles.modal__image__placeholder}>
+              Tidak ada Gambar
+            </div>
           )}
           <div className={styles.modal__image__upload}>
             <InputFile
@@ -300,7 +302,7 @@ const ModalAddProduct = (props: Proptypes) => {
           <div className={styles.modal__stock} key={i}>
             <div className={styles.modal__stock__item}>
               <Input
-                label="SIZE"
+                label="Variant"
                 placeholder="Insert product size"
                 name="size"
                 type="text"
@@ -332,7 +334,7 @@ const ModalAddProduct = (props: Proptypes) => {
           onClick={() => setStockCount([...stockCount, { size: "", qty: 0 }])}
         >
           <i className="bx bx-plus" />
-          Add Stock
+          Tambah Stock
         </Button>
 
         <Button
@@ -341,7 +343,7 @@ const ModalAddProduct = (props: Proptypes) => {
           variant="update"
           className={styles.modal__button}
         >
-          {isLoading ? "Loading..." : "Add Product"}
+          {isLoading ? "Loading..." : "Tambah Product"}
         </Button>
       </form>
     </Modal>

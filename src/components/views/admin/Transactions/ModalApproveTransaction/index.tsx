@@ -108,7 +108,7 @@ const ModalApproveTransaction = (props: Proptypes) => {
           <p>status : {approveTransaction.status}</p>
         </div>
         <Button className={styles.modal__button} type="submit">
-          {isLoading ? "Updating..." : "Yes, Approve"}
+          {isLoading ? "Updating..." : "Ya, Setuju"}
           <i className="bx bx-check" />
         </Button>
       </form>

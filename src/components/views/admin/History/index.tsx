@@ -53,7 +53,7 @@ const HistoryAdminView = (props: PropTypes) => {
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Users</th>
+                <th>Nama Pengguna</th>
                 <th>Status</th>
                 <th>Nama Pemesan</th>
                 <th>Tanggal</th>

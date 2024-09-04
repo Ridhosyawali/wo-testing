@@ -42,7 +42,7 @@ const HomeAdminView = (props: PropTypes) => {
   >([]);
   const [startIndex, setStartIndex] = useState(0);
 
-  const itemsPerPage = 5; // Jumlah produk yang ingin ditampilkan per halaman
+  const itemsPerPage = 7; // Jumlah produk yang ingin ditampilkan per halaman
 
   const handleNextClick = () => {
     setStartIndex((prevIndex) => prevIndex + itemsPerPage);
@@ -68,7 +68,7 @@ const HomeAdminView = (props: PropTypes) => {
       "Apr",
       "May",
       "Jun",
-      "Jul",
+      "Jul  ",
       "Aug",
       "Sep",
       "Oct",
@@ -229,7 +229,7 @@ const HomeAdminView = (props: PropTypes) => {
                     <tr>
                       <th colSpan={2}>Day</th>
                       <th rowSpan={2}>Nama</th>
-                      <th rowSpan={2}>Id</th>
+                      <th rowSpan={2}>Action</th>
                     </tr>
                     <tr>
                       <th>Mulai</th>

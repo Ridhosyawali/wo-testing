@@ -64,7 +64,7 @@ const ProductsAdminView = (props: PropTypes) => {
               variant=""
               onClick={() => setModalAddProduct(true)}
             >
-              <i className="bx bx-plus" /> Add Product
+              <i className="bx bx-plus" /> Tambah Produk
             </Button>
             <div className={styles.products__header__search}>
               <i className="bx bx-search-alt" />
@@ -82,16 +82,16 @@ const ProductsAdminView = (props: PropTypes) => {
             <thead>
               <tr>
                 <th rowSpan={2}>#</th>
-                <th rowSpan={2}>Image</th>
-                <th rowSpan={2}>Name</th>
-                <th rowSpan={2}>Category</th>
-                <th rowSpan={2}>Price</th>
+                <th rowSpan={2}>Gambar</th>
+                <th rowSpan={2}>Nama</th>
+                <th rowSpan={2}>Kategori</th>
+                <th rowSpan={2}>Harga</th>
                 <th rowSpan={2}>lokasi</th>
                 <th colSpan={2}>Stock</th>
                 <th rowSpan={2}>Action</th>
               </tr>
               <tr>
-                <th className={styles.products__table__size}>Size</th>
+                <th className={styles.products__table__size}>Varian</th>
                 <th className={styles.products__table__size}>Qty</th>
               </tr>
             </thead>

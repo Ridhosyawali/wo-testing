@@ -19,7 +19,7 @@ const AuthLayout = (props: Proptypes) => {
 
         <p className={styles.auth__link}>
           {linkText}
-          <Link href={link}>here</Link>
+          <Link href={link}>disini</Link>
         </p>
       </div>
     </div>

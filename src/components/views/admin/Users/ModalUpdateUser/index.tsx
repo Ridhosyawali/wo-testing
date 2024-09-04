@@ -51,7 +51,7 @@ const ModalUpdateUser = (props: Proptypes) => {
   };
   return (
     <Modal onClose={() => setUpdatedUser({})}>
-      <h1 className={styles.modal__title}>Update User</h1>
+      <h1 className={styles.modal__title}>Update Pengguna</h1>
       <form onSubmit={handleUpdateuser}>
         <Input
           label="Email"
@@ -63,7 +63,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           className={styles.modal__input}
         />
         <Input
-          label="Fullname"
+          label="Nama Lengkap"
           placeholder="Fullname"
           name="fullname"
           type="text"
@@ -72,7 +72,7 @@ const ModalUpdateUser = (props: Proptypes) => {
           className={styles.modal__input}
         />
         <Input
-          label="Phone"
+          label="No Telepon"
           placeholder="Phone"
           name="phone"
           type="number"

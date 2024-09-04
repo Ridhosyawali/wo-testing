@@ -61,7 +61,7 @@ const RegisterView = () => {
     <AuthLayout
       title="REGISTER"
       link="/auth/login"
-      linkText="Have an account? Sign in "
+      linkText="Sudah memiliki akun? silahkan login "
     >
       <form onSubmit={handleSubmit}>
         <Input
@@ -72,13 +72,13 @@ const RegisterView = () => {
         />
         <Input
           className={styles.register__input}
-          placeholder="Fullname"
+          placeholder="Nama Lengkap"
           name="fullname"
           type="text"
         />
         <Input
           className={styles.register__input}
-          placeholder="Phone"
+          placeholder="Nomor Telepon"
           name="phone"
           type="number"
         />

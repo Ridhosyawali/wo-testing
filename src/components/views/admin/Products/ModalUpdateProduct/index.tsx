@@ -198,10 +198,10 @@ const ModalUpdateProduct = (props: Proptypes) => {
 
   return (
     <Modal onClose={() => setUpdatedProduct(false)}>
-      <h1 className={styles.modal__title}>Update Home</h1>
+      <h1 className={styles.modal__title}>Update Produk</h1>
       <form onSubmit={handleSubmit} className={styles.modal_form}>
         <Input
-          label="Name"
+          label="Nama"
           placeholder="Insert product name"
           name="name"
           type="Text"
@@ -209,7 +209,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           className={styles.modal__form__input}
         />
         <Input
-          label="Price"
+          label="Harga"
           placeholder="Insert product price"
           name="price"
           type="number"
@@ -219,7 +219,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
 
         <div className={styles.modal__form__detail}>
           <Textarea
-            label="Description"
+            label="Deskripsi"
             placeholder="Insert product Description"
             name="description"
             className={styles.modal__form__input}
@@ -373,14 +373,14 @@ const ModalUpdateProduct = (props: Proptypes) => {
         </Button> */}
 
         <Select
-          label="Category"
+          label="Kategori"
           name="category"
           defaultValue={updatedProduct.category}
           className={styles.modal__form__select}
           options={CategoriesType}
         />
         <Select
-          label="Location"
+          label="Lokasi"
           name="location"
           defaultValue={updatedProduct.location}
           className={styles.modal__form__select}
@@ -396,7 +396,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           defaultValue={updatedProduct.status}
           className={styles.modal__form__select}
         />
-        <label htmlFor="image">Image</label>
+        <label htmlFor="image">Gambar</label>
         <div className={styles.modal__image}>
           <Image
             width={200}
@@ -426,7 +426,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           <div className={styles.modal__stock} key={i}>
             <div className={styles.modal__stock__item}>
               <Input
-                label="SIZE"
+                label="Varian"
                 placeholder="Insert product size"
                 name="size"
                 type="text"
@@ -469,7 +469,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           onClick={() => setStockCount([...stockCount, { size: "", qty: 0 }])}
         >
           <i className="bx bx-plus" />
-          Add New Stock
+          Tambah New Stock
         </Button>
 
         <Button
@@ -478,7 +478,7 @@ const ModalUpdateProduct = (props: Proptypes) => {
           variant="update"
           className={styles.modal__button}
         >
-          {isLoading ? "Updating..." : "Update Product"}
+          {isLoading ? "Updating..." : "Update Produk"}
         </Button>
       </form>
     </Modal>

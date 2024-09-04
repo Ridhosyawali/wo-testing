@@ -25,7 +25,7 @@ const ModalDetailHistory = (props: Proptypes) => {
             <p>ID: {item.id}</p>
             <p>Nama Product: {item.name}</p>
             <p>Kategori: {item.category}</p>
-            <p>Size: {item.size}</p>
+            <p>Varian: {item.size}</p>
           </div>
         </div>
       ))}

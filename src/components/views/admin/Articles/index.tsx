@@ -55,14 +55,14 @@ const ArticleAdminView = (props: PropTypes) => {
               variant=""
               onClick={() => setModalAddArticle(true)}
             >
-              <i className="bx bx-plus" /> Add Feedback
+              <i className="bx bx-plus" /> Tambah Feedback
             </Button>
             <table className={styles.homes__table}>
               <thead>
                 <tr>
                   <th>#</th>
                   <th>Judul</th>
-                  <th>Isi</th>
+                  <th>Lokasi</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>

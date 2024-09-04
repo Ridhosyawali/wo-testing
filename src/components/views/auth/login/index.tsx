@@ -55,7 +55,7 @@ const LoginView = () => {
     <AuthLayout
       title="LOGIN"
       link="/auth/register"
-      linkText="Don't have an account? Sign Up "
+      linkText="Belum memiliki akun? silahkan registrasi "
     >
       <form onSubmit={handleSubmit}>
         <Input

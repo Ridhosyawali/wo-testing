@@ -141,13 +141,13 @@ const ModalUpdateArticle = (props: Proptypes) => {
           defaultValue={updatedArticle.isi}
         />
         <Select
-          label="Location"
+          label="Lokasi"
           name="location"
           defaultValue={updatedArticle.location}
           className={styles.modal__form__select}
           options={Locations}
         />
-        <label htmlFor="image">Image</label>
+        <label htmlFor="image">Gambar</label>
         <div className={styles.modal__image}>
           <Image
             width={200}
