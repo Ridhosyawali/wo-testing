@@ -14,7 +14,7 @@ const ModalDetailHistory = (props: Proptypes) => {
 
   return (
     <Modal onClose={() => setDetailHistory({})}>
-      <h1 className={styles.modal__title}>Detail Transaksi</h1>
+      <h1 className={styles.modal__title}>Detail Riwayat Transaksi</h1>
 
       <p>Customer Name: {detailHistory.fullname}</p>
       <p>Order Id: {detailHistory.order_id}</p>

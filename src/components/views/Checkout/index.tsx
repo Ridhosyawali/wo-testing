@@ -13,7 +13,6 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // ini css untuk react-date-range
 import "react-date-range/dist/theme/default.css"; // ini tema react-date-range
 import Script from "next/script";
-import transactionServices from "@/services/transaction";
 import { eachDayOfInterval } from "date-fns";
 import ordersServices from "@/services/orders";
 
@@ -252,7 +251,7 @@ const CheckoutView = () => {
                               styles.checkout__main__list__item__info__data__size
                             }
                           >
-                            Size = {item.size}
+                            Varian = {item.size}
                           </label>
                           <label
                             className={
@@ -336,7 +335,7 @@ const CheckoutView = () => {
             {isLoading ? "Loading..." : "Proses Pembayaran"}
           </Button>
           <div className={styles.checkout__summary__desc}>
-            <p>Periksa kembali pesanan anda!</p>
+            <p>Periksa kembali pesanan anda!!</p>
           </div>
         </div>
       </div>

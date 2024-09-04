@@ -95,7 +95,7 @@ const ModalDetailEvent = (props: Proptypes) => {
   return (
     <Modal onClose={() => setDetailEvent({})}>
       <form onSubmit={handleDeleteEvent}>
-        <h1 className={styles.modal__title}>Detail Transaksi</h1>
+        <h1 className={styles.modal__title}>Detail Event</h1>
         {detailEvent?.items?.map((item: any) => (
           <div key={item.id} className={styles.modal__preview}>
             <div className={styles.modal__preview__desc}>

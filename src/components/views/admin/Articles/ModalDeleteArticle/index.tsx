@@ -51,8 +51,8 @@ const ModalDeleteArticle = (props: Proptypes) => {
   return (
     <Modal onClose={() => setDeletedArticle({})}>
       <div className={styles.modal}>
-        <h1 className={styles.modal__title}>Delete Account</h1>
-        <p>Are you sure you want to delete your account?</p>
+        <h1 className={styles.modal__title}>Delete Article</h1>
+        <p>Apakah anda yakin ingin menghapus artikel ini?</p>
       </div>
       <Button
         className={styles.modal__button}

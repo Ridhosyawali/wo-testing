@@ -73,14 +73,14 @@ const ModalChangeAddress = (props: Proptypes) => {
         form.reset();
         setToaster({
           variant: "success",
-          message: "Success Add New Address",
+          message: "Sukses Menambah Alamat Baru",
         });
       }
     } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
-        message: "Failed Add New Address",
+        message: "Gagal Menambah Alamat Baru",
       });
     }
   };
@@ -99,14 +99,14 @@ const ModalChangeAddress = (props: Proptypes) => {
         setProfile({ ...profile, address: data.address });
         setToaster({
           variant: "success",
-          message: "Success Delete Address",
+          message: "Sukses Menghapus Alamat",
         });
       }
     } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
-        message: "Failed Delete Address",
+        message: "Gagal Menghapus Alamat",
       });
     }
   };
@@ -131,14 +131,14 @@ const ModalChangeAddress = (props: Proptypes) => {
         setProfile({ ...profile, address: data.address });
         setToaster({
           variant: "success",
-          message: "Success Change Address",
+          message: "Sukses Merubah Alamat Utama",
         });
       }
     } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
-        message: "Failed Change Address",
+        message: "Gagal Merubah Alamat Utama",
       });
     }
   };
@@ -167,14 +167,14 @@ const ModalChangeAddress = (props: Proptypes) => {
         form.reset();
         setToaster({
           variant: "success",
-          message: "Success Add New Address",
+          message: "Sukses Tambah Alamat Baru",
         });
       }
     } catch (error) {
       setIsLoading(false);
       setToaster({
         variant: "danger",
-        message: "Failed Add New Address",
+        message: "Gagal Menambah Alamat Baru",
       });
     }
   };
@@ -300,18 +300,18 @@ const ModalChangeAddress = (props: Proptypes) => {
             <Input
               type="text"
               name="recipient"
-              label="Recipient"
+              label="Nama Pemesan"
               placeholder="Masukkan nama pemesan"
             />
             <Input
               type="text"
               name="phone"
-              label="Phone"
+              label="Nomor Telepon"
               placeholder="Tambahkan nomor telepon pemesan"
             />
             <Textarea
               name="addressLine"
-              label="Address Line"
+              label="Alamat Pemesan"
               placeholder="Tambahkan alamat pemesan"
             />
             <Input

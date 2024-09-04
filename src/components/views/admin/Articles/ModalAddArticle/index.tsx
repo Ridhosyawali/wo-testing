@@ -120,7 +120,7 @@ const ModalAddArticle = (props: Proptypes) => {
   ];
   return (
     <Modal onClose={() => setModalAddArticle(false)}>
-      <h1 className={styles.modal__title}>Add Home</h1>
+      <h1 className={styles.modal__title}>Tambah Article</h1>
       <form onSubmit={handleSubmit} className={styles.modal_form}>
         <Input
           label="Judul"
@@ -143,7 +143,7 @@ const ModalAddArticle = (props: Proptypes) => {
           className={styles.modal__form__input}
         />
         <Select
-          label="Location"
+          label="Lokasi"
           name="location"
           className={styles.modal__form__select}
           options={Locations}
@@ -161,7 +161,9 @@ const ModalAddArticle = (props: Proptypes) => {
               className={styles.modal__image__preview}
             />
           ) : (
-            <div className={styles.modal__image__placeholder}>No Image</div>
+            <div className={styles.modal__image__placeholder}>
+              Tidak ada gambar
+            </div>
           )}
           <div className={styles.modal__image__upload}>
             <InputFile
@@ -178,7 +180,7 @@ const ModalAddArticle = (props: Proptypes) => {
             variant="update"
             className={styles.modal__button}
           >
-            {isLoading ? "Loading..." : "Add Article"}
+            {isLoading ? "Loading..." : "Tambah Article"}
           </Button>
         </div>
       </form>

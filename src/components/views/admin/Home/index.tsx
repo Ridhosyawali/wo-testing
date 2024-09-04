@@ -227,7 +227,7 @@ const HomeAdminView = (props: PropTypes) => {
                 <table className={styles.homes__table}>
                   <thead>
                     <tr>
-                      <th colSpan={2}>Day</th>
+                      <th colSpan={2}>Event</th>
                       <th rowSpan={2}>Nama</th>
                       <th rowSpan={2}>Action</th>
                     </tr>

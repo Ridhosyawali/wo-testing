@@ -48,14 +48,14 @@ const ArticleAdminView = (props: PropTypes) => {
       <AdminLayout>
         <div className={styles.homes}>
           <div>
-            <h2 className={styles.homes__title}>Feedback Management</h2>
+            <h2 className={styles.homes__title}>Testimoni Management</h2>
             <Button
               type="button"
               className={styles.homes__add}
               variant=""
               onClick={() => setModalAddArticle(true)}
             >
-              <i className="bx bx-plus" /> Tambah Feedback
+              <i className="bx bx-plus" /> Tambah Testimoni
             </Button>
             <table className={styles.homes__table}>
               <thead>
