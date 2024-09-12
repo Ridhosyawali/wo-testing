@@ -117,13 +117,23 @@ const Navbar = () => {
           </div>
         </div>
       ) : (
-        <Button
-          type="button"
-          className={styles.navbar__login}
-          onClick={() => signIn()}
-        >
-          Masuk
-        </Button>
+        <div className={styles.navbar__login}>
+          <button
+            type="button"
+            className={styles.navbar__login}
+            onClick={() => push("/auth/register")}
+          >
+            Daftar
+          </button>
+          <hr />
+          <button
+            type="button"
+            className={styles.navbar__login}
+            onClick={() => signIn()}
+          >
+            Masuk
+          </button>
+        </div>
       )}
     </div>
   );
