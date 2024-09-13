@@ -7,6 +7,7 @@ import { ToasterContext } from "@/context/ToasterContext";
 import { ToasterType } from "@/types/toaster.type";
 import Footerview from "@/components/ui/Footer";
 import PopupWhatsApp from "@/components/ui/Popup";
+import Head from "next/head";
 
 const inter = Lato({
   subsets: ["latin"],
@@ -29,6 +30,10 @@ const AppShell = (props: Proptypes) => {
 
   return (
     <>
+      <Head>
+        <link rel="icon" href="/logorira.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <div className={inter.className}>
         {!disableNavbar.includes(pathname.split("/")[1]) && <Navbar />}
         {children}

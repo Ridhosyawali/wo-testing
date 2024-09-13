@@ -23,11 +23,11 @@ const slideImages = [
     caption: "Slide 3",
   },
   {
-    url: "/dekor3.jpg",
+    url: "/dekor4.jpg",
     caption: "Slide 1",
   },
   {
-    url: "/dekor1.jpg",
+    url: "/dekor5.jpg",
     caption: "Slide 2",
   },
 ];
